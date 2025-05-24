@@ -10,7 +10,7 @@ export default function Post({ params }) {
   );
 
   return (
-    <main className="container mx-auto p-4">
+    <main className="container mx-auto p-4 article">
       <h1>{data.title}</h1>
       <MDXRemote
         source={content}

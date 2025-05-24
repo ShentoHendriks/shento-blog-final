@@ -2,24 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
+.container {
+  @apply max-w-[800px];
+}
+
+.article h1 {
+  @apply text-4xl mb-[1em] font-semibold;
+}
+.article h2 {
+  @apply text-2xl mt-[1em] mb-[1em] font-semibold;
+}
+
+.article h3 {
+  @apply text-xl mt-[1em] mb-[1em] font-semibold;
+}
+
+.article p {
+  @apply mb-[1em] mt-[.5em] text-gray-700 leading-8;
+}
+
+ul {
+  @apply list-disc my-4 text-gray-700;
+}
+
+ol {
+  @apply list-decimal my-4 text-gray-700;
+}
+
+li {
+  @apply ml-4 pl-2;
+}
+
 pre {
   padding: 1em;
   border-radius: 0.5em;
-  margin: 1em 0;
+  margin: 2em 0;
+}
+
+pre {
+  overflow: auto;
+}
+
+code {
+  @apply bg-gray-100 px-2 py-0.5 rounded-md;
+}
+
+pre.shiki code {
+  all: unset;
 }
 
 .tabs-container {
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .tabs-header {
   display: flex;
   gap: 10px;
+  margin-bottom: -1em;
+  overflow: auto;
 }
 
 .tab-button {
-  @apply text-gray-500 p-2;
+  @apply text-gray-500 p-2 text-nowrap;
 }
 .tab-button.active {
-  @apply bg-blue-200 p-2 text-gray-950 rounded-lg;
+  @apply bg-gray-100 p-2 text-gray-950 rounded-lg;
 }
