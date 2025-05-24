@@ -12,3 +12,43 @@ This is my first post using **MDX**!
 - Write in Markdown
 - Use React components
 - Simple setup
+
+```jsx
+console.log("hello world!");
+```
+
+Here's how to make requests in different languages:
+
+<Tabs>
+  <TabPanel title="JavaScript">
+    ```javascript
+    fetch('/api/users', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
+    ```
+  </TabPanel>
+  
+  <TabPanel title="Python">
+    ```python
+    import requests
+    
+    headers = {'Authorization': f'Bearer {token}'}
+    response = requests.get('/api/users', headers=headers)
+    data = response.json()
+    print(data)
+    ```
+  </TabPanel>
+  
+  <TabPanel title="cURL">
+    ```bash
+    curl -X GET \
+      -H "Authorization: Bearer $TOKEN" \
+      https://api.example.com/users
+    ```
+  </TabPanel>
+</Tabs>

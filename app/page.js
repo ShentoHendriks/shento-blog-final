@@ -2,6 +2,15 @@ import fs from "fs";
 import matter from "gray-matter";
 import Link from "next/link";
 
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
 export default function Home() {
   const posts = fs
     .readdirSync("posts")
@@ -10,7 +19,7 @@ export default function Home() {
       const { data } = matter(fs.readFileSync(`posts/${file}`, "utf8"));
       return { slug, data };
     })
-    .sort((a, b) => new Date(b.data.date) - new Date(a.data.date)); // Sort by date, newest first
+    .sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
 
   return (
     <div className="container mx-auto p-4">
@@ -23,7 +32,7 @@ export default function Home() {
               href={`/${slug}`}>
               {data.title}
             </Link>
-            <p className="text-gray-400">{data.date}</p>
+            <p className="text-gray-400">{formatDate(data.date)}</p>
           </article>
         ))}
       </div>

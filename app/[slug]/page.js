@@ -2,6 +2,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import matter from "gray-matter";
 import fs from "fs";
 import components from "@/components";
+import rehypeShiki from "@shikijs/rehype";
 
 export default function Post({ params }) {
   const { data, content } = matter(
@@ -14,6 +15,18 @@ export default function Post({ params }) {
       <MDXRemote
         source={content}
         components={components}
+        options={{
+          mdxOptions: {
+            rehypePlugins: [
+              [
+                rehypeShiki,
+                {
+                  theme: "github-dark",
+                },
+              ],
+            ],
+          },
+        }}
       />
     </main>
   );
