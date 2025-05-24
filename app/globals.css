@@ -15,6 +15,10 @@ body {
   @apply max-w-[700px];
 }
 
+.article {
+  @apply pb-32
+}
+
 .article h1,
 h2,
 h3,
@@ -25,14 +29,14 @@ h6  {
 }
 
 .article h1 {
-  @apply text-5xl md:text-7xl mb-6 mt-12 max-w-[800px] tracking-tighter;
+  @apply text-5xl md:text-7xl mb-[0.5em] mt-12 max-w-[800px] tracking-tighter;
 }
 .article h2 {
   @apply text-4xl mt-[2em] mb-[1em] tracking-tight;
 }
 
 .article h3 {
-  @apply text-xl mt-[2em] mb-[1em] font-semibold;
+  @apply text-2xl mt-[2em] mb-[1em];
 }
 
 .article .description {
@@ -41,6 +45,14 @@ h6  {
 
 .article p {
   @apply mb-[1em] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty;
+}
+
+.article .callout p:first-of-type, p:last-of-type {
+  margin-bottom: 0;
+}
+
+.article a {
+  @apply underline underline-offset-4 hover:decoration-gray-200 
 }
 
 img {
