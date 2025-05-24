@@ -5,7 +5,10 @@ import { useState } from "react";
 export function Tabs({ children, defaultTab = 0, variant = "default" }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
 
-  const tabs = children.map((child, index) => ({
+  // Fix: Ensure children is always an array
+  const childrenArray = Array.isArray(children) ? children : [children];
+
+  const tabs = childrenArray.map((child, index) => ({
     title: child.props.title,
     icon: child.props.icon,
     content: child.props.children,

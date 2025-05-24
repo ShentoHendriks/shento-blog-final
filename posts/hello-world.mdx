@@ -1,29 +1,21 @@
 ---
 title: "Building Responsive Layouts with CSS Grid"
 date: "2024-03-15"
+description: "CSS Grid is a powerful two-dimensional layout system that revolutionizes how developers create complex web layouts. Unlike traditional methods that require workarounds and hacks, Grid provides a clean, intuitive approach to organizing content on web pages."
 ---
 
-CSS Grid has revolutionized how we approach **layout design** on the web. Let's explore some powerful patterns! `console.log("hello")`
+## How Grid changed the game
 
-## Why CSS Grid?
+Think of CSS Grid as a two-dimensional playground for your content. Unlike older methods that force you to think in terms of rows OR columns, Grid lets you work with both simultaneously. You create a container, define your grid structure, and then place items exactly where they belong. It's like having a perfectly organized filing system instead of throwing papers into boxes and hoping for the best.
 
-- Two-dimensional layouts
-- Implicit and explicit grids
-- No more CSS framework bloat
-- Native browser support
+![Sample Image](sample.webp)
 
-```css
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-```
+## Responsive design that _actually_ works
 
-## Common Grid Patterns
+What makes Grid truly special is how it handles responsive design. Remember spending hours writing media queries to make layouts work on different screen sizes? Grid's fractional units and built-in functions like `minmax()` and `repeat()` make responsive layouts feel almost magical. Your content automatically adapts and flows based on available space, creating designs that look intentional rather than forced.
 
 <Tabs>
-  <TabPanel title="Card Layout">
+  <TabPanel title="Card.jsx">
     ```css
     .card-grid {
       display: grid;
@@ -41,7 +33,7 @@ CSS Grid has revolutionized how we approach **layout design** on the web. Let's 
     ```
   </TabPanel>
   
-  <TabPanel title="Dashboard Layout">
+  <TabPanel title="Dashboard.jsx">
     ```css
     .dashboard {
       display: grid;
@@ -60,7 +52,7 @@ CSS Grid has revolutionized how we approach **layout design** on the web. Let's 
     ```
   </TabPanel>
   
-  <TabPanel title="Magazine Layout">
+  <TabPanel title="Magazine.jsx">
     ```css
     .magazine {
       display: grid;
@@ -81,4 +73,19 @@ CSS Grid has revolutionized how we approach **layout design** on the web. Let's 
   </TabPanel>
 </Tabs>
 
-The beauty of CSS Grid lies in its **flexibility** and **semantic approach** to layout design. No more clearfix hacks!
+<Tabs>
+  <TabPanel title="Terminal">
+  ```sh
+  npm run dev
+  ```
+  </TabPanel>
+</Tabs>
+
+<Callout>
+  What makes Grid truly special is how it handles responsive design. Remember
+  spending hours writing media queries to make layouts work on different screen
+  sizes? Grid's fractional units and built-in functions like `minmax()` and
+  `repeat()` make responsive layouts feel almost magical. Your content
+  automatically adapts and flows based on available space, creating designs that
+  look intentional rather than forced.
+</Callout>

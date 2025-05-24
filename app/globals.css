@@ -2,23 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --dark-gray-blue: #293056;
+  --dark-gray-body: #363f72;
+}
+
 .container {
   @apply max-w-[800px];
 }
 
+.article h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-[var(--dark-gray-blue)];
+}
+
 .article h1 {
-  @apply text-4xl mb-[1em] font-semibold;
+  @apply text-7xl mb-6 max-w-[800px] tracking-tighter;
 }
 .article h2 {
-  @apply text-2xl mt-[1em] mb-[1em] font-semibold;
+  @apply text-4xl mt-[2em] mb-[1rem] tracking-tight;
 }
 
 .article h3 {
   @apply text-xl mt-[1em] mb-[1em] font-semibold;
 }
 
+.article .description {
+  @apply mb-20 text-[#3E4784];
+}
+
 .article p {
-  @apply mb-[1em] mt-[.5em] text-gray-700 leading-8;
+  @apply mb-[1em] mt-[.5em] text-gray-700 max-w-[650px] leading-7 text-[var(--dark-gray-body)];
+}
+
+img {
+  @apply rounded-md border border-[#D5D9EB] w-full my-10;
 }
 
 ul {
@@ -34,7 +56,7 @@ li {
 }
 
 pre {
-  padding: 1em;
+  padding: 24px;
   border-radius: 0.5em;
   margin: 2em 0;
 }
@@ -44,27 +66,38 @@ pre {
 }
 
 code {
-  @apply bg-gray-100 px-2 py-0.5 rounded-md;
+  @apply text-sm bg-[var(--dark-gray-blue)] text-white px-3 py-[4px] rounded-md mx-1;
 }
 
 pre.shiki code {
   all: unset;
 }
 
+.tab-content code {
+  padding: 24px;
+  border-radius: 0.5em;
+  margin: 2em 0;
+  overflow: auto;
+  display: flex;
+}
+
+.shiki {
+  background-color: var(--dark-gray-blue) !important;
+  display: block;
+}
+
 .tabs-container {
   margin-top: 3em;
+  font-family: "Jetbrains Mono";
 }
 
 .tabs-header {
-  display: flex;
-  gap: 10px;
-  margin-bottom: -1em;
-  overflow: auto;
+  @apply flex gap-3 overflow-auto -mb-16 xl:-mb-12;
 }
 
 .tab-button {
-  @apply text-gray-500 p-2 text-nowrap;
+  @apply text-gray-500 px-6 py-4 pb-8 text-nowrap text-[var(--dark-gray-blue)];
 }
 .tab-button.active {
-  @apply bg-gray-100 p-2 text-gray-950 rounded-lg;
+  @apply bg-[var(--dark-gray-blue)] px-6 py-4 pb-8 text-white rounded-t-md;
 }

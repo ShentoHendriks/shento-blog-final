@@ -12,6 +12,7 @@ export default function Post({ params }) {
   return (
     <main className="container mx-auto p-4 article">
       <h1>{data.title}</h1>
+      <p className="text-xl max-w-[600px] description">{data.description}</p>
       <MDXRemote
         source={content}
         components={components}
@@ -21,7 +22,7 @@ export default function Post({ params }) {
               [
                 rehypeShiki,
                 {
-                  theme: "github-dark",
+                  theme: "catppuccin-frappe",
                 },
               ],
             ],
