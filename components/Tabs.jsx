@@ -5,7 +5,6 @@ import { useState } from "react";
 export function Tabs({ children, defaultTab = 0, variant = "default" }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
 
-  // Fix: Ensure children is always an array
   const childrenArray = Array.isArray(children) ? children : [children];
 
   const tabs = childrenArray.map((child, index) => ({
