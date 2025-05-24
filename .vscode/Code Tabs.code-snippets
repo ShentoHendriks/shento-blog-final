@@ -1,0 +1,24 @@
+{
+"MDX Code Sample": {
+	"prefix": "tabs",
+	"body": [
+		"<Tabs>",
+		"  <TabPanel title=\"${1:example}\">",
+		"  ```sh",
+		"  npm run dev",
+		"  ```",
+		"  </TabPanel>",
+		"</Tabs>"
+	],
+	"description": "MDX Code Sample"
+},
+"Callout": {
+	"prefix": "callout",
+	"body": [
+		"<Callout>",
+		"${1:example}",
+		"</Callout>"
+	],
+	"description": "Callout"
+}
+}

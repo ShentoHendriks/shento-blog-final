@@ -8,7 +8,7 @@
 }
 
 .container {
-  @apply max-w-[800px];
+  @apply max-w-[700px];
 }
 
 .article h1,
@@ -17,11 +17,11 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-[var(--dark-gray-blue)];
+  @apply text-[var(--dark-gray-blue)] text-pretty;
 }
 
 .article h1 {
-  @apply text-7xl mb-6 max-w-[800px] tracking-tighter;
+  @apply text-5xl md:text-7xl mb-6 max-w-[800px] tracking-tighter;
 }
 .article h2 {
   @apply text-4xl mt-[2em] mb-[1rem] tracking-tight;
@@ -92,7 +92,11 @@ pre.shiki code {
 }
 
 .tabs-header {
-  @apply flex gap-3 overflow-auto -mb-16 xl:-mb-12;
+  @apply flex gap-3 overflow-auto -mb-12 xl:-mb-12;
+}
+
+.tabs-header::-webkit-scrollbar {
+  display: none
 }
 
 .tab-button {
