@@ -1,6 +1,6 @@
 ---
-title: The Beginner's Guide to Aesthetic Web Typography
-description: "Stop guessing at font sizes and margins. This definitive guide gives you exact values, proven spacing formulas, and bulletproof CSS patterns for creating readable, accessible typography. Get the measurements that actually work—from H1 sizes to code block spacing."
+title: Aesthetic Web Typography
+description: "Practical typography sizing and spacing reference. This guide covers specific font sizes, spacing formulas, and CSS patterns for readable, accessible typography—including H1 sizes, margins, and code block spacing."
 date: 2025-05-24T19:46:39.941Z
 preview: ""
 draft: false
@@ -10,6 +10,8 @@ categories: []
 
 ## Using a Modern CSS Reset
 Before you start creating typography, you should **always** first use a CSS Reset
+
+Why? Every browser has different default styles—margins, padding, and font sizing that create inconsistencies across Chrome, Firefox, and Safari. A CSS reset eliminates these differences, giving you a clean foundation for consistent typography.
 
 <Tabs>
   <TabPanel title="Example reset.css">
@@ -25,9 +27,6 @@ Before you start creating typography, you should **always** first use a CSS Rese
 ```
   </TabPanel>
 </Tabs>
-
-Why? Every browser has different default styles—margins, padding, and font sizing that create inconsistencies across Chrome, Firefox, and Safari. A CSS reset eliminates these differences, giving you a clean foundation for consistent typography.
-
 Many developers use [Eric Meyer's CSS Reset](https://meyerweb.com/eric/tools/css/reset/), but [Josh Comeau's Modern CSS Reset](https://www.joshwcomeau.com/css/custom-css-reset/) is a better choice. While Meyer's reset aggressively strips all browser defaults, Comeau's approach is smarter—it removes inconsistencies while preserving useful behaviors.
 
 
@@ -73,7 +72,16 @@ Vertical spacing refers to all the space that appears above and below text eleme
 Poor vertical spacing **destroys** readability. Text that's cramped together feels suffocating and hard to scan, while excessive spacing makes content feel disconnected and scattered. Good vertical spacing creates rhythm, guides the eye naturally through content, and makes your typography feel polished and professional.
 
 ### Recommended Guidelines
-For line-height, the general are usually recommended:
-1. **Body text**: 1.5
-2. **Large headings (H1-H2)**: 1.2
-3. **Smaller headings (H3-H6)**: 1.3
+For **line-height**, the following are usually recommended:
+- **Body text**: 1.5
+- **Large headings (H1-H2)**: 1.2
+- **Smaller headings (H3-H6)**: 1.3
+
+For **margins** between elements:
+- **H1**: 5rem above, 2rem below
+- **H2**: 4rem above, 1.5rem below
+- **H3**: 3rem above, 1rem below
+- **H4-H6**: 2.5rem above, 1rem below
+- **Paragraphs**: No top margin, 1.5rem bottom margin
+- **Lists**: No top margin, 1.5rem bottom margin
+- **Images/Videos**: 3rem top and bottom margin

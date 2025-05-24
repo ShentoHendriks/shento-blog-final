@@ -23,16 +23,23 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl mb-4">Blog</h1>
+      <h1>My Blog!</h1>
+    <p>Hey, I'm Shento. A full-stack developer who's also interested in design.</p>
+    <p>This tech blog acts as my personal resource, but perhaps you might find something useful.
+
+I write tutorials for both web developers and designers, keeping things accessible and straightforward. My code examples are intentionally minimal—just the essentials—so you can easily customize and build upon them for your own projects.</p>
+    <h2 className="mb-0">Latest posts</h2>
       <div className="flex flex-col gap-2">
         {posts.map(({ slug, data }) => (
           <article key={slug}>
-            <Link
-              className="font-bold"
+            <h3>
+              <Link
               href={`/${slug}`}>
               {data.title}
             </Link>
-            <p className="text-gray-400">{formatDate(data.date)}</p>
+          </h3>
+            
+            <p>{formatDate(data.date)}</p>
           </article>
         ))}
       </div>

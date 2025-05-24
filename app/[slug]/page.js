@@ -4,9 +4,10 @@ import fs from "fs";
 import components from "@/components";
 import rehypeShiki from "@shikijs/rehype";
 
-export default function Post({ params }) {
+export default async function Post({ params }) {
+  const { slug } = await params; // Await params here
   const { data, content } = matter(
-    fs.readFileSync(`posts/${params.slug}.mdx`, "utf8")
+    fs.readFileSync(`posts/${slug}.mdx`, "utf8")
   );
 
   return (
@@ -38,7 +39,8 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { data } = matter(fs.readFileSync(`posts/${params.slug}.mdx`, "utf8"));
+  const { slug } = await params; // Await params here too
+  const { data } = matter(fs.readFileSync(`posts/${slug}.mdx`, "utf8"));
 
   return {
     title: data.title + " | Shento's Blog",
