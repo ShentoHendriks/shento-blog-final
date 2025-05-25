@@ -6,12 +6,6 @@ import { CustomSlider } from "./CustomSlider";
 
 // Constants
 const THEME = "catppuccin-frappe";
-const COLORS = {
-  primary: "#293056",
-  secondary: "#D5D9EB",
-  text: "white",
-};
-
 // Utility functions
 const getInitialValue = (option) =>
   option.default ?? option.min ?? option.options?.[0] ?? "#000000";

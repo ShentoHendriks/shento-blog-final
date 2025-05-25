@@ -122,7 +122,6 @@ pre.shiki code {
 .playground-output * {
   color: white;
   margin: unset;
-  line-height: unset;
 }
 
 .tabs-container {
