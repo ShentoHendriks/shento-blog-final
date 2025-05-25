@@ -32,11 +32,11 @@ h1 {
   @apply text-5xl md:text-7xl mb-[2rem] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-4xl mt-[4rem] mb-[1.5rem] tracking-tight;
+  @apply text-4xl mt-[2em] mb-[1em] tracking-tight;
 }
 
 h3 {
-  @apply text-2xl mt-[3rem] mb-[1rem];
+  @apply text-2xl mt-[1.6em] mb-[0.6em];
 }
 
 .description {
@@ -44,49 +44,54 @@ h3 {
 }
 
 p {
-  @apply mb-[1.5rem] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty;
+  @apply my-[1.25em] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty;
 }
 
 .callout p:first-of-type, .callout p:last-of-type {
   margin-bottom: 0;
 }
 
+.callout p:first-of-type  {
+  margin-top: 0;
+}
+
 .article a {
   @apply underline underline-offset-4 hover:decoration-gray-200 
 }
 
-img {
-  @apply rounded-md border border-[#D5D9EB] w-full my-[3rem];
+img, table {
+  @apply rounded-md border border-[#D5D9EB] w-full my-[2em];
 }
 
 ul {
-  @apply list-disc  ml-4 mb-[1.5rem];
+  @apply list-disc  ml-4 my-[1.25em];
 }
 
 ol {
-  @apply list-decimal  ml-4 mb-[1.5rem];
+  @apply list-decimal  ml-4 my-[1.25em];
 }
 
 li {
-  @apply ml-4 pl-2 leading-7 mb-[0.25rem] text-[var(--dark-gray-body)];
+  @apply ml-4 pl-2 leading-7 my-[0.5em] text-[var(--dark-gray-body)];
 }
 
 li::marker {
   @apply text-[var(--dark-gray-body)] 
 }
 
-pre {
-  padding: 24px;
-  border-radius: 0.5em;
-  margin: 2em 0;
+hr {
+  @apply my-[3em]
 }
 
 pre {
+  padding: 24px;
+  border-radius: 0.5em;
+  margin: 1.714em 0;
   overflow: auto;
 }
 
 code {
-  @apply text-sm bg-[var(--dark-gray-blue)] text-white px-2 py-[4px] rounded-md mx-0.5;
+  @apply text-sm bg-[var(--dark-gray-blue)] text-white px-2 py-[4px] rounded-md mx-0.5 text-nowrap;
 }
 
 pre.shiki code {

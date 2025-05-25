@@ -4,9 +4,9 @@
 	"body": [
 		"<Tabs>",
 		"  <TabPanel title=\"${1:example}\">",
-		"  ```sh",
-		"  npm run dev",
-		"  ```",
+		"```sh",
+		"npm run dev",
+		"```",
 		"  </TabPanel>",
 		"</Tabs>"
 	],

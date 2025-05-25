@@ -23,7 +23,7 @@ Why? Every browser has different default styles—margins, padding, and font siz
 * {
   margin: 0;
 }
-// ... more lines here
+/* ... more lines here */
 ```
   </TabPanel>
 </Tabs>
@@ -46,42 +46,168 @@ Without a systematic approach to font sizing, your typography becomes inconsiste
 
 ### Establishing Your Typescale
 
-A **typescale** solves this by creating consistent relationships between all your text elements. Start with your base font size: **16px** or **18px**—these are universally acknowledged as optimal for body text readability across devices and age groups.
+A **typescale** solves this by creating consistent relationships between all your text elements. Start with your base font size: **16px** or **18px**—these are universally acknowledged as optimal for body text readability across devices and age groups. In CSS, the base font size is given to the `body`.
+<Tabs>
+  <TabPanel title="typography.css">
+```css
+body {
+  font-size: 16px; /*default size for most browsers*/
+} 
+```
+  </TabPanel>
+</Tabs>
 
 
-From this foundation, use mathematical ratios to generate harmonious size relationships:
-
-- Larger sizes for headings (H1, H2, H3)
-- Smaller sizes for captions, footnotes, and labels
-- Consistent spacing that creates visual rhythm (more about this later).
-
+From this foundation, use mathematical ratios to generate harmonious size typography.
 Popular typescale ratios include:
 
 - **1.125 (Major Second)** - subtle, conservative
 - **1.25 (Major Third)** - balanced, versatile
 - **1.414 (Augmented Fourth)** - dynamic, bold
 
-Tools like [typescale.com](https://typescale.com) can generate your complete typescale automatically.
+### How does this work?
+You start with a base font (like 16px), then **multiply by the ratio** to get each larger size, or **divide by the ratio** to get smaller sizes.
 
-![Screenshot of typescale.com](assets/image.png)
+An elegant way to do this in web development is the following:
+
+<Tabs>
+  <TabPanel title="typography.css">
+```css
+:root {
+  --base-size: clamp(1rem, 2cqw, 1.25rem); /* This scales with container! */
+  --ratio: 1.25;
+
+/* These automatically scale because base-size uses cqw */
+  --scale-sm: calc(var(--base-size) / var(--ratio));
+  --scale-base: var(--base-size);
+  --scale-lg: calc(var(--base-size) * var(--ratio));
+  --scale-xl: calc(var(--scale-lg) * var(--ratio));
+  --scale-2xl: calc(var(--scale-xl) * var(--ratio));
+  --scale-3xl: calc(var(--scale-2xl) * var(--ratio));
+}
+
+.container {
+  container-type: inline-size;
+}
+
+h1 { font-size: var(--scale-3xl); }
+h2 { font-size: var(--scale-2xl); }
+h3 { font-size: var(--scale-xl); }
+h4 { font-size: var(--scale-lg); }
+p { font-size: var(--scale-base); }
+```
+  </TabPanel>
+</Tabs>
+
+<Callout>
+You can can keep adding as much variables as you like even `--scale-10xl`.
+
+Don't feel forced to give your `h1`
+`--scale-3xl`, you can choose freely. Just choose something you find nice.
+</Callout>
+<Callout>
+Tools like [typescale.com](https://typescale.com) can generate your complete typescale automatically. While also giving a preview.
+</Callout>
 
 ## Vertical Spacing
 
-Vertical spacing refers to all the space that appears above and below text elements on your page. This includes **line-height** for web developers, but also known as **leading** for designers. It's basically just the space between lines within a paragraph. Vertical spacing also includes **margin** (space between different elements like headings, paragraphs, and sections).
+**Vertical spacing** is all about the empty space above and below your text. This includes the space between lines in a paragraph (called `line-height` by web developers and leading by designers) and the space (margin) between sections and elements (such as images, paragraphs) 
 
-Poor vertical spacing **destroys** readability. Text that's cramped together feels suffocating and hard to scan, while excessive spacing makes content feel disconnected and scattered. Good vertical spacing creates rhythm, guides the eye naturally through content, and makes your typography feel polished and professional.
+When vertical spacing isn't done well, it makes **reading much harder**. Text that's too cramped feels overwhelming and difficult to follow. Text with too much space feels choppy and disconnected, like the ideas don't belong together.
 
-### Recommended Guidelines
-For **line-height**, the following are usually recommended:
-- **Body text**: 1.5
-- **Large headings (H1-H2)**: 1.2
-- **Smaller headings (H3-H6)**: 1.3
+Good vertical spacing makes your content easier to read and more professional. It helps readers move naturally from one idea to the next and makes your text look clean and well-organized.
 
-For **margins** between elements:
-- **H1**: 5rem above, 2rem below
-- **H2**: 4rem above, 1.5rem below
-- **H3**: 3rem above, 1rem below
-- **H4-H6**: 2.5rem above, 1rem below
-- **Paragraphs**: No top margin, 1.5rem bottom margin
-- **Lists**: No top margin, 1.5rem bottom margin
-- **Images/Videos**: 3rem top and bottom margin
+### Line Height Guidelines
+For **line-height**, the rule is: **the smaller the text, the more line-height is needed**. An example you can follow is:
+- **Body text**: 1.4–1.6 (times the **base** font)
+- **Smaller headings (H3-H6)**: 1.2–1.4 
+- **Large headings (H1-H2)**: 1–1.2
+<Tabs>
+  <TabPanel title="typography.css">
+```css
+body {
+  line-height: 1.5;
+}
+
+h1, h2 {
+  line-height: 1.2;
+}
+
+h3, h4, h5, h6 {
+  line-height: 1.3;
+}
+```
+  </TabPanel>
+</Tabs>
+
+<Callout>
+All those values **aren't** set in stone. **Experiment** and find the best values for yourself!
+</Callout>
+
+### Vertical Margin rem vs em
+The value of margins are usually set in either `rem` or `em`. 
+
+<Callout>
+`em` is based on the **parent element's font size**. (scales based on font-size of parent/current element)
+
+`rem` is based on the **root font size** (defaults to the `font-size` of `html`)
+</Callout>
+
+Most frameworks use `rem` for everything because it's predictable—everything scales from the root font size. But this approach treats all spacing the same, which creates a problem.
+
+When you use `rem` for margins, a large heading and small body text get the same proportional spacing. This breaks the natural relationship between text size and the space around it. In good typography, larger text needs proportionally larger margins to maintain visual balance.
+
+**A better approach**: Use `rem` for font-sizes to keep your typography scale consistent, but use `em` for margins and padding so spacing scales with the actual content.
+
+When you **increase** a heading's font-size, the margins **increase proportionally** without manual adjustment. The visual rhythm stays intact.
+
+### Vertical Margin Guidelines
+The spacing between elements is quite complex, you can use formulas, but a great starting point is:
+1. Headings **must** have **more top spacing** than bottom spacing.
+2. All other elements must have the **same spacing** at the top and bottom. 
+<Tabs>
+  <TabPanel title="typography.css">
+```css
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+p {
+  font-size: 1rem;
+  margin: 1.25em 0;
+}
+
+h1 {
+  margin-top: 2.5em;
+  margin-bottom: 1em;
+}
+
+h2 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+pre {
+  margin: 0 1.7em;
+}
+
+/* Rest of code... */
+```
+  </TabPanel>
+</Tabs>
+And amazing example following this principle is [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography). They also use `em` for margin spacing. 
+
+![Tailwind Typography showcase](/assets/tailwind-screenshot.png)
+
+## Conclusion
+
+Good typography isn't about rigid rules—it's about creating systems that work consistently across your project. By establishing a CSS reset, implementing a mathematical typescale, and applying thoughtful vertical spacing, you've built a framework that eliminates guesswork and creates visual harmony.
+
+These techniques give you consistency through systematic relationships, maintainability with scalable CSS properties, and professional polish that users notice subconsciously.
+
+Remember: these are starting points, not absolute laws. Every project has unique needs. Use these principles as your foundation, then adapt based on your content and audience. Consider exploring fluid typography with clamp() and container queries for even more responsive designs.
+
+Most importantly, test with real users and content. The best typographic system serves your readers first. When typography feels invisible—when users focus entirely on content without fighting poor readability—you've succeeded.
+
+Start with these fundamentals, iterate based on feedback, and watch systematic typography transform how your site feels to use.
