@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-  @apply max-w-[700px];
+  @apply max-w-[650px];
 }
 
 .article {
@@ -45,6 +45,10 @@ h3 {
 
 p {
   @apply my-[1.25em] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty;
+}
+
+p, .callout, pre {
+  max-width: 650px;
 }
 
 .callout p:first-of-type, .callout p:last-of-type {

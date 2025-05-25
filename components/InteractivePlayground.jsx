@@ -120,7 +120,10 @@ export const InteractivePlayground = ({
   children,
   options = [],
   elementName = "element",
-  customCSS = "", // New prop for custom CSS
+  customCSS = "", // Custom CSS prop
+  generatedCSS: providedGeneratedCSS = "", // New prop to override generated CSS
+  layout = "vertical", // New prop for layout: "vertical" | "horizontal"
+  width, // New prop for custom width
 }) => {
   const [values, setValues] = useState(() =>
     options.reduce(
@@ -130,6 +133,12 @@ export const InteractivePlayground = ({
   );
 
   const generatedCSS = useMemo(() => {
+    // If providedGeneratedCSS is given, use it directly
+    if (providedGeneratedCSS) {
+      return providedGeneratedCSS;
+    }
+
+    // Otherwise, generate CSS from options
     // Group properties by target class
     const groupedProperties = options.reduce((acc, opt) => {
       const targetClass = formatClassName(opt.targetClass) || elementName;
@@ -173,14 +182,31 @@ export const InteractivePlayground = ({
     }
 
     return customCSS || dynamicCSS;
-  }, [options, values, elementName, customCSS]);
+  }, [options, values, elementName, customCSS, providedGeneratedCSS]);
 
   const handleValueChange = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
+  const isHorizontal = layout === "horizontal";
+
+  // Container styles for custom width
+  const containerStyle = width
+    ? {
+        width: width,
+        maxWidth: "100vw",
+        marginLeft: "auto",
+        marginRight: "auto",
+        position: "relative",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }
+    : {};
+
   return (
-    <div className={`mx-auto my-[2em] p-6 bg-[#293056] rounded-md space-y-6`}>
+    <div
+      className={`my-[3em] p-6 bg-[#293056] rounded-md space-y-6`}
+      style={containerStyle}>
       {options.length > 0 && (
         <ControlPanel
           options={options}
@@ -189,13 +215,17 @@ export const InteractivePlayground = ({
         />
       )}
 
-      <div className="space-y-6">
-        {generatedCSS && <CodeDisplay code={generatedCSS} />}
+      <div
+        className={`${
+          isHorizontal ? "lg:flex lg:gap-6" : ""
+        } space-y-6 lg:space-y-0`}>
+        {generatedCSS && (
+          <div className={isHorizontal ? "lg:flex-1" : "mb-6"}>
+            <CodeDisplay code={generatedCSS} />
+          </div>
+        )}
 
-        <div>
-          {generatedCSS && (
-            <span className="text-white mb-4 block font-mono">Output:</span>
-          )}
+        <div className={isHorizontal ? "lg:flex-1" : ""}>
           <div
             className={`p-6 rounded-md playground-output border border-[#d5d9eb46]`}>
             {generatedCSS && <style>{generatedCSS}</style>}
