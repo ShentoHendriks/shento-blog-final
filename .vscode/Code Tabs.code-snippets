@@ -20,5 +20,34 @@
 		"</Callout>"
 	],
 	"description": "Callout"
+},
+"playground": {
+	"prefix": "playground",
+	"body": [
+		"<InteractivePlayground",
+		"  options={[",
+		"    {",
+		"      name: \"${1:line-height}\",",
+		"      property: \"line-height\",",
+		"      label: \"line-height\",",
+		"      type: \"slider\",",
+		"      targetClass: \"example\",",
+		"      min: 1.0,",
+		"      max: 2,",
+		"      step: 0.1,",
+		"      default: 1.5,",
+		"    },",
+		"  ]}>",
+		"  <div className=\"example\">",
+		"    <p>",
+		"      Hello this is an example.",
+		"      <br />",
+		"      of a linebreak.",
+		"    </p>",
+		"  </div>",
+		"</InteractivePlayground>",
+		""
+	],
+	"description": "Callout"
 }
 }

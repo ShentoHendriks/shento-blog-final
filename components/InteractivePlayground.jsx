@@ -36,8 +36,8 @@ const SelectButtons = ({ options, value, onChange }) => (
           px-3 py-1 rounded transition-colors
           ${
             value === option
-              ? `bg-${COLORS.text} text-[#293056]`
-              : `text-${COLORS.text} bg-[${COLORS.primary}]`
+              ? `bg-white text-[#293056]`
+              : `text-white bg-[#293056]`
           }
         `}>
         {option}
@@ -79,9 +79,7 @@ const ControlPanel = ({ options, values, onValueChange }) => (
       <div
         key={option.name}
         className="flex md:items-center md:flex-row flex-col">
-        <label className="mr-4 min-w-[120px]">
-          {option.label || option.name}:
-        </label>
+        <label className="mr-4">{option.label || option.name}:</label>
         <ControlInput
           option={option}
           value={values[option.name]}

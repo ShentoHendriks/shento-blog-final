@@ -141,9 +141,9 @@ h3, h4, h5, h6 {
 </Tabs>
 
 <InteractivePlayground
-          options={[
-            {
-              name: 'line-height',
+  options={[
+{
+name: 'line-height',
               property: 'line-height',
               label: 'line-height p',
               type: 'slider',
@@ -153,22 +153,10 @@ h3, h4, h5, h6 {
               step: 0.1,
               default: 1.5,
         },
-           { 
-              name: 'line-height-h1',
-              property: 'line-height',
-              label: 'line-height h1',
-              type: 'slider',
-              targetClass: 'example h1',
-              min: 0.9,
-              max: 1.4,
-              step: 0.1,
-              default: 1,
-            },
           ]}
         >
      <div className="example flex flex-col">
      <p>Hello this is an example.<br />of a linebreak.</p> 
-     <h1>This is a H1<br/>Heading</h1>
       </div> 
 </InteractivePlayground>
 
@@ -190,6 +178,44 @@ Most frameworks use `rem` for everything because it's predictable—everything s
 When you use `rem` for margins, a large heading and small body text get the same proportional spacing. This breaks the natural relationship between text size and the space around it. In good typography, larger text needs proportionally larger margins to maintain visual balance.
 
 **A better approach**: Use `rem` for font-sizes to keep your typography scale consistent, but use `em` for margins and padding so spacing scales with the actual content.
+
+<InteractivePlayground
+      options={[
+{
+          name: "font-size-em",
+          property: "font-size",
+          label: "font-size",
+          type: "slider",
+          min: 1.5,
+          max: 3,
+          unit: "rem",
+          step: 0.5,
+          default: 2,
+          targetClass: "margin-example h2",
+}, 
+
+        {
+          name: "margin-bottom",
+          property: "margin-bottom",
+          label: "margin-bottom",
+          type: "select",
+          targetClass: "margin-example h2",
+          options: ["1em", "1rem"],
+        }, {
+          name: "margin-top",
+          property: "margin-top",
+          label: "margin-top",
+          type: "select",
+          targetClass: "margin-example h2",
+          options: ["2em", "2rem"]
+        }]}>
+  <div className="margin-example">
+    <h2>This is a heading.</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum eligendi, dolorem saepe itaque similique assumenda, necessitatibus delectus accusamus quam magnam dolores voluptatibus sed tempore ducimus sapiente nisi vero sint iure molestias illum quia voluptates ut praesentium laborum? Ipsa veniam cum ipsum. Quibusdam corporis nobis illum minus vero aliquam, saepe veniam.</p>
+    <h2>This is also a heading.</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, perspiciatis ducimus. Tempore aspernatur excepturi voluptatibus voluptatum velit, ut natus corporis illum assumenda. Quo voluptatem tempore optio pariatur doloremque repudiandae perferendis, necessitatibus aperiam esse iste temporibus neque ratione repellat voluptatum assumenda reprehenderit nemo. Nemo vero quasi consequatur incidunt quisquam eveniet odio?</p>
+  </div>
+</InteractivePlayground>
 
 When you **increase** a heading's font-size, the margins **increase proportionally** without manual adjustment. The visual rhythm stays intact.
 
