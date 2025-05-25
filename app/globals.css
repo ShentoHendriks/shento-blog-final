@@ -111,6 +111,20 @@ pre.shiki code {
   display: block;
 }
 
+.code-playground .shiki {
+  height: 100%;
+}
+
+.code-playground pre {
+  margin: 0;
+}
+
+.playground-output * {
+  color: white;
+  margin: unset;
+  line-height: unset;
+}
+
 .tabs-container {
   margin-top: 2em;
   font-family: "Jetbrains Mono";

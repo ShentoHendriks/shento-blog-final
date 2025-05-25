@@ -140,6 +140,38 @@ h3, h4, h5, h6 {
   </TabPanel>
 </Tabs>
 
+<InteractivePlayground
+          options={[
+            {
+              name: 'line-height',
+              property: 'line-height',
+              label: 'line-height p',
+              type: 'slider',
+              targetClass: 'example p',
+              min: 1.0,
+              max: 2,
+              step: 0.1,
+              default: 1.5,
+        },
+           { 
+              name: 'line-height-h1',
+              property: 'line-height',
+              label: 'line-height h1',
+              type: 'slider',
+              targetClass: 'example h1',
+              min: 0.9,
+              max: 1.4,
+              step: 0.1,
+              default: 1,
+            },
+          ]}
+        >
+     <div className="example flex flex-col">
+     <p>Hello this is an example.<br />of a linebreak.</p> 
+     <h1>This is a H1<br/>Heading</h1>
+      </div> 
+</InteractivePlayground>
+
 <Callout>
 All those values **aren't** set in stone. **Experiment** and find the best values for yourself!
 </Callout>
