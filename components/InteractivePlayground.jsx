@@ -174,7 +174,7 @@ export const InteractivePlayground = ({
   };
 
   return (
-    <div className={`mx-auto p-6 bg-[${COLORS.primary}] rounded-md space-y-6`}>
+    <div className={`mx-auto p-6 bg-[#293056] rounded-md space-y-6`}>
       {options.length > 0 && (
         <ControlPanel
           options={options}
