@@ -120,6 +120,7 @@ export const InteractivePlayground = ({
   children,
   options = [],
   elementName = "element",
+  customCSS = "", // New prop for custom CSS
 }) => {
   const [values, setValues] = useState(() =>
     options.reduce(
@@ -146,20 +147,33 @@ export const InteractivePlayground = ({
       return acc;
     }, {});
 
-    // Generate CSS rules
-    return Object.entries(groupedProperties)
-      .map(([className, properties]) => {
-        const rules = properties
-          .map(
-            ({ property, value, unit }) =>
-              `  ${formatCSSProperty(property, value, unit)}`
-          )
-          .join("\n");
+    // Generate CSS rules only if there are options
+    const dynamicCSS =
+      options.length > 0
+        ? Object.entries(groupedProperties)
+            .map(([className, properties]) => {
+              const rules = properties
+                .map(
+                  ({ property, value, unit }) =>
+                    `  ${formatCSSProperty(property, value, unit)}`
+                )
+                .join("\n");
 
-        return `.${className} {\n${rules}\n}`;
-      })
-      .join("\n\n");
-  }, [options, values, elementName]);
+              return `.${className} {\n${rules}\n}`;
+            })
+            .join("\n\n")
+        : "";
+
+    // Handle custom CSS combining
+    if (!customCSS && !dynamicCSS) return "";
+
+    if (customCSS && dynamicCSS) {
+      // Ensure proper spacing between custom and dynamic CSS
+      return `${customCSS.trim()}\n\n${dynamicCSS}`;
+    }
+
+    return customCSS || dynamicCSS;
+  }, [options, values, elementName, customCSS]);
 
   const handleValueChange = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -176,13 +190,15 @@ export const InteractivePlayground = ({
       )}
 
       <div className="space-y-6">
-        <CodeDisplay code={generatedCSS} />
+        {generatedCSS && <CodeDisplay code={generatedCSS} />}
 
         <div>
-          <span className="text-white mb-4 block font-mono">Output:</span>
+          {generatedCSS && (
+            <span className="text-white mb-4 block font-mono">Output:</span>
+          )}
           <div
             className={`p-6 rounded-md playground-output border border-[#d5d9eb46]`}>
-            <style>{generatedCSS}</style>
+            {generatedCSS && <style>{generatedCSS}</style>}
             {children}
           </div>
         </div>
