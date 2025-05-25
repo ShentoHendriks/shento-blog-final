@@ -28,7 +28,7 @@ const ColorPicker = ({ value, onChange }) => (
     type="color"
     value={value}
     onChange={(e) => onChange(e.target.value)}
-    className="h-10 w-10 border rounded cursor-pointer"
+    className="h-10 w-10 cursor-pointer"
   />
 );
 
@@ -42,7 +42,7 @@ const SelectButtons = ({ options, value, onChange }) => (
           px-3 py-1 rounded transition-colors
           ${
             value === option
-              ? `bg-${COLORS.text} text-[${COLORS.primary}]`
+              ? `bg-${COLORS.text} text-[#293056]`
               : `text-${COLORS.text} bg-[${COLORS.primary}]`
           }
         `}>
@@ -117,7 +117,7 @@ const CodeDisplay = ({ code }) => {
 
   return (
     <div
-      className="rounded overflow-hidden code-playground border border-[#D5D9EB]"
+      className="rounded overflow-hidden code-playground border border-[#d5d9eb46]"
       dangerouslySetInnerHTML={{ __html: highlightedCode }}
     />
   );
@@ -174,7 +174,7 @@ export const InteractivePlayground = ({
   };
 
   return (
-    <div className={`mx-auto p-6 bg-[#293056] rounded-md space-y-6`}>
+    <div className={`mx-auto my-[2em] p-6 bg-[#293056] rounded-md space-y-6`}>
       {options.length > 0 && (
         <ControlPanel
           options={options}
@@ -189,7 +189,7 @@ export const InteractivePlayground = ({
         <div>
           <span className="text-white mb-4 block font-mono">Output:</span>
           <div
-            className={`p-6 rounded-md playground-output border border-[${COLORS.secondary}]`}>
+            className={`p-6 rounded-md playground-output border border-[#d5d9eb46]`}>
             <style>{generatedCSS}</style>
             {children}
           </div>
