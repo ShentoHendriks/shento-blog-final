@@ -5,7 +5,7 @@ export const CustomSlider = ({ opt, values, update }) => {
   const percentage = ((values[opt.name] - opt.min) / (opt.max - opt.min)) * 100;
 
   return (
-    <div className="flex items-center space-x-3 flex-1">
+    <div className="flex md:items-center space-x-3 flex-1">
       <div className="relative flex-1">
         {/* Track Container */}
         <div className="relative w-full h-2 py-3">
