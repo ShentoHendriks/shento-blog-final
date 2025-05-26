@@ -109,7 +109,7 @@ const CodeDisplay = ({ code }) => {
 
   return (
     <div
-      className="rounded overflow-hidden code-playground border border-[#d5d9eb46]"
+      className="rounded overflow-hidden w-full code-playground border border-[#d5d9eb46]"
       dangerouslySetInnerHTML={{ __html: highlightedCode }}
     />
   );
@@ -220,7 +220,7 @@ export const InteractivePlayground = ({
           isHorizontal ? "lg:flex lg:gap-6 lg:flex-row gap-4" : ""
         } space-y-6 lg:space-y-0 flex-col-reverse flex`}>
         {generatedCSS && (
-          <div className={isHorizontal ? "lg:flex" : "mb-6"}>
+          <div className={isHorizontal ? "lg:flex min-w-[350px]" : "mb-6"}>
             <CodeDisplay code={generatedCSS} />
           </div>
         )}
