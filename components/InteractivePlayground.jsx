@@ -193,8 +193,8 @@ export const InteractivePlayground = ({
   // Container styles for custom width
   const containerStyle = width
     ? {
-        width: width,
-        maxWidth: "100vw",
+        width: `calc(${width} - 2em)`, // Subtract 2em (1em on each side)
+        maxWidth: "calc(100vw - 2em)",
         marginLeft: "auto",
         marginRight: "auto",
         position: "relative",
@@ -217,10 +217,10 @@ export const InteractivePlayground = ({
 
       <div
         className={`${
-          isHorizontal ? "lg:flex lg:gap-6" : ""
-        } space-y-6 lg:space-y-0`}>
+          isHorizontal ? "lg:flex lg:gap-6 lg:flex-row gap-4" : ""
+        } space-y-6 lg:space-y-0 flex-col-reverse flex`}>
         {generatedCSS && (
-          <div className={isHorizontal ? "lg:flex-1" : "mb-6"}>
+          <div className={isHorizontal ? "lg:flex" : "mb-6"}>
             <CodeDisplay code={generatedCSS} />
           </div>
         )}
