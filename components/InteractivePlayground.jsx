@@ -220,7 +220,7 @@ export const InteractivePlayground = ({
           isHorizontal ? "lg:flex lg:gap-6 lg:flex-row gap-4" : ""
         } space-y-6 lg:space-y-0 flex-col-reverse flex`}>
         {generatedCSS && (
-          <div className={isHorizontal ? "lg:flex min-w-[350px]" : "mb-6"}>
+          <div className={isHorizontal ? "lg:flex lg:min-w-[350px]" : "mb-6"}>
             <CodeDisplay code={generatedCSS} />
           </div>
         )}
