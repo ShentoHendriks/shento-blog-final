@@ -25,13 +25,21 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
       // Skip if copy button already exists
       if (pre.querySelector("[data-copy-button]")) return;
 
-      // Add relative positioning to pre
-      pre.classList.add("relative", "group");
+      // Create a wrapper div if it doesn't exist
+      if (!pre.parentElement.classList.contains("code-block-wrapper")) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-block-wrapper relative group";
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+      }
+
+      // Ensure pre has overflow-x-auto for horizontal scrolling
+      pre.classList.add("overflow-x-auto");
 
       const copyButton = document.createElement("button");
       copyButton.setAttribute("data-copy-button", "true");
       copyButton.className = `
-        absolute top-2 right-2 px-2 py-1 text-xs
+        absolute top-2 right-2 px-2 py-1 text-xs z-10
         bg-gray-100 text-gray-700 border border-gray-300 rounded
         opacity-0 group-hover:opacity-100 transition-opacity duration-200
         hover:bg-gray-200 active:scale-95
@@ -73,8 +81,23 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         }
       };
 
-      pre.appendChild(copyButton);
+      // Append button to the wrapper, not the pre element
+      pre.parentElement.appendChild(copyButton);
     });
+
+    // Cleanup function to remove wrappers when component unmounts
+    return () => {
+      const wrappers = contentRef.current?.querySelectorAll(
+        ".code-block-wrapper"
+      );
+      wrappers?.forEach((wrapper) => {
+        const pre = wrapper.querySelector("pre");
+        if (pre && wrapper.parentNode) {
+          wrapper.parentNode.insertBefore(pre, wrapper);
+          wrapper.remove();
+        }
+      });
+    };
   }, [activeTab]);
 
   return (

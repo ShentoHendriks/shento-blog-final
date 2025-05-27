@@ -17,24 +17,38 @@ categories: []
 </FileStructure>
 
 <InteractivePlayground
-  elementName="box"
-      customCSS={`
-.boob {
-    font-family: "Georgia";
-}
-`}
+  elementName="circle"
+  layout="horizontal"
+  width="1200px"
   options={[
     {
-      name: "backgroundColor",
-      label: "Background Color",
-      type: "color",
-      default: "#3498db",
-      property: "background-color",
-      targetClass: ".boob"
+      name: "size",
+      label: "Size",
+      type: "slider",
+      min: 50,
+      max: 200,
+      default: 100,
+      unit: "px",
+      property: "width",
+      description: "Adjust the circle size"
+    },
+    {
+      name: "borderRadius",
+      label: "Border Radius",
+      type: "slider",
+      min: 0,
+      max: 50,
+      default: 50,
+      unit: "%",
+      property: "border-radius"
     }
   ]}
 >
-  <div className="boob" style={{ width: 200, height: 200 }}>
-    Color Box
-  </div>
+  <div 
+    className="circle" 
+    style={{ 
+      backgroundColor: "#e74c3c",
+      aspectRatio: "1/1"
+    }}
+  />
 </InteractivePlayground>
