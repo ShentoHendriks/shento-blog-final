@@ -317,7 +317,7 @@ export const InteractivePlayground = ({
     ? {
         width: `calc(${width} - 2em)`,
         maxWidth: "calc(100vw - 2em)",
-        margin: "0 auto",
+        margin: "3em auto",
         position: "relative",
         left: "50%",
         transform: "translateX(-50%)",

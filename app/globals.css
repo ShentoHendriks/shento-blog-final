@@ -138,6 +138,7 @@ pre.shiki code {
 
 .tabs-container {
   margin-top: 2em;
+  margin-bottom: 2em;
   font-family: "Jetbrains Mono";
 }
 
