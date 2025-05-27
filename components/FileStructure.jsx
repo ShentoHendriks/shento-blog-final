@@ -21,7 +21,7 @@ export function File({ children, level = 0, type = "file", focus = false }) {
         focus && "font-bold"
       } first-of-type:border-b-[#D5D9EB]
       
-    last-of-type:border-t-[#D5D9EB] p-3.5 border-y-[#D5D9EB] border-[0.5px] last-of-type:rounded-b-md pr-20`}>
+    last-of-type:border-t-[#D5D9EB] p-3.5 border-y-[#D5D9EB] border-[0.5px] last-of-type:rounded-b-md pr-[7em]`}>
       <div className="flex items-center justify-start gap-3">
         <img
           className="border-none w-4 h-4 m-0 rounded-none"

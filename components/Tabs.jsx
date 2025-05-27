@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function Tabs({ children, defaultTab = 0, variant = "default" }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
+  const contentRef = useRef(null);
 
   const childrenArray = Array.isArray(children) ? children : [children];
 
@@ -13,6 +14,68 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
     content: child.props.children,
     index,
   }));
+
+  // Add copy buttons to code blocks when tab changes
+  useEffect(() => {
+    if (!contentRef.current) return;
+
+    const codeBlocks = contentRef.current.querySelectorAll("pre");
+
+    codeBlocks.forEach((pre) => {
+      // Skip if copy button already exists
+      if (pre.querySelector("[data-copy-button]")) return;
+
+      // Add relative positioning to pre
+      pre.classList.add("relative", "group");
+
+      const copyButton = document.createElement("button");
+      copyButton.setAttribute("data-copy-button", "true");
+      copyButton.className = `
+        absolute top-2 right-2 px-2 py-1 text-xs
+        bg-gray-100 text-gray-700 border border-gray-300 rounded
+        opacity-0 group-hover:opacity-100 transition-opacity duration-200
+        hover:bg-gray-200 active:scale-95
+      `;
+      copyButton.innerHTML = "Copy";
+
+      copyButton.onclick = async () => {
+        const code = pre.querySelector("code")?.textContent || pre.textContent;
+
+        try {
+          await navigator.clipboard.writeText(code);
+          copyButton.innerHTML = "Copied!";
+          copyButton.classList.remove(
+            "bg-gray-100",
+            "text-gray-700",
+            "border-gray-300"
+          );
+          copyButton.classList.add(
+            "bg-green-100",
+            "text-green-700",
+            "border-green-300"
+          );
+
+          setTimeout(() => {
+            copyButton.innerHTML = "Copy";
+            copyButton.classList.remove(
+              "bg-green-100",
+              "text-green-700",
+              "border-green-300"
+            );
+            copyButton.classList.add(
+              "bg-gray-100",
+              "text-gray-700",
+              "border-gray-300"
+            );
+          }, 2000);
+        } catch (err) {
+          console.error("Failed to copy:", err);
+        }
+      };
+
+      pre.appendChild(copyButton);
+    });
+  }, [activeTab]);
 
   return (
     <div className={`tabs-container tabs-${variant}`}>
@@ -28,7 +91,11 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         ))}
       </div>
 
-      <div className="tab-content">{tabs[activeTab]?.content}</div>
+      <div
+        className="tab-content"
+        ref={contentRef}>
+        {tabs[activeTab]?.content}
+      </div>
     </div>
   );
 }

@@ -142,7 +142,7 @@ pre.shiki code {
 }
 
 .tabs-header {
-  @apply flex gap-3 overflow-auto -mb-12 xl:-mb-12;
+  @apply flex overflow-auto -mb-12 xl:-mb-12;
 }
 
 .tabs-header::-webkit-scrollbar {
