@@ -98,13 +98,10 @@ p { font-size: var(--scale-base); }
 ```
   </TabPanel>
 </Tabs>
-
-<Callout>
 You can can keep adding as much variables as you like even `--scale-10xl`.
 
 Don't feel forced to give your `h1`
 `--scale-3xl`, you can choose freely. Just choose something you find nice.
-</Callout>
 <Callout>
 Tools like [typescale.com](https://typescale.com) can generate your complete typescale automatically. While also giving a preview.
 </Callout>
@@ -123,23 +120,7 @@ For **line-height**, the rule is: **the smaller the text, the more line-height i
 - **Large headings (H1-H2)**: 1–1.2
 - **Smaller headings (H3-H6)**: 1.2–1.4 
 
-<Tabs>
-  <TabPanel title="typography.css">
-```css
-body {
-  line-height: 1.5;
-}
-
-h1, h2 {
-  line-height: 1.2;
-}
-
-h3, h4, h5, h6 {
-  line-height: 1.3;
-}
-```
-  </TabPanel>
-</Tabs>
+All those values **aren't** set in stone. **Experiment** and find the best values for yourself!
 
 <InteractivePlayground
 hideCustomCSS={true}
@@ -194,24 +175,16 @@ name: 'line-height-h2',
       </div> 
 </InteractivePlayground>
 
-<Callout>
-All those values **aren't** set in stone. **Experiment** and find the best values for yourself!
-</Callout>
-
 ### Vertical Margin rem vs em
 The value of margins are usually set in either `rem` or `em`. 
-
-<Callout>
-`em` is based on the **parent element's font size**. (scales based on font-size of parent/current element)
-
-`rem` is based on the **root font size** (defaults to the `font-size` of `html`)
-</Callout>
 
 Most frameworks use `rem` for everything because it's predictable—everything scales from the root font size. But this approach treats all spacing the same, which creates a problem.
 
 When you use `rem` for margins, a large heading and small body text get the same proportional spacing. This breaks the natural relationship between text size and the space around it. In good typography, larger text needs proportionally larger margins to maintain visual balance.
 
 **A better approach**: Use `rem` for font-sizes to keep your typography scale consistent, but use `em` for margins and padding so spacing scales with the actual content.
+
+When you **increase** a heading's font-size, the margins **increase proportionally** without manual adjustment. The visual rhythm stays intact.
 
 <InteractivePlayground
 layout="horizontal"
@@ -263,8 +236,6 @@ options={[
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, perspiciatis ducimus. Tempore aspernatur excepturi voluptatibus voluptatum velit, ut natus corporis illum assumenda. Quo voluptatem tempore optio paria</p>
   </div>
 </InteractivePlayground>
-
-When you **increase** a heading's font-size, the margins **increase proportionally** without manual adjustment. The visual rhythm stays intact.
 
 ### Vertical Margin Guidelines
 The spacing between elements is quite complex, you can use formulas, but a great starting point is:

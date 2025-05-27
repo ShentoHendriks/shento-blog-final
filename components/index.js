@@ -3,6 +3,7 @@ import { Tabs, TabPanel } from "./Tabs";
 import Callout from "./Callout";
 import { InteractivePlayground } from "./InteractivePlayground";
 import {FileStructure, File} from "./FileStructure";
+import CustomImage from "./CustomImage";
 
 const components = {
   Button,
@@ -28,6 +29,7 @@ const components = {
       </a>
     );
   },
+  img: CustomImage
 };
 
 export default components;
