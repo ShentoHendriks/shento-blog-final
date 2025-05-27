@@ -74,27 +74,61 @@ An elegant way to do this in web development is the following:
   <TabPanel title="typography.css">
 ```css
 :root {
-  --base-size: clamp(1rem, 2cqw, 1.25rem); /* This scales with container! */
-  --ratio: 1.25;
+  /* Viewport Constraints */
+  --fluid-min-width: 320;
+  --fluid-max-width: 1200;
 
-/* These automatically scale because base-size uses cqw */
-  --scale-sm: calc(var(--base-size) / var(--ratio));
-  --scale-base: var(--base-size);
-  --scale-lg: calc(var(--base-size) * var(--ratio));
-  --scale-xl: calc(var(--scale-lg) * var(--ratio));
-  --scale-2xl: calc(var(--scale-xl) * var(--ratio));
-  --scale-3xl: calc(var(--scale-2xl) * var(--ratio));
+  /* Base Font Sizes */
+  --fluid-min-font: 16;
+  --fluid-max-font: 24;
+
+  /* Typographic Scale (Major Third) */
+  --fluid-ratio: 1.350;
+
+  /* Fluid Typography Calculations */
+  --fluid-scale-base: clamp(
+    calc(var(--fluid-min-font) / 16 * 1rem), 
+    calc(var(--fluid-min-font) / 16 * 1rem + (var(--fluid-max-font) - var(--fluid-min-font)) * ((100vw - 320px) / (1200 - 320))), 
+    calc(var(--fluid-max-font) / 16 * 1rem)
+  );
+
+  /* More elegant scaling using pow-like calculation */
+  --fluid-scale-xs: calc(var(--fluid-scale-base) / pow(var(--fluid-ratio), 1));
+  --fluid-scale-sm: calc(var(--fluid-scale-base) / var(--fluid-ratio));
+  --fluid-scale-md: var(--fluid-scale-base);
+  --fluid-scale-lg: calc(var(--fluid-scale-base) * var(--fluid-ratio));
+  --fluid-scale-xl: calc(var(--fluid-scale-base) * pow(var(--fluid-ratio), 2));
+  --fluid-scale-2xl: calc(var(--fluid-scale-base) * pow(var(--fluid-ratio), 3));
+  --fluid-scale-3xl: calc(var(--fluid-scale-base) * pow(var(--fluid-ratio), 4));
 }
 
-.container {
-  container-type: inline-size;
+/* Responsive Typography Utility Classes */
+.text-xs { font-size: var(--fluid-scale-xs); }
+.text-sm { font-size: var(--fluid-scale-sm); }
+.text-base { font-size: var(--fluid-scale-base); }
+.text-md { font-size: var(--fluid-scale-md); }
+.text-lg { font-size: var(--fluid-scale-lg); }
+.text-xl { font-size: var(--fluid-scale-xl); }
+.text-2xl { font-size: var(--fluid-scale-2xl); }
+.text-3xl { font-size: var(--fluid-scale-3xl); }
+
+/* Base Typography */
+body {
+  font-size: 16px;
 }
 
-h1 { font-size: var(--scale-3xl); }
-h2 { font-size: var(--scale-2xl); }
-h3 { font-size: var(--scale-xl); }
-h4 { font-size: var(--scale-lg); }
-p { font-size: var(--scale-base); }
+/* Heading Styles */
+h1 { 
+  font-size: var(--fluid-scale-3xl);
+}
+
+h2 { 
+  font-size: var(--fluid-scale-2xl); 
+}
+
+h3 { 
+  font-size: var(--fluid-scale-xl); 
+}
 ```
   </TabPanel>
 </Tabs>

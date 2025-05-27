@@ -15,31 +15,39 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
     index,
   }));
 
-  // Add copy buttons to code blocks when tab changes
   useEffect(() => {
     if (!contentRef.current) return;
 
     const codeBlocks = contentRef.current.querySelectorAll("pre");
 
     codeBlocks.forEach((pre) => {
-      // Skip if copy button already exists
+      // Skip if buttons already exist
       if (pre.querySelector("[data-copy-button]")) return;
 
-      // Create a wrapper div if it doesn't exist
-      if (!pre.parentElement.classList.contains("code-block-wrapper")) {
-        const wrapper = document.createElement("div");
+      // Ensure wrapper exists
+      let wrapper = pre.parentElement;
+      if (!wrapper.classList.contains("code-block-wrapper")) {
+        wrapper = document.createElement("div");
         wrapper.className = "code-block-wrapper relative group";
         pre.parentNode.insertBefore(wrapper, pre);
         wrapper.appendChild(pre);
       }
 
-      // Ensure pre has overflow-x-auto for horizontal scrolling
       pre.classList.add("overflow-x-auto");
 
+      const code = pre.querySelector("code") || pre;
+      const lines = code.textContent.split("\n");
+      const isTooLong = lines.length > 20;
+
+      // Create button container
+      const buttonContainer = document.createElement("div");
+      buttonContainer.className = "absolute top-2 right-2 flex space-x-2 z-10";
+
+      // Copy button logic (remains the same)
       const copyButton = document.createElement("button");
       copyButton.setAttribute("data-copy-button", "true");
       copyButton.className = `
-        absolute top-2 right-2 px-2 py-1 text-xs z-10
+        px-2 py-1 text-xs z-10
         bg-gray-100 text-gray-700 border border-gray-300 rounded
         opacity-0 group-hover:opacity-100 transition-opacity duration-200
         hover:bg-gray-200 active:scale-95
@@ -48,7 +56,6 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
 
       copyButton.onclick = async () => {
         const code = pre.querySelector("code")?.textContent || pre.textContent;
-
         try {
           await navigator.clipboard.writeText(code);
           copyButton.innerHTML = "Copied!";
@@ -81,11 +88,74 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         }
       };
 
-      // Append button to the wrapper, not the pre element
-      pre.parentElement.appendChild(copyButton);
+      // Expand/Collapse for long code blocks
+      if (isTooLong) {
+        // Create a container specifically for managing expand/collapse
+        const preContainer = document.createElement("div");
+        preContainer.className = "relative code-expand-container";
+
+        // Gradient overlay
+        const gradientOverlay = document.createElement("div");
+        gradientOverlay.className = `
+          absolute bottom-0 left-0 right-0 h-32 
+          bg-gradient-to-t from-[#293056] via-[#293056]/90 to-[#293056]/0
+          pointer-events-none z-[5]
+        `;
+
+        // Replace pre's parent with our new container
+        pre.parentElement.insertBefore(preContainer, pre);
+        preContainer.appendChild(pre);
+        preContainer.appendChild(gradientOverlay);
+
+        // Expand button
+        const expandButton = document.createElement("button");
+        expandButton.setAttribute("data-expand-button", "true");
+        expandButton.className = `
+          px-2 py-1 text-xs z-10
+          bg-gray-100 text-gray-700 border border-gray-300 rounded
+          opacity-0 group-hover:opacity-100 transition-opacity duration-200
+          hover:bg-gray-200 active:scale-95
+        `;
+        expandButton.innerHTML = "Expand";
+
+        // Manage expand state with data attributes
+        pre.setAttribute("data-expanded", "false");
+        pre.style.maxHeight = "400px";
+        pre.style.overflow = "hidden";
+
+        expandButton.onclick = () => {
+          const isCurrentlyExpanded =
+            pre.getAttribute("data-expanded") === "true";
+
+          if (isCurrentlyExpanded) {
+            // Collapse
+            pre.style.maxHeight = "400px";
+            pre.style.overflow = "hidden";
+            gradientOverlay.classList.remove("hidden");
+            expandButton.innerHTML = "Expand";
+            pre.setAttribute("data-expanded", "false");
+          } else {
+            // Expand
+            pre.style.maxHeight = `${pre.scrollHeight}px`;
+            pre.style.overflow = "auto";
+            gradientOverlay.classList.add("hidden");
+            expandButton.innerHTML = "Collapse";
+            pre.setAttribute("data-expanded", "true");
+          }
+        };
+
+        // Add buttons to container
+        buttonContainer.appendChild(expandButton);
+      }
+
+      // Add copy button
+      buttonContainer.appendChild(copyButton);
+
+      // Append button container
+      wrapper.appendChild(buttonContainer);
     });
 
-    // Cleanup function to remove wrappers when component unmounts
+    // Cleanup function
     return () => {
       const wrappers = contentRef.current?.querySelectorAll(
         ".code-block-wrapper"
