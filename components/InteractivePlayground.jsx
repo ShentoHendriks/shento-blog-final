@@ -1,108 +1,99 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { codeToHtml } from "shiki";
 import { CustomSlider } from "./CustomSlider";
 
 // Constants
 const THEME = "catppuccin-frappe";
-
-// Utility functions
-const getInitialValue = (option) =>
-  option.default ??
-  option.min ??
-  option.options?.[0]?.value ??
-  option.options?.[0] ??
-  "#000000";
-
-const formatClassName = (className) =>
-  className?.replace(/^\./, "") || "element";
-
-// Helper function to normalize options
-const normalizeOptions = (options) => {
-  return options.map((opt) => {
-    if (typeof opt === "string") {
-      return { value: opt, label: opt };
-    }
-    return opt;
-  });
+const BUTTON_STYLES = {
+  base: "px-2 py-1 text-xs rounded border transition-all duration-200",
+  copy: "opacity-0 group-hover:opacity-100 active:scale-95 font-mono",
+  variant: {
+    success: "bg-green-100 text-green-700 border-green-300 hover:bg-green-200",
+    default: "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200",
+  },
 };
 
-// Helper function to get option value
-const getOptionValue = (option) => {
-  return typeof option === "string" ? option : option.value;
+// Utilities
+const utils = {
+  getInitialValue: (opt) =>
+    opt.default ??
+    opt.min ??
+    opt.options?.[0]?.value ??
+    opt.options?.[0] ??
+    "#000000",
+  formatClassName: (name) => name?.replace(/^\./, "") || "element",
+  normalizeOption: (opt) =>
+    typeof opt === "string" ? { value: opt, label: opt } : opt,
+  getOptionValue: (opt) => (typeof opt === "string" ? opt : opt.value),
+  getOptionLabel: (opt) =>
+    typeof opt === "string" ? opt : opt.label || opt.value,
 };
 
-// Helper function to get option label
-const getOptionLabel = (option) => {
-  return typeof option === "string" ? option : option.label || option.value;
+// Hooks
+const useHighlightedCode = (code) => {
+  const [html, setHtml] = useState("");
+
+  useEffect(() => {
+    if (!code) return setHtml("");
+
+    codeToHtml(code, { lang: "css", theme: THEME })
+      .then(setHtml)
+      .catch(() =>
+        setHtml(
+          `<pre>${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`
+        )
+      );
+  }, [code]);
+
+  return html;
 };
 
-// Sub-components
-const ColorPicker = ({ value, onChange }) => (
-  <input
-    type="color"
-    value={value}
-    onChange={(e) => onChange(e.target.value)}
-    className="h-10 w-10 cursor-pointer"
-  />
+const useClipboard = () => {
+  const [copied, setCopied] = useState(false);
+
+  return {
+    copied,
+    copy: useCallback(async (text) => {
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error("Failed to copy:", err);
+      }
+    }, []),
+  };
+};
+
+// Components
+const Button = ({
+  onClick,
+  children,
+  variant = "default",
+  className = "",
+  ...props
+}) => (
+  <button
+    onClick={onClick}
+    className={`${BUTTON_STYLES.base} ${BUTTON_STYLES.variant[variant]} ${className}`}
+    {...props}>
+    {children}
+  </button>
 );
 
-const SelectButtons = ({ options, value, onChange }) => {
-  const normalizedOptions = normalizeOptions(options);
-
-  return (
-    <div className="flex gap-2 flex-wrap">
-      {normalizedOptions.map((option) => {
-        const optionValue = getOptionValue(option);
-        const optionLabel = getOptionLabel(option);
-
-        return (
-          <button
-            key={optionValue}
-            onClick={() => onChange(optionValue)}
-            className={`
-              px-3 py-1 rounded transition-colors
-              ${
-                value === optionValue
-                  ? `bg-white text-[#293056]`
-                  : `text-white bg-[#293056]`
-              }
-            `}>
-            {optionLabel}
-          </button>
-        );
-      })}
-    </div>
-  );
-};
-
-const SelectDropdown = ({ options, value, onChange }) => {
-  const normalizedOptions = normalizeOptions(options);
-
-  return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="px-3 py-1 rounded text-[#293056] border border-[#d5d9eb46]">
-      {normalizedOptions.map((option) => {
-        const optionValue = getOptionValue(option);
-        const optionLabel = getOptionLabel(option);
-
-        return (
-          <option
-            key={optionValue}
-            value={optionValue}>
-            {optionLabel}
-          </option>
-        );
-      })}
-    </select>
-  );
-};
-
 const ControlInput = ({ option, value, onChange }) => {
-  const controls = {
+  const inputs = {
+    color: () => (
+      <input
+        type="color"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="h-10 w-10 cursor-pointer"
+      />
+    ),
     slider: () => (
       <CustomSlider
         opt={option}
@@ -110,88 +101,62 @@ const ControlInput = ({ option, value, onChange }) => {
         update={onChange}
       />
     ),
-    color: () => (
-      <ColorPicker
-        value={value}
-        onChange={onChange}
-      />
-    ),
     select: () => (
-      <SelectButtons
-        options={option.options}
-        value={value}
-        onChange={onChange}
-      />
+      <div className="flex gap-2 flex-wrap">
+        {option.options.map(utils.normalizeOption).map((opt) => {
+          const optValue = utils.getOptionValue(opt);
+          return (
+            <button
+              key={optValue}
+              onClick={() => onChange(optValue)}
+              className={`px-3 py-1 rounded transition-colors ${
+                value === optValue
+                  ? "bg-white text-[#293056]"
+                  : "text-white bg-[#293056]"
+              }`}>
+              {utils.getOptionLabel(opt)}
+            </button>
+          );
+        })}
+      </div>
     ),
     dropdown: () => (
-      <SelectDropdown
-        options={option.options}
+      <select
         value={value}
-        onChange={onChange}
-      />
+        onChange={(e) => onChange(e.target.value)}
+        className="px-3 py-1 rounded text-[#293056] border border-[#d5d9eb46]">
+        {option.options.map(utils.normalizeOption).map((opt) => {
+          const optValue = utils.getOptionValue(opt);
+          return (
+            <option
+              key={optValue}
+              value={optValue}>
+              {utils.getOptionLabel(opt)}
+            </option>
+          );
+        })}
+      </select>
     ),
   };
 
-  return controls[option.type]?.() || null;
+  return inputs[option.type]?.() || null;
 };
 
 const CodeDisplay = ({ code }) => {
-  const [highlightedCode, setHighlightedCode] = useState("");
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const highlightCode = async () => {
-      if (!code) {
-        setHighlightedCode("");
-        return;
-      }
-      try {
-        const html = await codeToHtml(code, { lang: "css", theme: THEME });
-        setHighlightedCode(html);
-      } catch (error) {
-        console.error("Error highlighting code:", error);
-        setHighlightedCode(
-          `<pre>${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`
-        );
-      }
-    };
-
-    highlightCode();
-  }, [code]);
-
-  const handleCopy = async () => {
-    if (!code) return;
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy code: ", err);
-    }
-  };
+  const html = useHighlightedCode(code);
+  const { copied, copy } = useClipboard();
 
   return (
     <div className="relative rounded overflow-hidden w-full code-playground border border-[#d5d9eb46] group">
-      <button
-        onClick={handleCopy}
-        className={`
-          absolute top-2 right-2 px-2 py-1 text-xs
-          rounded border transition-all duration-200
-          opacity-0 group-hover:opacity-100
-          active:scale-95 font-mono
-          ${
-            copied
-              ? "bg-green-100 text-green-700 border-green-300 hover:bg-green-200"
-              : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
-          }
-        `}
-        aria-label={
-          copied ? "Code copied to clipboard" : "Copy code to clipboard"
-        }>
+      <Button
+        onClick={() => copy(code)}
+        variant={copied ? "success" : "default"}
+        className={`absolute top-2 right-2 ${BUTTON_STYLES.copy}`}
+        aria-label={copied ? "Code copied" : "Copy code"}>
         {copied ? "Copied!" : "Copy"}
-      </button>
+      </Button>
       <div
-        dangerouslySetInnerHTML={{ __html: highlightedCode }}
+        dangerouslySetInnerHTML={{ __html: html }}
         className="shiki-container"
       />
     </div>
@@ -209,54 +174,81 @@ const ControlPanel = ({ options, values, onValueChange, onReset }) => {
 
   return (
     <div className="relative group text-white font-mono space-y-4 pt-2 pr-16">
-      {options.map((option) => (
+      {options.map((opt) => (
         <div
-          key={option.name}
+          key={opt.name}
           className="flex md:items-center md:flex-row flex-col gap-2">
-          <label className="mr-4 min-w-[120px]">
-            {option.label || option.name}:
-          </label>
+          <label className="mr-4 min-w-[120px]">{opt.label || opt.name}:</label>
           <ControlInput
-            option={option}
-            value={values[option.name]}
-            onChange={(value) => onValueChange(option.name, value)}
+            option={opt}
+            value={values[opt.name]}
+            onChange={(value) => onValueChange(opt.name, value)}
           />
-          {option.description && (
+          {opt.description && (
             <span className="text-sm text-gray-400 ml-2">
-              {option.description}
+              {opt.description}
             </span>
           )}
         </div>
       ))}
-      <button
-        onClick={handleReset}
-        className={`
-          absolute -top-5 right-0 z-10 px-2 py-1 text-xs 
-          rounded border transition-all duration-200
-           group-hover:opacity-100
-     
-          ${
-            resetting
-              ? "bg-green-100 text-green-700 border-green-300 hover:bg-green-200"
-              : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
-          }
-        `}
-        aria-label={
-          resetting ? "Defaults have been reset" : "Reset to defaults"
-        }>
-        {resetting ? "Reset!" : "Reset to defaults"}
-      </button>
+      <div className="absolute -top-5 right-0 z-10 group-hover:opacity-100">
+        <Button
+          onClick={handleReset}
+          variant={resetting ? "success" : "default"}>
+          {resetting ? "Reset!" : "Reset to defaults"}
+        </Button>
+      </div>
     </div>
   );
 };
 
-// Main component
+// CSS Generation
+const generateCSS = (options, values, elementName, cssVariableScope) => {
+  const cssVars = [];
+  const rules = {};
+
+  options.forEach((opt) => {
+    const value = values[opt.name];
+    const selectedOption = opt.options
+      ?.map(utils.normalizeOption)
+      .find((o) => utils.getOptionValue(o) === value);
+
+    const properties = selectedOption?.properties ||
+      opt.properties || [{ property: opt.property, unit: opt.unit }];
+
+    properties.forEach(({ property, value: propValue, unit }) => {
+      if (!property) return;
+
+      const finalValue = `${propValue ?? value}${unit || ""}`;
+
+      if (property.startsWith("--")) {
+        cssVars.push(`  ${property}: ${finalValue};`);
+      } else {
+        const target = utils.formatClassName(opt.targetClass) || elementName;
+        rules[target] = rules[target] || [];
+        rules[target].push(`  ${property}: ${finalValue};`);
+      }
+    });
+  });
+
+  const cssVarBlock = cssVars.length
+    ? `${cssVariableScope} {\n${cssVars.join("\n")}\n}\n\n`
+    : "";
+
+  const rulesBlock = Object.entries(rules)
+    .map(([cls, props]) => `.${cls} {\n${props.join("\n")}\n}`)
+    .join("\n\n");
+
+  return (cssVarBlock + rulesBlock).trim();
+};
+
+// Main Component
 export const InteractivePlayground = ({
   children,
   options = [],
   elementName = "element",
   customCSS = "",
-  generatedCSS: providedGeneratedCSS = "",
+  generatedCSS: providedCSS = "",
   layout = "vertical",
   width,
   cssVariableScope = ":root",
@@ -264,7 +256,10 @@ export const InteractivePlayground = ({
 }) => {
   const [values, setValues] = useState(() =>
     options.reduce(
-      (acc, opt) => ({ ...acc, [opt.name]: getInitialValue(opt) }),
+      (acc, opt) => ({
+        ...acc,
+        [opt.name]: utils.getInitialValue(opt),
+      }),
       {}
     )
   );
@@ -272,131 +267,46 @@ export const InteractivePlayground = ({
   useEffect(() => {
     setValues(
       options.reduce(
-        (acc, opt) => ({ ...acc, [opt.name]: getInitialValue(opt) }),
+        (acc, opt) => ({
+          ...acc,
+          [opt.name]: utils.getInitialValue(opt),
+        }),
         {}
       )
     );
   }, [options]);
 
   const displayCSS = useMemo(() => {
-    if (providedGeneratedCSS) {
-      return providedGeneratedCSS;
-    }
-    const cssVariables = [];
-    const regularProperties = {};
-    options.forEach((opt) => {
-      const value = values[opt.name];
-      let selectedOption = null;
-      if (opt.options && (opt.type === "select" || opt.type === "dropdown")) {
-        const normalizedOptions = normalizeOptions(opt.options);
-        selectedOption = normalizedOptions.find(
-          (option) => getOptionValue(option) === value
-        );
-      }
-      if (selectedOption && selectedOption.properties) {
-        selectedOption.properties.forEach(
-          ({ property, value: propValue, unit }) => {
-            const targetClass = formatClassName(opt.targetClass) || elementName;
-            if (!regularProperties[targetClass]) {
-              regularProperties[targetClass] = [];
-            }
-            regularProperties[targetClass].push({
-              property: property,
-              value: propValue,
-              unit: unit || "",
-            });
-          }
-        );
-      } else {
-        const properties = opt.properties || [
-          { property: opt.property, unit: opt.unit },
-        ];
-        properties.forEach(({ property, unit }) => {
-          if (!property) return;
-          const formattedValue = unit ? `${value}${unit}` : value;
-          if (property.startsWith("--")) {
-            cssVariables.push({
-              property: property,
-              value: formattedValue,
-            });
-          } else {
-            const targetClass = formatClassName(opt.targetClass) || elementName;
-            if (!regularProperties[targetClass]) {
-              regularProperties[targetClass] = [];
-            }
-            regularProperties[targetClass].push({
-              property: property,
-              value: value,
-              unit: unit || "",
-            });
-          }
-        });
-      }
-    });
-    let css = "";
-    if (cssVariables.length > 0) {
-      const variableRules = cssVariables
-        .map(({ property, value }) => `  ${property}: ${value};`)
-        .join("\n");
-      css += `${cssVariableScope} {\n${variableRules}\n}\n\n`;
-    }
-    if (Object.keys(regularProperties).length > 0) {
-      const regularCSS = Object.entries(regularProperties)
-        .map(([className, properties]) => {
-          const rules = properties
-            .map(
-              ({ property, value, unit }) => `  ${property}: ${value}${unit};`
-            )
-            .join("\n");
-          return `.${className} {\n${rules}\n}`;
-        })
-        .join("\n\n");
-      css += regularCSS;
-    }
-    if (customCSS && !hideCustomCSS) {
-      css = css ? `${customCSS.trim()}\n\n${css.trim()}` : customCSS;
-    }
-    return css.trim();
+    const generated =
+      providedCSS ||
+      generateCSS(options, values, elementName, cssVariableScope);
+    return customCSS && !hideCustomCSS && generated
+      ? `${customCSS.trim()}\n\n${generated}`
+      : generated || customCSS;
   }, [
     options,
     values,
     elementName,
     customCSS,
-    providedGeneratedCSS,
+    providedCSS,
     cssVariableScope,
     hideCustomCSS,
   ]);
 
-  const appliedCSS = useMemo(() => {
-    if (hideCustomCSS && customCSS) {
-      if (displayCSS) {
-        return `${customCSS.trim()}\n\n${displayCSS}`;
-      }
-      return customCSS.trim();
-    }
-    return displayCSS;
-  }, [displayCSS, customCSS, hideCustomCSS]);
-
-  const handleValueChange = (name, value) => {
-    setValues((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleResetToDefaults = () => {
-    const defaultValues = options.reduce(
-      (acc, opt) => ({ ...acc, [opt.name]: getInitialValue(opt) }),
-      {}
-    );
-    setValues(defaultValues);
-  };
+  const appliedCSS = useMemo(
+    () =>
+      hideCustomCSS && customCSS && displayCSS
+        ? `${customCSS.trim()}\n\n${displayCSS}`
+        : displayCSS,
+    [displayCSS, customCSS, hideCustomCSS]
+  );
 
   const isHorizontal = layout === "horizontal";
-
   const containerStyle = width
     ? {
         width: `calc(${width} - 2em)`,
         maxWidth: "calc(100vw - 2em)",
-        marginLeft: "auto",
-        marginRight: "auto",
+        margin: "0 auto",
         position: "relative",
         left: "50%",
         transform: "translateX(-50%)",
@@ -405,21 +315,33 @@ export const InteractivePlayground = ({
 
   return (
     <div
-      className={`my-[3em] p-6 bg-[#293056] rounded-md space-y-6`}
+      className="my-[3em] p-6 bg-[#293056] rounded-md space-y-6"
       style={containerStyle}>
       {options.length > 0 && (
         <ControlPanel
           options={options}
           values={values}
-          onValueChange={handleValueChange}
-          onReset={handleResetToDefaults}
+          onValueChange={(name, value) =>
+            setValues((prev) => ({ ...prev, [name]: value }))
+          }
+          onReset={() =>
+            setValues(
+              options.reduce(
+                (acc, opt) => ({
+                  ...acc,
+                  [opt.name]: utils.getInitialValue(opt),
+                }),
+                {}
+              )
+            )
+          }
         />
       )}
 
       <div
-        className={`${
-          isHorizontal ? "md:flex-row flex-col-reverse" : "flex-col-reverse"
-        } flex gap-4`}>
+        className={`flex gap-4 ${
+          isHorizontal ? "md:flex-row" : ""
+        } flex-col-reverse`}>
         {displayCSS && (
           <div
             className={
@@ -430,8 +352,7 @@ export const InteractivePlayground = ({
         )}
 
         <div className={isHorizontal ? "lg:flex-1" : "w-full"}>
-          <div
-            className={`p-6 rounded-md playground-output border border-[#d5d9eb46]`}>
+          <div className="p-6 rounded-md playground-output border border-[#d5d9eb46]">
             {appliedCSS && <style>{appliedCSS}</style>}
             {children}
           </div>
