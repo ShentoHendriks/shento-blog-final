@@ -64,7 +64,7 @@ p, .callout, pre {
 }
 
 img, table {
-  @apply rounded-md border border-[#D5D9EB] w-full my-[2em];
+  @apply rounded-md border border-[#D5D9EB] w-full !my-[2em];
 }
 
 ul {
