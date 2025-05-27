@@ -11,7 +11,23 @@ const components = {
   Callout,
   InteractivePlayground,
   FileStructure,
-  File
+  File,
+  // Add custom link component
+  a: ({ href, children, ...props }) => {
+    // Check if it's an external link
+    const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+    
+    return (
+      <a
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
 };
 
 export default components;
