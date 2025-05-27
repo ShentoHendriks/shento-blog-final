@@ -6,6 +6,7 @@ import { CustomSlider } from "./CustomSlider";
 
 // Constants
 const THEME = "catppuccin-frappe";
+
 // Utility functions
 const getInitialValue = (option) =>
   option.default ?? option.min ?? option.options?.[0] ?? "#000000";
@@ -13,8 +14,13 @@ const getInitialValue = (option) =>
 const formatClassName = (className) =>
   className?.replace(/^\./, "") || "element";
 
-const formatCSSProperty = (property, value, unit = "") =>
-  `${property}: ${value}${unit};`;
+const formatCSSProperty = (property, value, unit = "") => {
+  // Handle CSS variables
+  if (property.startsWith("--")) {
+    return `${property}: ${value}${unit};`;
+  }
+  return `${property}: ${value}${unit};`;
+};
 
 // Sub-components
 const ColorPicker = ({ value, onChange }) => (
@@ -27,7 +33,7 @@ const ColorPicker = ({ value, onChange }) => (
 );
 
 const SelectButtons = ({ options, value, onChange }) => (
-  <div className="flex gap-2">
+  <div className="flex gap-2 flex-wrap">
     {options.map((option) => (
       <button
         key={option}
@@ -44,6 +50,21 @@ const SelectButtons = ({ options, value, onChange }) => (
       </button>
     ))}
   </div>
+);
+
+const SelectDropdown = ({ options, value, onChange }) => (
+  <select
+    value={value}
+    onChange={(e) => onChange(e.target.value)}
+    className="px-3 py-1 rounded bg-[#1a1f36] text-white border border-[#d5d9eb46]">
+    {options.map((option) => (
+      <option
+        key={option}
+        value={option}>
+        {option}
+      </option>
+    ))}
+  </select>
 );
 
 const ControlInput = ({ option, value, onChange }) => {
@@ -68,6 +89,13 @@ const ControlInput = ({ option, value, onChange }) => {
         onChange={onChange}
       />
     ),
+    dropdown: () => (
+      <SelectDropdown
+        options={option.options}
+        value={value}
+        onChange={onChange}
+      />
+    ),
   };
 
   return controls[option.type]?.() || null;
@@ -78,13 +106,20 @@ const ControlPanel = ({ options, values, onValueChange }) => (
     {options.map((option) => (
       <div
         key={option.name}
-        className="flex md:items-center md:flex-row flex-col">
-        <label className="mr-4">{option.label || option.name}:</label>
+        className="flex md:items-center md:flex-row flex-col gap-2">
+        <label className="mr-4 min-w-[120px]">
+          {option.label || option.name}:
+        </label>
         <ControlInput
           option={option}
           value={values[option.name]}
           onChange={(value) => onValueChange(option.name, value)}
         />
+        {option.description && (
+          <span className="text-sm text-gray-400 ml-2">
+            {option.description}
+          </span>
+        )}
       </div>
     ))}
   </div>
@@ -120,10 +155,11 @@ export const InteractivePlayground = ({
   children,
   options = [],
   elementName = "element",
-  customCSS = "", // Custom CSS prop
-  generatedCSS: providedGeneratedCSS = "", // New prop to override generated CSS
-  layout = "vertical", // New prop for layout: "vertical" | "horizontal"
-  width, // New prop for custom width
+  customCSS = "",
+  generatedCSS: providedGeneratedCSS = "",
+  layout = "vertical",
+  width,
+  cssVariableScope = ":root", // New prop to specify where CSS variables should be defined
 }) => {
   const [values, setValues] = useState(() =>
     options.reduce(
@@ -133,56 +169,78 @@ export const InteractivePlayground = ({
   );
 
   const generatedCSS = useMemo(() => {
-    // If providedGeneratedCSS is given, use it directly
     if (providedGeneratedCSS) {
       return providedGeneratedCSS;
     }
 
-    // Otherwise, generate CSS from options
-    // Group properties by target class
-    const groupedProperties = options.reduce((acc, opt) => {
-      const targetClass = formatClassName(opt.targetClass) || elementName;
+    // Separate CSS variables from regular properties
+    const cssVariables = [];
+    const regularProperties = {};
 
-      if (!acc[targetClass]) {
-        acc[targetClass] = [];
+    options.forEach((opt) => {
+      const value = values[opt.name];
+      const formattedValue = opt.unit ? `${value}${opt.unit}` : value;
+
+      if (opt.property.startsWith("--")) {
+        // It's a CSS variable
+        cssVariables.push({
+          property: opt.property,
+          value: formattedValue,
+        });
+      } else {
+        // Regular CSS property
+        const targetClass = formatClassName(opt.targetClass) || elementName;
+        if (!regularProperties[targetClass]) {
+          regularProperties[targetClass] = [];
+        }
+        regularProperties[targetClass].push({
+          property: opt.property,
+          value,
+          unit: opt.unit,
+        });
       }
+    });
 
-      acc[targetClass].push({
-        property: opt.property,
-        value: values[opt.name],
-        unit: opt.unit,
-      });
+    let css = "";
 
-      return acc;
-    }, {});
-
-    // Generate CSS rules only if there are options
-    const dynamicCSS =
-      options.length > 0
-        ? Object.entries(groupedProperties)
-            .map(([className, properties]) => {
-              const rules = properties
-                .map(
-                  ({ property, value, unit }) =>
-                    `  ${formatCSSProperty(property, value, unit)}`
-                )
-                .join("\n");
-
-              return `.${className} {\n${rules}\n}`;
-            })
-            .join("\n\n")
-        : "";
-
-    // Handle custom CSS combining
-    if (!customCSS && !dynamicCSS) return "";
-
-    if (customCSS && dynamicCSS) {
-      // Ensure proper spacing between custom and dynamic CSS
-      return `${customCSS.trim()}\n\n${dynamicCSS}`;
+    // Add CSS variables if any
+    if (cssVariables.length > 0) {
+      const variableRules = cssVariables
+        .map(({ property, value }) => `  ${property}: ${value};`)
+        .join("\n");
+      css += `${cssVariableScope} {\n${variableRules}\n}\n\n`;
     }
 
-    return customCSS || dynamicCSS;
-  }, [options, values, elementName, customCSS, providedGeneratedCSS]);
+    // Add regular CSS rules
+    if (Object.keys(regularProperties).length > 0) {
+      const regularCSS = Object.entries(regularProperties)
+        .map(([className, properties]) => {
+          const rules = properties
+            .map(
+              ({ property, value, unit }) =>
+                `  ${formatCSSProperty(property, value, unit)}`
+            )
+            .join("\n");
+          return `.${className} {\n${rules}\n}`;
+        })
+        .join("\n\n");
+      css += regularCSS;
+    }
+
+    // Handle custom CSS combining
+    if (customCSS) {
+      css = css ? `${customCSS.trim()}\n\n${css}` : customCSS;
+    }
+
+    return css;
+  }, [
+    options,
+    values,
+    elementName,
+    customCSS,
+    providedGeneratedCSS,
+    cssVariableScope,
+  ]);
 
   const handleValueChange = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -190,10 +248,9 @@ export const InteractivePlayground = ({
 
   const isHorizontal = layout === "horizontal";
 
-  // Container styles for custom width
   const containerStyle = width
     ? {
-        width: `calc(${width} - 2em)`, // Subtract 2em (1em on each side)
+        width: `calc(${width} - 2em)`,
         maxWidth: "calc(100vw - 2em)",
         marginLeft: "auto",
         marginRight: "auto",
