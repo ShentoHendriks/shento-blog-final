@@ -23,7 +23,14 @@ const utils = {
     opt.options?.[0]?.value ??
     opt.options?.[0] ??
     "#000000",
-  formatClassName: (name) => name?.replace(/^\./, "") || "element",
+  formatClassName: (name) => {
+    // If a specific targetClass is provided, use it
+    if (name && name.trim() !== "") {
+      return name.replace(/^\./, "");
+    }
+    // Otherwise, use the provided elementName
+    return name?.replace(/^\./, "") || "element";
+  },
   normalizeOption: (opt) =>
     typeof opt === "string" ? { value: opt, label: opt } : opt,
   getOptionValue: (opt) => (typeof opt === "string" ? opt : opt.value),
@@ -224,7 +231,11 @@ const generateCSS = (options, values, elementName, cssVariableScope) => {
       if (property.startsWith("--")) {
         cssVars.push(`  ${property}: ${finalValue};`);
       } else {
-        const target = utils.formatClassName(opt.targetClass) || elementName;
+        // Prefer targetClass if provided, otherwise use elementName
+        const target = opt.targetClass
+          ? utils.formatClassName(opt.targetClass)
+          : elementName;
+
         rules[target] = rules[target] || [];
         rules[target].push(`  ${property}: ${finalValue};`);
       }

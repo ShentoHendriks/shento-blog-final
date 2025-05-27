@@ -15,3 +15,26 @@ categories: []
 <File level={1}>style.css</File>
 <File focus>index.html</File>
 </FileStructure>
+
+<InteractivePlayground
+  elementName="box"
+      customCSS={`
+.boob {
+    font-family: "Georgia";
+}
+`}
+  options={[
+    {
+      name: "backgroundColor",
+      label: "Background Color",
+      type: "color",
+      default: "#3498db",
+      property: "background-color",
+      targetClass: ".boob"
+    }
+  ]}
+>
+  <div className="boob" style={{ width: 200, height: 200 }}>
+    Color Box
+  </div>
+</InteractivePlayground>
