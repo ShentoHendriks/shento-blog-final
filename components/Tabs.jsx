@@ -47,10 +47,11 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
       const copyButton = document.createElement("button");
       copyButton.setAttribute("data-copy-button", "true");
       copyButton.className = `
-        px-2 py-1 text-xs z-10
-        bg-gray-100 text-gray-700 border border-gray-300 rounded
-        opacity-0 group-hover:opacity-100 transition-opacity duration-200
-        hover:bg-gray-200 active:scale-95
+       px-2 py-1 text-xs z-10
+  bg-gray-100 text-gray-700 border border-gray-300 rounded
+  opacity-0 group-hover:opacity-100 transition-opacity duration-200
+  hover:bg-gray-200 active:scale-95
+  min-w-[60px] text-center 
       `;
       copyButton.innerHTML = "Copy";
 
@@ -97,7 +98,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         // Gradient overlay
         const gradientOverlay = document.createElement("div");
         gradientOverlay.className = `
-          absolute bottom-0 left-0 right-0 h-32 
+          absolute bottom-0 left-0 rounded-b-md right-0 h-32 
           bg-gradient-to-t from-[#293056] via-[#293056]/90 to-[#293056]/0
           pointer-events-none z-[5]
         `;
