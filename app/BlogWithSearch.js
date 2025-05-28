@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
 import Link from "next/link";
-import { useState, useEffect } from 'react';
-import { createSearchIndex, searchPosts } from '@/lib/search';
+import { useState, useEffect } from "react";
+import { createSearchIndex, searchPosts } from "@/lib/search";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -14,7 +14,7 @@ const formatDate = (dateString) => {
 };
 
 export default function BlogWithSearch({ posts }) {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredPosts, setFilteredPosts] = useState(posts);
 
   // Initialize search index when component mounts
@@ -47,24 +47,35 @@ export default function BlogWithSearch({ posts }) {
       </div>
 
       <h2 className="mb-8">
-        {searchQuery ? `Search Results (${filteredPosts.length})` : 'Latest articles'}
+        {searchQuery
+          ? `Search Results (${filteredPosts.length})`
+          : "Latest articles"}
       </h2>
-      
-      <div className="flex flex-col gap-2">
+
+      <div className="flex flex-col gap-8">
         {filteredPosts.length > 0 ? (
           filteredPosts.map(({ slug, data }) => (
             <article key={slug}>
               <h3 className="my-[1rem]">
-                <Link href={`/${slug}`}>
-                  {data.title}
-                </Link>
+                <Link href={`/${slug}`}>{data.title}</Link>
               </h3>
+              <div className="flex flex-wrap gap-2">
+                {data.categories
+                  .sort((a, b) => a.localeCompare(b))
+                  .map((c, index) => (
+                    <div
+                      className="px-2 py-0.5 bg-[#293056] text-sm text-white flex w-fit rounded-md"
+                      key={index}>
+                      {c}
+                    </div>
+                  ))}
+              </div>
               <p className="my-[1rem] text-slate-500">
-  <Link href={`/${slug}`}>
-    {data.description.split(' ').slice(0, 30).join(' ')}
-    {data.description.split(' ').length > 30 ? '...' : ''}
-  </Link>
-</p> 
+                <Link href={`/${slug}`}>
+                  {data.description.split(" ").slice(0, 30).join(" ")}
+                  {data.description.split(" ").length > 30 ? "..." : ""}
+                </Link>
+              </p>
               <p className="text-slate-400">{formatDate(data.date)}</p>
             </article>
           ))

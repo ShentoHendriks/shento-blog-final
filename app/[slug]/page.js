@@ -12,8 +12,20 @@ export default async function Post({ params }) {
 
   return (
     <article className="container mx-auto p-4 article">
-      <h1>{data.title}</h1>
+      <div className="flex flex-wrap gap-2">
+        {data.categories
+          .sort((a, b) => a.localeCompare(b))
+          .map((c, index) => (
+            <div
+              className="text-sm text-[#4E5BA6] px-2 py-0.5 border border-[#D5D9EB] flex w-fit rounded-md"
+              key={index}>
+              {c}
+            </div>
+          ))}
+      </div>
+      <h1 className="mt-4">{data.title}</h1>
       <p className="text-xl max-w-[600px] description">{data.description}</p>
+
       <MDXRemote
         source={content}
         components={components}
