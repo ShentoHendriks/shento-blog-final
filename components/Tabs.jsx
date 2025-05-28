@@ -95,12 +95,28 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         const preContainer = document.createElement("div");
         preContainer.className = "relative code-expand-container";
 
-        // Gradient overlay
+        // Get the computed styles of the pre element to match border radius
+        const preStyles = window.getComputedStyle(pre);
+        const borderRadius = preStyles.borderRadius || "0.5rem";
+
+        // Gradient overlay - FIXED VERSION
         const gradientOverlay = document.createElement("div");
         gradientOverlay.className = `
-          absolute bottom-0 left-0 rounded-b-md right-0 h-32 
-          bg-gradient-to-t from-[#293056] via-[#293056]/90 to-[#293056]/0
+          absolute inset-0
           pointer-events-none z-[5]
+        `;
+
+        // Apply matching border radius and better gradient
+        gradientOverlay.style.cssText = `
+          border-radius: ${borderRadius};
+          background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.7) 80%,
+            rgba(255, 255, 255, 0.9) 90%,
+            rgba(255, 255, 255, 1) 100%
+          );
         `;
 
         // Replace pre's parent with our new container
@@ -121,8 +137,9 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
 
         // Manage expand state with data attributes
         pre.setAttribute("data-expanded", "false");
-        pre.style.maxHeight = "400px";
+        pre.style.maxHeight = "500px";
         pre.style.overflow = "hidden";
+        pre.style.position = "relative"; // Ensure pre is positioned
 
         expandButton.onclick = () => {
           const isCurrentlyExpanded =
@@ -130,16 +147,16 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
 
           if (isCurrentlyExpanded) {
             // Collapse
-            pre.style.maxHeight = "400px";
+            pre.style.maxHeight = "500px";
             pre.style.overflow = "hidden";
-            gradientOverlay.classList.remove("hidden");
+            gradientOverlay.style.display = "block";
             expandButton.innerHTML = "Expand";
             pre.setAttribute("data-expanded", "false");
           } else {
             // Expand
             pre.style.maxHeight = `${pre.scrollHeight}px`;
             pre.style.overflow = "auto";
-            gradientOverlay.classList.add("hidden");
+            gradientOverlay.style.display = "none";
             expandButton.innerHTML = "Collapse";
             pre.setAttribute("data-expanded", "true");
           }
