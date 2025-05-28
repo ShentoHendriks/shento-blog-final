@@ -27,14 +27,11 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
     const codeBlocks = contentRef.current.querySelectorAll("pre");
 
     codeBlocks.forEach((pre, blockIndex) => {
-      // Skip if buttons already exist
       if (pre.querySelector("[data-copy-button]")) return;
 
-      // Generate a unique ID for this code block
       const blockId = `code-block-${activeTab}-${blockIndex}`;
       pre.setAttribute("data-block-id", blockId);
 
-      // Ensure wrapper exists
       let wrapper = pre.parentElement;
       if (!wrapper.classList.contains("code-block-wrapper")) {
         wrapper = document.createElement("div");
@@ -49,7 +46,6 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
       const lines = code.textContent.split("\n");
       const isTooLong = lines.length > 20;
 
-      // Create button container
       const buttonContainer = document.createElement("div");
       buttonContainer.className = "absolute top-2 right-2 flex space-x-2 z-10";
 
@@ -99,50 +95,43 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         }
       };
 
-      // Expand/Collapse for long code blocks
       if (isTooLong) {
-        // Create a container specifically for managing expand/collapse
         const preContainer = document.createElement("div");
         preContainer.className = "relative code-expand-container";
 
-        // Get the computed styles of the pre element to match border radius
-        const preStyles = window.getComputedStyle(pre);
-        const borderRadius = preStyles.borderRadius || "0.5rem";
-
-        // Gradient overlay
         const gradientOverlay = document.createElement("div");
         gradientOverlay.className = `
-          absolute inset-0
-          pointer-events-none z-[5]
-          transition-opacity duration-75
+          absolute inset-0 pointer-events-none z-[5] transition-opacity duration-75 rounded-[inherit]
+          bg-gradient-to-b from-transparent from-0% via-transparent via-60% to-white to-100%
+          dark:to-black
         `;
-
-        // Apply matching border radius and gradient
-        gradientOverlay.style.cssText = `
-          border-radius: ${borderRadius};
-          background: linear-gradient(
+        gradientOverlay.style.background = `
+          linear-gradient(
             to bottom,
             transparent 0%,
-            transparent 50%,
+            transparent 40%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0.3) 60%,
+            rgba(255, 255, 255, 0.5) 70%,
             rgba(255, 255, 255, 0.7) 80%,
             rgba(255, 255, 255, 0.9) 90%,
             rgba(255, 255, 255, 1) 100%
-          );
+          )
         `;
 
-        // Replace pre's parent with our new container
         pre.parentElement.insertBefore(preContainer, pre);
         preContainer.appendChild(pre);
         preContainer.appendChild(gradientOverlay);
 
-        // Check if this block is expanded
         const isExpanded = expandedBlocks.has(blockId);
 
-        // Set initial state based on expandedBlocks state
-        pre.style.maxHeight = isExpanded ? `${pre.scrollHeight}px` : "500px";
-        pre.style.overflow = isExpanded ? "auto" : "hidden";
-        pre.style.position = "relative";
-        pre.style.transition = "max-height 150ms ease-out";
+        pre.style.cssText = `
+          max-height: ${isExpanded ? pre.scrollHeight + "px" : "500px"};
+          overflow: ${isExpanded ? "auto" : "hidden"};
+          position: relative;
+          transition: max-height 150ms ease-out;
+        `;
+
         gradientOverlay.style.opacity = isExpanded ? "0" : "1";
 
         // Expand button
