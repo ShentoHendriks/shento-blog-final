@@ -12,6 +12,17 @@
 	],
 	"description": "MDX Code Sample"
 },
+"TabPanel code": {
+	"prefix": "tab",
+	"body": [
+		"  <TabPanel title=\"${1:title}\">",
+		"```${2:ext}",
+		"${3:code}",
+		"```",
+		"  </TabPanel>"
+	],
+	"description": "TabPanel code"
+},
 "Callout": {
 	"prefix": "callout",
 	"body": [
@@ -49,5 +60,21 @@
 		""
 	],
 	"description": "Callout"
+},
+"File Structure Full": {
+	"prefix": "$files",
+	"body": [
+		"<FileStructure>",
+		"  <File type=\"${1:folder/files}\" level={${2:0}} focus={${3:false}}>${4:name}</File>",
+		"</FileStructure>"
+	],
+	"description": "File Structure Full"
+},
+"File Structure item": {
+	"prefix": "$file",
+	"body": [
+		"<File type=\"${1:folder/files}\" level={${2:0}} focus={${3:false}}>${4:name}</File>"
+	],
+	"description": "File Structure item"
 }
 }
