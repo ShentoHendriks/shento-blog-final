@@ -19,16 +19,62 @@ Before you start creating typography, you should **always** first use a CSS Rese
 Why? Every browser has different default styles—margins, padding, and font sizing that create inconsistencies across Chrome, Firefox, and Safari. A CSS reset eliminates these differences, giving you a clean foundation for consistent typography.
 
 <Tabs>
-  <TabPanel title="Example reset.css">
+  <TabPanel title="Josh Comeau's Reset CSS">
 ```css
+/* 1. Use a more-intuitive box-sizing model */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
+/* 2. Remove default margin */
 * {
   margin: 0;
 }
-/* ... more lines here */
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
 ```
   </TabPanel>
 </Tabs>
@@ -51,17 +97,7 @@ Without a systematic approach to font sizing, your typography becomes inconsiste
 
 ### Establishing Your Typescale
 
-A **typescale** solves this by creating consistent relationships between all your text elements. Start with your base font size: **16px** or **18px**—these are universally acknowledged as optimal for body text readability across devices and age groups. In CSS, the base font size is given to the `body`.
-<Tabs>
-  <TabPanel title="typography.css">
-```css
-body {
-  font-size: 16px; /*default size for most browsers*/
-} 
-```
-  </TabPanel>
-</Tabs>
-
+A **typescale** solves this by creating consistent relationships between all your text elements. Start with your base font size: **16px** or **18px**—these are universally acknowledged as optimal for body text readability across devices and age groups. In CSS, the base font size is often assigned to the `body`.
 
 From this foundation, use mathematical ratios to generate harmonious size typography.
 Popular typescale ratios include:
