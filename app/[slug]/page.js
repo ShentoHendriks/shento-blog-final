@@ -12,7 +12,7 @@ export default async function Post({ params }) {
 
   return (
     <article className="container mx-auto p-4 article">
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 opacity-55 mb-[2em]">
         {data.categories
           .sort((a, b) => a.localeCompare(b))
           .map((c, index) => (
