@@ -112,14 +112,15 @@ const ControlInput = ({ option, value, onChange }) => {
       <div className="flex gap-2 flex-wrap">
         {option.options.map(utils.normalizeOption).map((opt) => {
           const optValue = utils.getOptionValue(opt);
+          const isActive = value === optValue;
           return (
             <button
               key={optValue}
               onClick={() => onChange(optValue)}
               className={`px-3 py-1 rounded transition-colors ${
-                value === optValue
+                isActive
                   ? "bg-white text-[#293056]"
-                  : "text-white bg-[#293056]"
+                  : "text-white bg-[#293056] hover:text-white hover:bg-[#3a4170]"
               }`}>
               {utils.getOptionLabel(opt)}
             </button>
