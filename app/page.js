@@ -18,12 +18,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1>My Blog!</h1>
-      <p>Hey, I'm Shento. A full-stack developer who's also interested in design.</p>
-      <p>This tech blog acts as my personal resource, but perhaps you might find something useful.
-
-I write tutorials for both web developers and designers, keeping things accessible and straightforward. My code examples are intentionally minimal—just the essentials—so you can easily customize and build upon them for your own projects.</p>
-      
+      <h1>Articles</h1>
       <BlogWithSearch posts={posts} />
     </div>
   );

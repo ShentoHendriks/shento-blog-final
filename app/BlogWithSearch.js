@@ -59,12 +59,13 @@ export default function BlogWithSearch({ posts }) {
                   {data.title}
                 </Link>
               </h3>
-              <p className="my-[1rem] text-[#363F72]">
-                <Link href={`/${slug}`}>
-                  {data.description}
-                </Link>
-              </p>
-              <p>{formatDate(data.date)}</p>
+              <p className="my-[1rem] text-slate-500">
+  <Link href={`/${slug}`}>
+    {data.description.split(' ').slice(0, 30).join(' ')}
+    {data.description.split(' ').length > 30 ? '...' : ''}
+  </Link>
+</p> 
+              <p className="text-slate-400">{formatDate(data.date)}</p>
             </article>
           ))
         ) : (
