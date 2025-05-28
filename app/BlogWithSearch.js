@@ -59,6 +59,11 @@ export default function BlogWithSearch({ posts }) {
                   {data.title}
                 </Link>
               </h3>
+              <p className="my-[1rem] text-[#363F72]">
+                <Link href={`/${slug}`}>
+                  {data.description}
+                </Link>
+              </p>
               <p>{formatDate(data.date)}</p>
             </article>
           ))

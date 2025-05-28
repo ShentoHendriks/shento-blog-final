@@ -4,7 +4,13 @@ import { useState, useEffect, useRef } from "react";
 
 export function Tabs({ children, defaultTab = 0, variant = "default" }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
+  const [expandedBlocks, setExpandedBlocks] = useState(new Set());
   const contentRef = useRef(null);
+
+  // Reset expanded blocks when component mounts or route changes
+  useEffect(() => {
+    setExpandedBlocks(new Set());
+  }, []); // Empty dependency array ensures this runs on mount
 
   const childrenArray = Array.isArray(children) ? children : [children];
 
@@ -20,9 +26,13 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
 
     const codeBlocks = contentRef.current.querySelectorAll("pre");
 
-    codeBlocks.forEach((pre) => {
+    codeBlocks.forEach((pre, blockIndex) => {
       // Skip if buttons already exist
       if (pre.querySelector("[data-copy-button]")) return;
+
+      // Generate a unique ID for this code block
+      const blockId = `code-block-${activeTab}-${blockIndex}`;
+      pre.setAttribute("data-block-id", blockId);
 
       // Ensure wrapper exists
       let wrapper = pre.parentElement;
@@ -43,15 +53,15 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
       const buttonContainer = document.createElement("div");
       buttonContainer.className = "absolute top-2 right-2 flex space-x-2 z-10";
 
-      // Copy button logic (remains the same)
+      // Copy button logic
       const copyButton = document.createElement("button");
       copyButton.setAttribute("data-copy-button", "true");
       copyButton.className = `
-       px-2 py-1 text-xs z-10
-  bg-gray-100 text-gray-700 border border-gray-300 rounded
-  opacity-0 group-hover:opacity-100 transition-all duration-75
-  hover:bg-gray-200 active:scale-95
-  min-w-[60px] text-center 
+        px-2 py-1 text-xs z-10
+        bg-gray-100 text-gray-700 border border-gray-300 rounded
+        opacity-0 group-hover:opacity-100 transition-all duration-75
+        hover:bg-gray-200 active:scale-95
+        min-w-[60px] text-center 
       `;
       copyButton.innerHTML = "Copy";
 
@@ -99,7 +109,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         const preStyles = window.getComputedStyle(pre);
         const borderRadius = preStyles.borderRadius || "0.5rem";
 
-        // Gradient overlay - FIXED VERSION
+        // Gradient overlay
         const gradientOverlay = document.createElement("div");
         gradientOverlay.className = `
           absolute inset-0
@@ -107,7 +117,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
           transition-opacity duration-75
         `;
 
-        // Apply matching border radius and better gradient
+        // Apply matching border radius and gradient
         gradientOverlay.style.cssText = `
           border-radius: ${borderRadius};
           background: linear-gradient(
@@ -125,6 +135,16 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         preContainer.appendChild(pre);
         preContainer.appendChild(gradientOverlay);
 
+        // Check if this block is expanded
+        const isExpanded = expandedBlocks.has(blockId);
+
+        // Set initial state based on expandedBlocks state
+        pre.style.maxHeight = isExpanded ? `${pre.scrollHeight}px` : "500px";
+        pre.style.overflow = isExpanded ? "auto" : "hidden";
+        pre.style.position = "relative";
+        pre.style.transition = "max-height 150ms ease-out";
+        gradientOverlay.style.opacity = isExpanded ? "0" : "1";
+
         // Expand button
         const expandButton = document.createElement("button");
         expandButton.setAttribute("data-expand-button", "true");
@@ -134,34 +154,28 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
           opacity-0 group-hover:opacity-100 transition-all duration-75
           hover:bg-gray-200 active:scale-95
         `;
-        expandButton.innerHTML = "Expand";
-
-        // Manage expand state with data attributes
-        pre.setAttribute("data-expanded", "false");
-        pre.style.maxHeight = "500px";
-        pre.style.overflow = "hidden";
-        pre.style.position = "relative"; // Ensure pre is positioned
-        pre.style.transition = "max-height 150ms ease-out"; // Add smooth transition
+        expandButton.innerHTML = isExpanded ? "Collapse" : "Expand";
 
         expandButton.onclick = () => {
-          const isCurrentlyExpanded =
-            pre.getAttribute("data-expanded") === "true";
-
-          if (isCurrentlyExpanded) {
-            // Collapse
-            pre.style.maxHeight = "500px";
-            pre.style.overflow = "hidden";
-            gradientOverlay.style.opacity = "1";
-            expandButton.innerHTML = "Expand";
-            pre.setAttribute("data-expanded", "false");
-          } else {
-            // Expand
-            pre.style.maxHeight = `${pre.scrollHeight}px`;
-            pre.style.overflow = "auto";
-            gradientOverlay.style.opacity = "0";
-            expandButton.innerHTML = "Collapse";
-            pre.setAttribute("data-expanded", "true");
-          }
+          setExpandedBlocks((prev) => {
+            const newSet = new Set(prev);
+            if (newSet.has(blockId)) {
+              newSet.delete(blockId);
+              // Collapse
+              pre.style.maxHeight = "500px";
+              pre.style.overflow = "hidden";
+              gradientOverlay.style.opacity = "1";
+              expandButton.innerHTML = "Expand";
+            } else {
+              newSet.add(blockId);
+              // Expand
+              pre.style.maxHeight = `${pre.scrollHeight}px`;
+              pre.style.overflow = "auto";
+              gradientOverlay.style.opacity = "0";
+              expandButton.innerHTML = "Collapse";
+            }
+            return newSet;
+          });
         };
 
         // Add buttons to container
@@ -188,7 +202,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         }
       });
     };
-  }, [activeTab]);
+  }, [activeTab, expandedBlocks]);
 
   return (
     <div className={`tabs-container tabs-${variant}`}>
