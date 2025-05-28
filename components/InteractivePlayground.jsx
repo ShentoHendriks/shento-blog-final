@@ -357,7 +357,7 @@ export const InteractivePlayground = ({
         {displayCSS && (
           <div
             className={
-              isHorizontal ? "lg:flex lg:min-w-[350px]" : "w-full lg:mb-0"
+              isHorizontal ? "lg:flex md:min-w-[350px]" : "w-full lg:mb-0"
             }>
             <CodeDisplay code={displayCSS} />
           </div>
