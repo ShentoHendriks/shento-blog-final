@@ -9,7 +9,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
   const childrenArray = Array.isArray(children) ? children : [children];
 
   const tabs = childrenArray.map((child, index) => ({
-    title: child.props.title,
+    title: child.props.title == null ? "Missing title" : child.props.title,
     icon: child.props.icon,
     content: child.props.children,
     index,
@@ -49,7 +49,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
       copyButton.className = `
        px-2 py-1 text-xs z-10
   bg-gray-100 text-gray-700 border border-gray-300 rounded
-  opacity-0 group-hover:opacity-100 transition-opacity duration-200
+  opacity-0 group-hover:opacity-100 transition-all duration-75
   hover:bg-gray-200 active:scale-95
   min-w-[60px] text-center 
       `;
@@ -104,6 +104,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         gradientOverlay.className = `
           absolute inset-0
           pointer-events-none z-[5]
+          transition-opacity duration-75
         `;
 
         // Apply matching border radius and better gradient
@@ -130,7 +131,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         expandButton.className = `
           px-2 py-1 text-xs z-10
           bg-gray-100 text-gray-700 border border-gray-300 rounded
-          opacity-0 group-hover:opacity-100 transition-opacity duration-200
+          opacity-0 group-hover:opacity-100 transition-all duration-75
           hover:bg-gray-200 active:scale-95
         `;
         expandButton.innerHTML = "Expand";
@@ -140,6 +141,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         pre.style.maxHeight = "500px";
         pre.style.overflow = "hidden";
         pre.style.position = "relative"; // Ensure pre is positioned
+        pre.style.transition = "max-height 150ms ease-out"; // Add smooth transition
 
         expandButton.onclick = () => {
           const isCurrentlyExpanded =
@@ -149,14 +151,14 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
             // Collapse
             pre.style.maxHeight = "500px";
             pre.style.overflow = "hidden";
-            gradientOverlay.style.display = "block";
+            gradientOverlay.style.opacity = "1";
             expandButton.innerHTML = "Expand";
             pre.setAttribute("data-expanded", "false");
           } else {
             // Expand
             pre.style.maxHeight = `${pre.scrollHeight}px`;
             pre.style.overflow = "auto";
-            gradientOverlay.style.display = "none";
+            gradientOverlay.style.opacity = "0";
             expandButton.innerHTML = "Collapse";
             pre.setAttribute("data-expanded", "true");
           }
