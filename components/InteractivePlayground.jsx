@@ -217,7 +217,7 @@ const CodeDisplay = ({ code, highlightedLines }) => {
         .highlight-line{background-color:${hexToRgba(
           HIGHLIGHT_COLOR,
           0.3
-        )};animation:highlight-fade 2s ease-out}
+        )};animation:highlight-fade 1.5s ease-out}
         @keyframes highlight-fade{
           0%{background-color:${hexToRgba(HIGHLIGHT_COLOR, 0.5)}}
           100%{background-color:${hexToRgba(HIGHLIGHT_COLOR, 0)}}
