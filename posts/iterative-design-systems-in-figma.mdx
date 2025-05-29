@@ -11,45 +11,16 @@ categories:
   - Web Design
 ---
 
-## Folder Structure
-
+## Figma Structure
+In Figma, you have the ability to create different pages.
 <FileStructure>
-  <File type="folder/files" level={0} focus={false}>name</File>
+  <File type="file" level={0} focus={false}>Components</File>
+  <File type="file" level={0} focus={true}>Experimenting</File>
+  <File type="file" level={0} focus={false}>Website</File>
 </FileStructure>
 
-<InteractivePlayground
-  elementName="circle"
-  layout="horizontal"
-  width="1200px"
-  options={[
-    {
-      name: "size",
-      label: "Size",
-      type: "slider",
-      min: 50,
-      max: 200,
-      default: 100,
-      unit: "px",
-      property: "width",
-      description: "Adjust the circle size"
-    },
-    {
-      name: "borderRadius",
-      label: "Border Radius",
-      type: "slider",
-      min: 0,
-      max: 50,
-      default: 50,
-      unit: "%",
-      property: "border-radius"
-    }
-  ]}
->
-  <div 
-    className="circle" 
-    style={{ 
-      backgroundColor: "#e74c3c",
-      aspectRatio: "1/1"
-    }}
-  />
-</InteractivePlayground>
+<FileStructure>
+  <File type="folder" level={0} focus={false}>css</File>
+  <File type="file" level={1} focus={false}>style.css</File>
+  <File type="file" level={0} focus={true}>index.html</File>
+</FileStructure>

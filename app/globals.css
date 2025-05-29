@@ -59,6 +59,10 @@ p, .callout, pre {
   margin-top: 0;
 }
 
+.callout code, .callout pre {
+  @apply text-xs
+}
+
 .article a {
   @apply underline underline-offset-4 hover:decoration-gray-200 
 }
