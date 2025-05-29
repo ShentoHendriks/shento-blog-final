@@ -32,11 +32,11 @@ h1 {
   @apply text-5xl md:text-7xl mb-[2rem] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-4xl mt-[2em] mb-[1em] tracking-tight;
+  @apply text-4xl mt-[2em] mb-[1em] tracking-tighter;
 }
 
 h3 {
-  @apply text-2xl mt-[1.6em] mb-[0.6em];
+  @apply text-2xl mt-[1.6em] mb-[0.6em] tracking-tighter;
 }
 
 .description {

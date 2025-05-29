@@ -12,12 +12,12 @@ export default async function Post({ params }) {
 
   return (
     <article className="container mx-auto p-4 article">
-      <div className="flex flex-wrap gap-2 opacity-55 mb-[2em]">
+      <div className="flex flex-wrap gap-1 opacity-55">
         {data.categories
           .sort((a, b) => a.localeCompare(b))
           .map((c, index) => (
             <div
-              className="text-sm text-[#4E5BA6] px-2 py-0.5 border border-[#D5D9EB] flex w-fit rounded-md"
+              className="text-sm text-[#4E5BA6] px-2 py-0.5 flex w-fit rounded-md"
               key={index}>
               {c}
             </div>
