@@ -109,12 +109,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
           linear-gradient(
             to bottom,
             transparent 0%,
-            transparent 40%,
-            rgba(255, 255, 255, 0.1) 50%,
-            rgba(255, 255, 255, 0.3) 60%,
-            rgba(255, 255, 255, 0.5) 70%,
-            rgba(255, 255, 255, 0.7) 80%,
-            rgba(255, 255, 255, 0.9) 90%,
+            transparent 70%,
             rgba(255, 255, 255, 1) 100%
           )
         `;
