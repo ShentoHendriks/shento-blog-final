@@ -57,7 +57,7 @@ export function Step({ stepNumber, title, children }) {
   }
 
   return (
-    <div className="step grid grid-cols-1 lg:grid-cols-[360px_1fr] lg:gap-12 mb-6">
+    <div className="step grid grid-cols-1 lg:grid-cols-[360px_1fr] lg:gap-6 mb-6">
       {/* Left column: Number, Title, Description */}
       <div className="">
         <div className="flex items-start gap-3">
