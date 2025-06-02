@@ -1,0 +1,80 @@
+---
+title: Typescript Essentials pt. 1
+description: "Imagine you're building a large application with a team. One developer writes a function that expects a user object with specific properties, but another developer calls it with a string by mistake. In JavaScript, you won't discover this error until the code runs in production and crashes. The solution? TypeScript."
+date: 2025-05-31T11:06:14.207Z
+updated: null
+preview: ""
+draft: true
+tags: []
+categories:
+  - Tutorial
+  - Web Development
+  - TypeScript
+---
+
+### Prerequisites:
+- Node.js installed (version 14 or higher)
+- Basic knowledge of JavaScript
+
+## Introduction
+TypeScript is a statically-typed superset of JavaScript that adds optional **type annotations** and compiles to plain JavaScript, enabling developers to catch errors at compile-time rather than runtime.
+
+<Callout>
+TypeScript is called a superset of JavaScript because every valid JavaScript program is also a valid TypeScript program, but TypeScript adds additional features (like types) on top of JavaScript's existing syntax.
+</Callout>
+
+<Tabs>
+  <TabPanel title="example.ts">
+```ts
+function add(a: number, b: number): number {
+    return a + b;
+}
+
+const goodExample = add(5, 5);
+const badExample = add("5", 5); // will give an error
+```
+  </TabPanel>
+</Tabs>
+
+## Your First TypeScript code
+For this tutorial, we will work with only **one file** inside your project folder.
+<FileStructure>
+  <File type="folder" level={0} focus={false}>typescript-tutorial</File>
+  <File type="file" level={1} focus={true}>index.ts</File>
+</FileStructure>
+### Installing TypeScript
+Before you can use TypeScript, you must install it. 
+
+```sh
+npm install -g typescript
+```
+### Writing your first code
+After you installed it, create a file named `index.ts` (this can be any name you want). Add the following code:
+
+<Tabs>
+  <TabPanel title="index.ts">
+```ts
+let message: string;
+message = "Hello World!";
+
+console.log(message);
+```
+  </TabPanel>
+</Tabs>
+Compile the TypeScript file to Javascript: `tsc index.ts`. Execute the JavaScript file: `node index.js`
+
+## More elegant set-up
+Every time you make changes to your `.ts` file, you must repeat the steps of first compiling it using `tsc`, then running it to actually see your changes. Because this is cumbersome, there's a more elegant way to automate this using [tsx](https://tsx.is/).
+
+**tsx** stands for TypeScript Execute and it's a Node.js enhancement to run TypeScript.
+So instead of doing all those previous steps, we can just run `tsx index.ts`
+
+Let's first install `tsx` and let it run everytime we save the file. This saves a lot of work.
+```sh
+npm install --save-dev tsx
+npx tsx watch index.ts
+```
+
+<Steps>
+  
+</Steps>

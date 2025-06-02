@@ -1,6 +1,8 @@
 import fs from "fs";
 import matter from "gray-matter";
-import BlogWithSearch from './BlogWithSearch';
+import BlogWithSearch from "./BlogWithSearch";
+
+// TODO: create a component that allows selecting posts and shows next and previous post (for related tutorials)
 
 function getPosts() {
   return fs

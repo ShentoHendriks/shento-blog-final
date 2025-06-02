@@ -36,9 +36,9 @@ export default async function Post({ params }) {
       </div>
       <h1 className="mt-4">{data.title}</h1>
       <p className="text-xl max-w-[600px] description">{data.description}</p>
-      <div className="flex gap-2.5 items-center text-sm">
+      <div className="flex gap-2.5 items-center text-sm mb-20">
         <Image
-          className="w-10 h-10 rounded-full !my-0"
+          className="w-8 h-8 rounded-full !my-0"
           width={100}
           height={100}
           src="/shento-image.png"

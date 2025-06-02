@@ -18,7 +18,8 @@ export default function Callout({ children, type = "info" }) {
 
   return (
     <div
-      className={`rounded-md ${styles.bg} ${styles.text} px-6 py-4 my-[2em] callout text-sm`}>
+      className={`rounded-md ${styles.bg} ${styles.text} px-6 py-4 my-[2em] callout text-sm`}
+    >
       {children}
     </div>
   );
