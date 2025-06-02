@@ -2,7 +2,7 @@
 
 import { Children, cloneElement, isValidElement } from "react";
 
-export function Steps({ children, width = "1000px" }) {
+export function Steps({ children, width = "800px" }) {
   const steps = Children.toArray(children);
 
   // Use a custom CSS variable that we can reference in Tailwind
@@ -10,7 +10,7 @@ export function Steps({ children, width = "1000px" }) {
 
   return (
     <div
-      className={` ${
+      className={`my-12 ${
         width
           ? "lg:w-[calc(var(--custom-width)_-_2em)] lg:max-w-[calc(100vw_-_2em)] lg:mx-auto lg:relative lg:left-1/2 lg:-translate-x-1/2"
           : ""

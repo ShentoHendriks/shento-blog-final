@@ -158,7 +158,8 @@ pre.shiki code {
   line-height: 1.8;
 }
 
-.step .tabs-header {
+.step .tabs-header,
+.step code {
   @apply text-xs;
 }
 

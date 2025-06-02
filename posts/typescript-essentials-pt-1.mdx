@@ -37,21 +37,22 @@ const badExample = add("5", 5); // will give an error
 </Tabs>
 
 ## Your First TypeScript code
-For this tutorial, we will work with only **one file** inside your project folder.
-<FileStructure>
-  <File type="folder" level={0} focus={false}>typescript-tutorial</File>
-  <File type="file" level={1} focus={true}>index.ts</File>
-</FileStructure>
-### Installing TypeScript
-Before you can use TypeScript, you must install it. 
+Follow these steps to create your first TypeScript code.
 
+<Steps width="800px">
+  <Step title="Installing TypeScript">
+  Open your Terminal and install TypeScript.
+    <Tabs>
+      <TabPanel title="Terminal">
 ```sh
 npm install -g typescript
 ```
-### Writing your first code
-After you installed it, create a file named `index.ts` (this can be any name you want). Add the following code:
-
-<Tabs>
+      </TabPanel>
+    </Tabs>
+  </Step>
+  <Step title="First TypeScript Code">
+  After you installed it, create a file named `index.ts` (this can be any name you want). Add the following code:
+    <Tabs>
   <TabPanel title="index.ts">
 ```ts
 let message: string;
@@ -61,7 +62,20 @@ console.log(message);
 ```
   </TabPanel>
 </Tabs>
-Compile the TypeScript file to Javascript: `tsc index.ts`. Execute the JavaScript file: `node index.js`
+  </Step>
+  <Step title="Compile to JavaScript">
+Compile the TypeScript file to Javascript.
+    <Tabs>
+  <TabPanel title="Terminal">
+```sh
+tsc index.ts
+node index.js
+```
+  </TabPanel>
+</Tabs>
+  </Step>
+</Steps>
+
 
 ## More elegant set-up
 Every time you make changes to your `.ts` file, you must repeat the steps of first compiling it using `tsc`, then running it to actually see your changes. Because this is cumbersome, there's a more elegant way to automate this using [tsx](https://tsx.is/).
