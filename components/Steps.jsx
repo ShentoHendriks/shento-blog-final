@@ -10,7 +10,7 @@ export function Steps({ children, width = "800px" }) {
 
   return (
     <div
-      className={`my-12 ${
+      className={`my-16 ${
         width
           ? "lg:w-[calc(var(--custom-width)_-_2em)] lg:max-w-[calc(100vw_-_2em)] lg:mx-auto lg:relative lg:left-1/2 lg:-translate-x-1/2"
           : ""
@@ -71,7 +71,7 @@ export function Step({ stepNumber, title, children }) {
 
       {/* Right column: Tabs with code */}
       {tabs && (
-        <div className="lg:ml-0 lg:max-w-full overflow-x-auto mt-4">{tabs}</div>
+        <div className="lg:ml-0 lg:max-w-full overflow-x-auto">{tabs}</div>
       )}
     </div>
   );
