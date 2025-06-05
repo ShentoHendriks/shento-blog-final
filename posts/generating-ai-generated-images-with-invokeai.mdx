@@ -11,23 +11,98 @@ categories:
   - AI
 ---
 
-<CustomImage src="screenshot-invokeai.png"  />
-
 ## Introduction
-InvokeAI is a user-friendly, locally-run generative AI platform for creating high-quality visual media. It offers a unified canvas, workflow manager, advanced prompting, inpainting/outpainting, and robust model management. Its one-click installer makes it exceptionally accessible compared to competitors.
-
+InvokeAI is a powerful, open-source application that lets you generate AI images directly on your computer—no internet connection or subscription required. Unlike cloud-based services, InvokeAI gives you complete control over your creative process with features like:
+- **Unified Canvas:** Create and edit images in one seamless workspace
+- **Advanced Prompting:** Fine-tune your results with detailed text descriptions
+- **Inpainting/Outpainting:** Edit specific parts of images or expand them beyond their borders
+- **Model Management:** Easy installation and switching between different AI models
+- **One-Click Installation:** Simpler setup than most competitors
+<CustomImage src="screenshot-invokeai.png" />
 ### Requirements
 - **A modern Graphics Card (GPU):** Something like an NVIDIA RTX 3050 model or newer is recommended.
 - **At least 8 GB of RAM (Memory):** More is often better, but 8GB is the minimum.
+- **Storage:** At least 10GB free space for the application and models
 
-## Installing InvokeAI
-Go to the [official page](https://www.invoke.com/downloads) and download the version suitable for your system. Then follow the installation instructions to install InvokeAI on your computer.
+## Install
+Go to the [official page](https://www.invoke.com/downloads) and download the installer for your operating system (Windows, Mac, or Linux). Run the installer and follow the on-screen instructions
 
-## Installing models
-After finishing the installation, you **must** install some models. Click on the square icon.
+<Callout>
+The installation process is quite straightforward. Keep the default settings—they're optimized for most users. Choose location for the folder, you can easily access.
+</Callout>
 
-<CustomImage src="2025-06-05-22-24-56.png" style={{height: "75px", width: "auto"}}  />
+## Downloading models
+<Steps vertical>
+  <Step title="Navigate to Model Manager" vertical>
+  After installation, you'll need to download AI models before generating images. Open InvokeAI and click the **Model Manager** icon (the square icon, 4th from the left).
+  </Step>
+  <Step title="Installing a Starter Model" vertical>
+  Navigate to **Starter Models**, and you'll see a list of different models. Choose models based on your hardware:
+-  If you have a powerful computer:, install `Flux` or `SDXL` models.
+-  if you have a weaker PC, install `SD1.X  models.
+-  **Recommended starter:** `Juggernaut XL v9` (excellent for photorealistic images)
 
-Navigate to **Starter Models**, and you'll see a list of different models. The differences will be explained later. If you have a powerful computer, install `SDXL` models, if you have a weaker PC, install `SD1.X` models. Click on the `+` icon to install them.
+Click on the `+` icon to install them.
+  </Step>
+  <Step title="Prune install" vertical>
+  After the installation is done, click on `Prune` to clear the queue. This is good practice as it will free up resources and clear cache.
+  </Step>
+</Steps>
+<Callout>
+Visit [civitai.com](https://civitai.com) to browse thousands of community-created models with different artistic styles. Note: This site contains adult content—use filters if needed.
+</Callout>
 
-I will install **Juggernaut XL v9** as this model is good for photograph-focused images.
+## Generating images
+
+### Selecting your model
+Navigate to the canvas (1st icon), go to `Generation` > `Model`, and make sure you selected your downloaded model.
+<CustomImage src="generation-model.png" />
+
+### Important settings 
+
+The settings of InvokeAI are straightforward once you understand them.
+
+`Positive Prompt:` Descriptive text that tells the AI what you **want to create**, including subjects, style, composition, and visual elements.
+
+*Example: "A serene mountain lake at sunset, oil painting style, warm golden lighting, reflections on water"*
+
+`Negative Prompt:` Descriptive text **specifying unwanted elements**, styles, or quality issues to exclude from the generated image.
+
+*Example: "blurry, low quality, extra limbs, distorted faces, watermark, text"*
+
+
+`Aspect`: The proportional relationship between **width and height** of the generated image, expressed as a ratio.
+
+
+`Seed`: A numerical value that determines the **randomness** pattern for image generation, allowing reproducible results when kept constant.
+
+### Prompting
+
+This is what I entered in my Postive Prompt, and then pressed `Invoke`, which generates the image.
+
+```md
+A beautiful fantasy castle during the sunset
+with an irish landscape.
+```
+### The result
+After a few seconds, the result was quite interesting. The image generated really beautiful.
+
+<CustomImage src="2025-06-06-01-24-36.png"  />
+
+## Advanced Settings
+There are also advanced settings, the most impactful one are those under `Generation`. If you reveal those options you see: `Scheduler`, `Steps`, and `CFG Scale`.
+
+### Scheduler
+Controls the **algorithm** that guides how the AI transitions from **random noise** to your final image. Think of it as the "pace and style" of the generation process.
+
+Popular schedulers like `Euler a` (Best for beginners due to its speed and efficiency. Works well at lower step counts (15-30 steps). Tends to generate diverse results quickly but may sacrifice fine details. Ideal for brainstorming or quick iterations.)
+
+`PM Family` (DPM++, DPM2, etc.) **Widely recommended** for high-quality results once you know your prompt. Typically requires **20-40 steps** for optimal output. `DPM++ 2M Karras` is a community favorite for its balance of quality and efficiency. Avoid at low step counts (\<15).
+
+`LMS/DDIM` Best for **sharp images** with well-defined subjects (e.g., portraits). Requires moderate steps (25-35). More consistent than Euler a but slower. **Ideal for final renders.**
+
+### Steps
+Determines how many refinement cycles the AI performs during image creation. **Higher step** counts (e.g., 30-50) allow more iterations to refine details and textures, generally improving quality but requiring more processing time. **Lower steps** (e.g., 15-25) speed up generation but *may* compromise detail. The ideal setting varies based on your hardware and image complexity.
+
+### CFG Scale
+**Classifier-Free Guidance Scale** determines how strictly the AI adheres to your text prompt. Lower values (1-5) grant the model creative freedom, potentially deviating from your description for more artistic interpretations. Higher values (7-15) enforce tighter prompt alignment but risk producing stiff or unnatural-looking images. Medium values (5-8) typically balance creativity and fidelity.

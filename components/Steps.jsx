@@ -10,7 +10,7 @@ export function Steps({ children, width = "800px", vertical }) {
 
   return (
     <div
-      className={`my-8 ${
+      className={`mt-14 mb-14 ${
         width
           ? "lg:w-[calc(var(--custom-width)_-_2em)] lg:max-w-[calc(100vw_-_2em)] lg:mx-auto lg:relative lg:left-1/2 lg:-translate-x-1/2"
           : ""

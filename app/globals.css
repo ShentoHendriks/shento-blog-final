@@ -32,11 +32,11 @@ h1 {
   @apply text-5xl md:text-7xl mb-[2rem] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-4xl mt-[1.5em] mb-[0.5em] tracking-tight;
+  @apply text-4xl mt-[1.5em] mb-[0.75em] tracking-tight;
 }
 
 h3 {
-  @apply text-2xl mt-[1.6em] mb-[0.5em] tracking-tight;
+  @apply text-2xl mt-[1.6em] mb-[0.75em] tracking-tight;
 }
 
 p {
@@ -77,11 +77,11 @@ table {
 }
 
 ul {
-  @apply list-disc  ml-4 my-[1em];
+  @apply list-disc  ml-4 my-[0.75em];
 }
 
 ol {
-  @apply list-decimal  ml-4 my-[1em];
+  @apply list-decimal  ml-4 my-[0.75em];
 }
 
 li {
@@ -93,7 +93,7 @@ li::marker {
 }
 
 hr {
-  @apply my-[3em];
+  @apply my-[2.0em];
 }
 
 pre {
@@ -104,7 +104,7 @@ pre {
 }
 
 code {
-  @apply text-sm bg-[var(--dark-gray-blue)] text-white px-2 py-[4px] rounded-md mx-0.5 text-nowrap;
+  @apply text-sm bg-blue-50 text-blue-950 border border-blue-100 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
 }
 
 pre.shiki code {
