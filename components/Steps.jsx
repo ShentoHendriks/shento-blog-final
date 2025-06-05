@@ -2,7 +2,7 @@
 
 import { Children, cloneElement, isValidElement } from "react";
 
-export function Steps({ children, width = "800px" }) {
+export function Steps({ children, width = "800px", vertical }) {
   const steps = Children.toArray(children);
 
   // Use a custom CSS variable that we can reference in Tailwind
@@ -10,11 +10,13 @@ export function Steps({ children, width = "800px" }) {
 
   return (
     <div
-      className={`my-16 ${
+      className={`my-8 ${
         width
           ? "lg:w-[calc(var(--custom-width)_-_2em)] lg:max-w-[calc(100vw_-_2em)] lg:mx-auto lg:relative lg:left-1/2 lg:-translate-x-1/2"
           : ""
-      }`}
+      }
+      ${vertical && "!w-full !max-w-full !lg:w-full !lg:max-w-full"}
+        `}
       style={style}
     >
       {steps.map((step, index) =>
@@ -26,7 +28,7 @@ export function Steps({ children, width = "800px" }) {
   );
 }
 
-export function Step({ stepNumber, title, children }) {
+export function Step({ stepNumber, title, children, vertical }) {
   // Convert children to array and filter out empty elements
   const content = Children.toArray(children).filter((child) => {
     // Filter out empty text nodes
@@ -57,16 +59,20 @@ export function Step({ stepNumber, title, children }) {
   }
 
   return (
-    <div className="step grid grid-cols-1 lg:grid-cols-[360px_1fr] lg:gap-6 mb-6">
+    <div
+      className={`step grid grid-cols-1 lg:gap-6 mb-6 ${
+        vertical ? "lg:grid-cols-1" : "lg:grid-cols-[350px_1fr]"
+      }`}
+    >
       {/* Left column: Number, Title, Description */}
       <div className="">
-        <div className="flex items-start gap-3">
-          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary">
+        <div className="flex lg:items-start flex-col lg:flex-row gap-3 lg:gap-5">
+          <div className="flex flex-start font-semibold text-primary lg:mt-1">
             {stepNumber?.toString().padStart(2, "0")}
           </div>
           <h3 className="text-lg font-semibold mt-0.5">{title}</h3>
         </div>
-        <div className="text-gray-600 text-sm ml-11">{description}</div>
+        <div className="text-gray-600 text-sm">{description}</div>
       </div>
 
       {/* Right column: Tabs with code */}

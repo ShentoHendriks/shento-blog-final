@@ -32,15 +32,15 @@ h1 {
   @apply text-5xl md:text-7xl mb-[2rem] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-4xl mt-[2em] mb-[1em] tracking-tight;
+  @apply text-4xl mt-[1.5em] mb-[0.5em] tracking-tight;
 }
 
 h3 {
-  @apply text-2xl mt-[1.6em] mb-[0.6em] tracking-tight;
+  @apply text-2xl mt-[1.6em] mb-[0.5em] tracking-tight;
 }
 
 p {
-  @apply my-[1.25em] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty;
+  @apply my-[1em] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty;
 }
 
 p,
@@ -77,11 +77,11 @@ table {
 }
 
 ul {
-  @apply list-disc  ml-4 my-[1.25em];
+  @apply list-disc  ml-4 my-[1em];
 }
 
 ol {
-  @apply list-decimal  ml-4 my-[1.25em];
+  @apply list-decimal  ml-4 my-[1em];
 }
 
 li {
@@ -156,6 +156,10 @@ pre.shiki code {
   margin-top: 0;
   margin-bottom: 1em;
   line-height: 1.8;
+}
+
+.step .filestructure p {
+  margin-bottom: 0;
 }
 
 .step .tabs-header,

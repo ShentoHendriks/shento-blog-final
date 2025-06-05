@@ -16,6 +16,7 @@ const components = {
   File,
   Steps,
   Step,
+  CustomImage,
   // Add custom link component
   a: ({ href, children, ...props }) => {
     // Check if it's an external link
