@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --dark-gray-blue: #293056;
@@ -8,8 +6,14 @@
   --spacing-modifier: 1;
 }
 
+@theme {
+  --color-gray-blue-100: #eaecf5;
+  --color-gray-blue-700: #363f72;
+  --color-gray-blue-800: #293056;
+}
+
 body {
-  @apply text-[var(--dark-gray-body)] antialiased;
+  @apply text-gray-blue-700 antialiased;
 }
 
 .container {
@@ -26,7 +30,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-[var(--dark-gray-blue)] text-balance;
+  @apply text-gray-blue-800 text-balance;
 }
 
 h1 {
@@ -41,7 +45,7 @@ h3 {
 }
 
 p {
-  @apply mb-4 max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty flow-root;
+  @apply mb-4 max-w-[650px] leading-7 text-pretty;
 }
 
 p,
@@ -69,12 +73,12 @@ pre {
 }
 
 .article a {
-  @apply underline underline-offset-4 hover:decoration-gray-200;
+  @apply underline underline-offset-4 hover:border-b-[2px] hover:duration-75;
 }
 
 img,
 table {
-  @apply rounded-md border border-[#D5D9EB] w-full !my-4;
+  @apply rounded-md border border-[#D5D9EB] !my-4;
 }
 
 ul {
@@ -86,11 +90,7 @@ ol {
 }
 
 li {
-  @apply ml-4 pl-2 leading-7 my-[0.5em] text-[var(--dark-gray-body)];
-}
-
-li::marker {
-  @apply text-[var(--dark-gray-body)];
+  @apply ml-4 pl-2 leading-7 my-[0.5em];
 }
 
 hr {
@@ -105,7 +105,7 @@ pre {
 }
 
 code {
-  @apply text-sm bg-blue-50 text-blue-950 border border-blue-100 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
+  @apply text-sm bg-gray-blue-100 text-gray-blue-800 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
 }
 
 pre.shiki code {
@@ -146,12 +146,6 @@ pre.shiki code {
   display: flex;
 }
 
-.step .tabs-container {
-  margin-top: 0;
-  margin-bottom: 0;
-  max-width: 100%;
-}
-
 .step p {
   margin-top: 0;
   margin-bottom: 1em;
@@ -163,6 +157,10 @@ pre.shiki code {
 
 .step .filestructure p {
   margin-bottom: 0;
+}
+
+.step:last-child .number-line {
+  display: none;
 }
 
 .tabs-container {
@@ -180,7 +178,7 @@ pre.shiki code {
 }
 
 .tab-button {
-  @apply text-gray-500 px-6 py-4 pb-8 text-nowrap text-[var(--dark-gray-blue)];
+  @apply px-6 py-4 pb-8 text-nowrap text-gray-blue-800;
 }
 .tab-button.active {
   @apply bg-[var(--dark-gray-blue)] px-6 py-4 pb-8 text-white rounded-t-md;

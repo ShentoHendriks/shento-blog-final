@@ -25,11 +25,11 @@ export function File({ children, level = 0, type = "file", focus = false }) {
     >
       <div className="flex items-center justify-start gap-3">
         <img
-          className="border-none w-4 h-4 m-0 rounded-none !my-0"
+          className="!border-none w-4 h-4 m-0 !rounded-none !my-0"
           src={`${type == "file" ? "file.svg" : "folder.svg"}`}
           alt="Icon"
         />
-        <p className="m-0">{children}</p>
+        <p className="!m-0">{children}</p>
         {focus && (
           <span className="w-2 h-2 rounded-full absolute right-5 bg-[#3E4784]"></span>
         )}

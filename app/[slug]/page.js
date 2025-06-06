@@ -34,18 +34,18 @@ export default async function Post({ params }) {
             </div>
           ))}
       </div>
-      <h1 className="mt-4">{data.title}</h1>
+      <h1 className="!mt-4">{data.title}</h1>
       <p className="text-xl max-w-[600px] mt-0">{data.description}</p>
       <div className="flex gap-2.5 items-center text-sm mt-4 mb-10">
         <Image
-          className="w-8 h-8 rounded-full !my-0"
+          className="w-8 h-8 !rounded-full !my-0"
           width={100}
           height={100}
           src="/shento-image.png"
           alt="Image of Shento Hendriks"
         />
-        <p className="opacity-70 mb-0">By Shento Hendriks</p>
-        <p className="opacity-70 mb-0">•</p>
+        <p className="opacity-70 !mb-0">By Shento Hendriks</p>
+        <p className="opacity-70 !mb-0">•</p>
         <time className="opacity-70" datetime={formatDate(data.date)}>
           {formatDate(data.date)}
         </time>

@@ -39,7 +39,7 @@ const badExample = add("5", 5); // will give an error
 ## Your First TypeScript code
 Follow these steps to create your first TypeScript code.
 
-<Steps width="800px">
+<Steps>
   <Step title="Installing TypeScript">
   Open your Terminal and install TypeScript.
     <Tabs>
@@ -57,7 +57,6 @@ npm install -g typescript
 ```ts
 let message: string;
 message = "Hello World!";
-
 console.log(message);
 ```
   </TabPanel>
@@ -66,10 +65,11 @@ console.log(message);
   <Step title="Compile to JavaScript">
 Compile the TypeScript file to Javascript.
     <Tabs>
-  <TabPanel title="Terminal">
-```sh
-tsc index.ts
-node index.js
+  <TabPanel title="index.ts">
+```ts
+let message: string;
+message = "Hello World!";
+console.log(message);
 ```
   </TabPanel>
 </Tabs>
