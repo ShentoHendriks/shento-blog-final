@@ -6,7 +6,7 @@ export function Steps({ children }) {
   const steps = Children.toArray(children);
 
   return (
-    <div className="my-4">
+    <div className="my-4 steps">
       {steps.map((step, index) =>
         isValidElement(step)
           ? cloneElement(step, { stepNumber: index + 1 })
