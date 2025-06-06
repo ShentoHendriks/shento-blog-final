@@ -5,6 +5,7 @@ import { InteractivePlayground } from "./InteractivePlayground";
 import { FileStructure, File } from "./FileStructure";
 import CustomImage from "./CustomImage";
 import { Steps, Step } from "./Steps";
+import Dos from "./Dos";
 
 const components = {
   Button,
@@ -17,6 +18,7 @@ const components = {
   Steps,
   Step,
   CustomImage,
+  Dos,
   // Add custom link component
   a: ({ href, children, ...props }) => {
     // Check if it's an external link

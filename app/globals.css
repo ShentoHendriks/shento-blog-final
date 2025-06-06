@@ -108,6 +108,37 @@ code {
   @apply text-sm bg-gray-blue-100 text-gray-blue-800 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
 }
 
+.callout code {
+  @apply rounded-s;
+}
+
+.callout.info code {
+  color: inherit;
+  background: #ced2ed !important;
+}
+
+.callout.danger code {
+  color: inherit;
+  background: #fff7f7 !important;
+  border: 1px solid #eacece;
+}
+
+.callout.warning code {
+  border: 1px solid #ead7bb !important;
+  color: inherit;
+  background: #fff2e0 !important;
+}
+
+.callout.success code {
+  color: #115828;
+  border: 1px solid #b6e5c5 !important;
+  background: #f0fff5;
+}
+
+.dos p {
+  margin: 0;
+}
+
 pre.shiki code {
   all: unset;
 }
