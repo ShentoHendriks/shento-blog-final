@@ -10,7 +10,7 @@ export function Steps({ children, width = "800px", vertical }) {
 
   return (
     <div
-      className={`mt-14 mb-14 ${
+      className={`my-4 ${
         width
           ? "lg:w-[calc(var(--custom-width)_-_2em)] lg:max-w-[calc(100vw_-_2em)] lg:mx-auto lg:relative lg:left-1/2 lg:-translate-x-1/2"
           : ""
@@ -67,12 +67,12 @@ export function Step({ stepNumber, title, children, vertical }) {
       {/* Left column: Number, Title, Description */}
       <div className="">
         <div className="flex lg:items-start flex-col lg:flex-row gap-3 lg:gap-5">
-          <div className="flex flex-start font-semibold text-primary lg:mt-1">
+          <div className="flex flex-start font-semibold text-primary lg:mt-0.5">
             {stepNumber?.toString().padStart(2, "0")}
           </div>
-          <h3 className="text-lg font-semibold mt-0.5">{title}</h3>
+          <p className="font-semibold mt-0.5">{title}</p>
         </div>
-        <div className="text-gray-600 text-sm">{description}</div>
+        <div className="text-gray-600">{description}</div>
       </div>
 
       {/* Right column: Tabs with code */}

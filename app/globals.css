@@ -149,22 +149,15 @@ pre.shiki code {
   margin-top: 0;
   margin-bottom: 0;
   max-width: 100%;
-  @apply text-sm;
 }
 
 .step p {
   margin-top: 0;
   margin-bottom: 1em;
-  line-height: 1.8;
 }
 
 .step .filestructure p {
   margin-bottom: 0;
-}
-
-.step .tabs-header,
-.step code {
-  @apply text-xs;
 }
 
 .tabs-container {
