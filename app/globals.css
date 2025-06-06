@@ -5,6 +5,7 @@
 :root {
   --dark-gray-blue: #293056;
   --dark-gray-body: #363f72;
+  --spacing-modifier: 1;
 }
 
 body {
@@ -25,22 +26,22 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-[var(--dark-gray-blue)] text-balance flow-root;
+  @apply text-[var(--dark-gray-blue)] text-balance;
 }
 
 h1 {
-  @apply text-5xl md:text-7xl mb-[2rem] mt-12 max-w-[800px] tracking-tighter;
+  @apply text-5xl md:text-7xl mb-[0.25em] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-4xl mt-[1.5em] mb-[0.75em] tracking-tight;
+  @apply text-4xl mt-[1em] mb-[0.5em] tracking-tight;
 }
 
 h3 {
-  @apply text-2xl mt-[1.6em] mb-[0.75em] tracking-tight;
+  @apply text-2xl mt-[1em] mb-[0.5em] tracking-tight;
 }
 
 p {
-  @apply my-[1em] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty flow-root;
+  @apply mb-4 max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty flow-root;
 }
 
 p,
@@ -73,15 +74,15 @@ pre {
 
 img,
 table {
-  @apply rounded-md border border-[#D5D9EB] w-full !my-[2em];
+  @apply rounded-md border border-[#D5D9EB] w-full !my-4;
 }
 
 ul {
-  @apply list-disc  ml-4 my-[0.75em];
+  @apply list-disc mb-4;
 }
 
 ol {
-  @apply list-decimal  ml-4 my-[0.75em];
+  @apply list-decimal mb-4;
 }
 
 li {
@@ -99,7 +100,7 @@ hr {
 pre {
   padding: 24px;
   border-radius: 0.5em;
-  margin: 1.714em 0;
+  margin: 1em 0;
   overflow: auto;
 }
 
@@ -140,7 +141,7 @@ pre.shiki code {
 .tab-content code {
   padding: 24px;
   border-radius: 0.5em;
-  margin: 2em 0;
+  margin: 1em 0;
   overflow: auto;
   display: flex;
 }
@@ -156,13 +157,17 @@ pre.shiki code {
   margin-bottom: 1em;
 }
 
+.steps .step:last-of-type {
+  margin-bottom: 0;
+}
+
 .step .filestructure p {
   margin-bottom: 0;
 }
 
 .tabs-container {
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   font-family: "Jetbrains Mono";
 }
 

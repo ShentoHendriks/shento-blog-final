@@ -121,7 +121,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
         const isExpanded = expandedBlocks.has(blockId);
 
         pre.style.cssText = `
-          max-height: ${isExpanded ? pre.scrollHeight + "px" : "500px"};
+          max-height: ${isExpanded ? pre.scrollHeight + "px" : "750px"};
           overflow: ${isExpanded ? "auto" : "hidden"};
           position: relative;
           transition: max-height 150ms ease-out;
@@ -146,7 +146,7 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
             if (newSet.has(blockId)) {
               newSet.delete(blockId);
               // Collapse
-              pre.style.maxHeight = "500px";
+              pre.style.maxHeight = "750px";
               pre.style.overflow = "hidden";
               gradientOverlay.style.opacity = "1";
               expandButton.innerHTML = "Expand";
@@ -195,16 +195,15 @@ export function Tabs({ children, defaultTab = 0, variant = "default" }) {
           <button
             key={index}
             className={`tab-button ${activeTab === index ? "active" : ""}`}
-            onClick={() => setActiveTab(index)}>
+            onClick={() => setActiveTab(index)}
+          >
             {tab.icon && <span className="tab-icon">{tab.icon}</span>}
             {tab.title}
           </button>
         ))}
       </div>
 
-      <div
-        className="tab-content"
-        ref={contentRef}>
+      <div className="tab-content" ref={contentRef}>
         {tabs[activeTab]?.content}
       </div>
     </div>

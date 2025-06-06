@@ -21,7 +21,7 @@ export default async function Post({ params }) {
   );
 
   return (
-    <article className="container mx-auto p-4 pt-16 article">
+    <article className="container mx-auto p-4 pt-16 article flex flex-col">
       <div className="flex flex-wrap gap-1">
         {data.categories
           .sort((a, b) => a.localeCompare(b))
@@ -35,8 +35,8 @@ export default async function Post({ params }) {
           ))}
       </div>
       <h1 className="mt-4">{data.title}</h1>
-      <p className="text-xl max-w-[600px] description">{data.description}</p>
-      <div className="flex gap-2.5 items-center text-sm mb-20">
+      <p className="text-xl max-w-[600px] mt-0">{data.description}</p>
+      <div className="flex gap-2.5 items-center text-sm mt-4 mb-10">
         <Image
           className="w-8 h-8 rounded-full !my-0"
           width={100}
@@ -44,8 +44,8 @@ export default async function Post({ params }) {
           src="/shento-image.png"
           alt="Image of Shento Hendriks"
         />
-        <p className="opacity-70">By Shento Hendriks</p>
-        <p className="opacity-70">•</p>
+        <p className="opacity-70 mb-0">By Shento Hendriks</p>
+        <p className="opacity-70 mb-0">•</p>
         <time className="opacity-70" datetime={formatDate(data.date)}>
           {formatDate(data.date)}
         </time>

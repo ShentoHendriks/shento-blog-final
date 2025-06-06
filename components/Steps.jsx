@@ -9,8 +9,8 @@ export function Steps({ children, width = "800px", vertical }) {
   const style = width ? { "--custom-width": width } : {};
 
   return (
-    <section
-      className={`mb-4 mt-16 flow-root ${
+    <div
+      className={`steps mt-8 mb-4 flow-root ${
         width
           ? "lg:w-[calc(var(--custom-width)_-_2em)] lg:max-w-[calc(100vw_-_2em)] lg:mx-auto lg:relative lg:left-1/2 lg:-translate-x-1/2"
           : ""
@@ -24,7 +24,7 @@ export function Steps({ children, width = "800px", vertical }) {
           ? cloneElement(step, { stepNumber: index + 1 })
           : step
       )}
-    </section>
+    </div>
   );
 }
 

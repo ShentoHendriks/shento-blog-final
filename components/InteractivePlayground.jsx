@@ -86,7 +86,8 @@ const Button = ({
   <button
     onClick={onClick}
     className={`${BUTTON_STYLES.base} ${BUTTON_STYLES.variant[variant]} ${className}`}
-    {...props}>
+    {...props}
+  >
     {children}
   </button>
 );
@@ -121,7 +122,8 @@ const ControlInput = ({ option, value, onChange }) => {
                 isActive
                   ? "bg-white text-[#293056]"
                   : "text-white bg-[#293056] hover:text-white hover:bg-[#3a4170]"
-              }`}>
+              }`}
+            >
               {utils.getOptionLabel(opt)}
             </button>
           );
@@ -132,13 +134,12 @@ const ControlInput = ({ option, value, onChange }) => {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="px-3 py-1 rounded text-[#293056] border border-[#d5d9eb46]">
+        className="px-3 py-1 rounded text-[#293056] border border-[#d5d9eb46]"
+      >
         {option.options.map(utils.normalizeOption).map((opt) => {
           const optValue = utils.getOptionValue(opt);
           return (
-            <option
-              key={optValue}
-              value={optValue}>
+            <option key={optValue} value={optValue}>
               {utils.getOptionLabel(opt)}
             </option>
           );
@@ -160,7 +161,8 @@ const CodeDisplay = ({ code }) => {
         onClick={() => copy(code)}
         variant={copied ? "success" : "default"}
         className={`absolute top-2 right-2 ${BUTTON_STYLES.copy}`}
-        aria-label={copied ? "Code copied" : "Copy code"}>
+        aria-label={copied ? "Code copied" : "Copy code"}
+      >
         {copied ? "Copied!" : "Copy"}
       </Button>
       <div
@@ -185,7 +187,8 @@ const ControlPanel = ({ options, values, onValueChange, onReset }) => {
       {options.map((opt) => (
         <div
           key={opt.name}
-          className="flex md:items-center md:flex-row flex-col gap-2">
+          className="flex md:items-center md:flex-row flex-col gap-2"
+        >
           <label className="mr-4 min-w-[120px]">{opt.label || opt.name}:</label>
           <ControlInput
             option={opt}
@@ -202,7 +205,8 @@ const ControlPanel = ({ options, values, onValueChange, onReset }) => {
       <div className="absolute -top-5 right-0 z-10 group-hover:opacity-100">
         <Button
           onClick={handleReset}
-          variant={resetting ? "success" : "default"}>
+          variant={resetting ? "success" : "default"}
+        >
           {resetting ? "Reset!" : "Reset to defaults"}
         </Button>
       </div>
@@ -318,7 +322,7 @@ export const InteractivePlayground = ({
     ? {
         width: `calc(${width} - 2em)`,
         maxWidth: "calc(100vw - 2em)",
-        margin: "3em auto",
+        margin: "2rem auto",
         position: "relative",
         left: "50%",
         transform: "translateX(-50%)",
@@ -327,8 +331,9 @@ export const InteractivePlayground = ({
 
   return (
     <div
-      className="my-[3em] p-6 bg-[#293056] rounded-md space-y-6"
-      style={containerStyle}>
+      className="my-[2rem] p-6 bg-[#293056] rounded-md space-y-6"
+      style={containerStyle}
+    >
       {options.length > 0 && (
         <ControlPanel
           options={options}
@@ -353,12 +358,14 @@ export const InteractivePlayground = ({
       <div
         className={`flex gap-4 ${
           isHorizontal ? "md:flex-row" : ""
-        } flex-col-reverse`}>
+        } flex-col-reverse`}
+      >
         {displayCSS && (
           <div
             className={
               isHorizontal ? "lg:flex md:min-w-[350px]" : "w-full lg:mb-0"
-            }>
+            }
+          >
             <CodeDisplay code={displayCSS} />
           </div>
         )}

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function FileStructure({ children }) {
   return (
-    <div className="bg-[#293056] p-10 flex text-[14px] justify-center items-center rounded-md flex-col my-[1.7em] filestructure">
+    <div className="bg-[#293056] p-10 flex text-[14px] justify-center items-center rounded-md flex-col my-[1em] filestructure">
       <div>{children}</div>
     </div>
   );

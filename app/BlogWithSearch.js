@@ -46,7 +46,7 @@ export default function BlogWithSearch({ posts }) {
         />
       </div>
 
-      <h2 className="mb-8">
+      <h2 className="mb-4">
         {searchQuery
           ? `Search Results (${filteredPosts.length})`
           : "Latest articles"}
@@ -65,7 +65,8 @@ export default function BlogWithSearch({ posts }) {
                   .map((c, index) => (
                     <div
                       className="px-2 py-0.5 bg-[#293056] text-sm text-white flex w-fit rounded-md"
-                      key={index}>
+                      key={index}
+                    >
                       {c}
                     </div>
                   ))}
