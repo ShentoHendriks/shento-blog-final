@@ -9,7 +9,7 @@
 }
 
 body {
-  @apply text-[var(--dark-gray-body)];
+  @apply text-[var(--dark-gray-body)] antialiased;
 }
 
 .container {
