@@ -25,7 +25,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-[var(--dark-gray-blue)] text-balance;
+  @apply text-[var(--dark-gray-blue)] text-balance flow-root;
 }
 
 h1 {
@@ -40,7 +40,7 @@ h3 {
 }
 
 p {
-  @apply my-[1em] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty;
+  @apply my-[1em] max-w-[650px] leading-7 text-[var(--dark-gray-body)] text-pretty flow-root;
 }
 
 p,
