@@ -91,16 +91,15 @@ pre {
 }
 
 .callout p {
-  @apply leading-[1.7em];
+  @apply leading-[1.7em] my-1;
 }
 
-.callout p:first-of-type,
-.callout p:last-of-type {
-  margin-bottom: 0;
-}
-
-.callout p:first-of-type {
+.callout *:first-child {
   margin-top: 0;
+}
+
+.callout *:last-child {
+  margin-bottom: 0;
 }
 
 .callout code,
@@ -109,7 +108,7 @@ pre {
 }
 
 .callout code {
-  @apply rounded-s;
+  @apply rounded-s px-[6px];
 }
 
 .callout.info code {
