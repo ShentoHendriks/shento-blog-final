@@ -45,7 +45,7 @@ h3 {
 }
 
 p {
-  @apply mb-2 lg:mb-4 max-w-[650px] leading-7 text-pretty;
+  @apply mb-4 max-w-[650px] leading-[1.7] lg:leading-7 text-pretty;
 }
 
 .article a {
