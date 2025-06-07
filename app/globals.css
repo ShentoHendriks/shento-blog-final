@@ -13,7 +13,7 @@
 }
 
 body {
-  @apply text-sm lg:text-base text-gray-blue-700 antialiased;
+  @apply text-base text-gray-blue-700 antialiased;
 }
 
 .container {
@@ -34,7 +34,7 @@ h6 {
 }
 
 h1 {
-  @apply text-5xl lg:text-7xl mb-[0.5em] mt-12 max-w-[800px] tracking-tighter;
+  @apply text-5xl lg:text-7xl mb-[0.25em] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
   @apply text-2xl lg:text-4xl mt-[1em] mb-[0.5em] tracking-tight;
@@ -45,7 +45,7 @@ h3 {
 }
 
 p {
-  @apply mb-4 max-w-[650px] leading-[1.7] lg:leading-7 text-pretty;
+  @apply mb-4 max-w-[650px] leading-7 text-pretty;
 }
 
 .article a {
