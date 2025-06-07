@@ -23,8 +23,8 @@ TypeScript is a statically-typed superset of JavaScript that adds optional **typ
 TypeScript is called a superset of JavaScript because every valid JavaScript program is also a valid TypeScript program, but TypeScript adds additional features (like types) on top of JavaScript's existing syntax.
 </Callout>
 
-<Tabs>
-  <TabPanel title="example.ts">
+<CodeTabs>
+  <CodeTab title="example.ts">
 ```ts
 function add(a: number, b: number): number {
     return a + b;
@@ -33,8 +33,8 @@ function add(a: number, b: number): number {
 const goodExample = add(5, 5);
 const badExample = add("5", 5); // will give an error
 ```
-  </TabPanel>
-</Tabs>
+  </CodeTab>
+</CodeTabs>
 
 ## Your First TypeScript code
 Follow these steps to create your first TypeScript code.
@@ -42,37 +42,37 @@ Follow these steps to create your first TypeScript code.
 <Steps>
   <Step title="Installing TypeScript">
   Open your Terminal and install TypeScript.
-    <Tabs>
-      <TabPanel title="Terminal">
+    <CodeTabs>
+      <CodeTab title="Terminal">
 ```sh
 npm install -g typescript
 ```
-      </TabPanel>
-    </Tabs>
+      </CodeTab>
+    </CodeTabs>
   </Step>
   <Step title="First TypeScript Code">
   After you installed it, create a file named `index.ts` (this can be any name you want). Add the following code:
-    <Tabs>
-  <TabPanel title="index.ts">
+    <CodeTabs>
+  <CodeTab title="index.ts">
 ```ts
 let message: string;
 message = "Hello World!";
 console.log(message);
 ```
-  </TabPanel>
-</Tabs>
+  </CodeTab>
+</CodeTabs>
   </Step>
   <Step title="Compile to JavaScript">
 Compile the TypeScript file to Javascript.
-    <Tabs>
-  <TabPanel title="index.ts">
+    <CodeTabs>
+  <CodeTab title="index.ts">
 ```ts
 let message: string;
 message = "Hello World!";
 console.log(message);
 ```
-  </TabPanel>
-</Tabs>
+  </CodeTab>
+</CodeTabs>
   </Step>
 </Steps>
 
