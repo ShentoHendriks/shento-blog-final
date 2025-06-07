@@ -35,7 +35,9 @@ export default async function Post({ params }) {
           ))}
       </div>
       <h1 className="!mt-4">{data.title}</h1>
-      <p className="text-xl max-w-[600px] mt-0">{data.description}</p>
+      <p className="text-lg lg:text-xl max-w-[600px] mt-0">
+        {data.description}
+      </p>
       <div className="flex gap-2.5 items-center text-sm mt-4 mb-10">
         <Image
           className="w-8 h-8 !rounded-full !my-0"

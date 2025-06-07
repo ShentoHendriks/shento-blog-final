@@ -13,7 +13,7 @@
 }
 
 body {
-  @apply text-gray-blue-700 antialiased;
+  @apply text-sm lg:text-base text-gray-blue-700 antialiased;
 }
 
 .container {
@@ -34,42 +34,18 @@ h6 {
 }
 
 h1 {
-  @apply text-5xl md:text-7xl mb-[0.25em] mt-12 max-w-[800px] tracking-tighter;
+  @apply text-5xl lg:text-7xl mb-[0.5em] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-4xl mt-[1em] mb-[0.5em] tracking-tight;
+  @apply text-2xl lg:text-4xl mt-[1em] mb-[0.5em] tracking-tight;
 }
 
 h3 {
-  @apply text-2xl mt-[1em] mb-[0.5em] tracking-tight;
+  @apply text-xl lg:text-2xl mt-[1em] mb-[0.5em] tracking-tight;
 }
 
 p {
-  @apply mb-4 max-w-[650px] leading-7 text-pretty;
-}
-
-p,
-.callout,
-pre {
-  max-width: 650px;
-}
-
-.callout p {
-  @apply leading-[1.7em];
-}
-
-.callout p:first-of-type,
-.callout p:last-of-type {
-  margin-bottom: 0;
-}
-
-.callout p:first-of-type {
-  margin-top: 0;
-}
-
-.callout code,
-.callout pre {
-  @apply text-xs;
+  @apply mb-2 lg:mb-4 max-w-[650px] leading-7 text-pretty;
 }
 
 .article a {
@@ -105,7 +81,31 @@ pre {
 }
 
 code {
-  @apply text-sm bg-gray-blue-100 text-gray-blue-800 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
+  @apply text-xs lg:text-sm bg-gray-blue-100 text-gray-blue-800 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
+}
+
+p,
+.callout,
+pre {
+  max-width: 650px;
+}
+
+.callout p {
+  @apply leading-[1.7em];
+}
+
+.callout p:first-of-type,
+.callout p:last-of-type {
+  margin-bottom: 0;
+}
+
+.callout p:first-of-type {
+  margin-top: 0;
+}
+
+.callout code,
+.callout pre {
+  @apply text-xs;
 }
 
 .callout code {
@@ -114,25 +114,34 @@ code {
 
 .callout.info code {
   color: inherit;
-  background: #ced2ed !important;
+  background: #ced2ed;
 }
 
 .callout.danger code {
   color: inherit;
-  background: #fff7f7 !important;
+  background: #fff7f7;
   border: 1px solid #eacece;
 }
 
 .callout.warning code {
-  border: 1px solid #ead7bb !important;
+  border: 1px solid #ead7bb;
   color: inherit;
-  background: #fff2e0 !important;
+  background: #fff2e0;
 }
 
 .callout.success code {
   color: #115828;
-  border: 1px solid #b6e5c5 !important;
+  border: 1px solid #b6e5c5;
   background: #f0fff5;
+}
+
+.callout .shiki code {
+  all: unset;
+  border: none;
+}
+
+.callout pre {
+  padding: 1.5em 1em;
 }
 
 .dos p {
