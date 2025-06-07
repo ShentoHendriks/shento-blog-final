@@ -82,6 +82,8 @@ pre {
 
 code {
   @apply text-xs lg:text-sm bg-gray-blue-100 text-gray-blue-800 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }
 
 p,
