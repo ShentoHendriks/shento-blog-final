@@ -20,7 +20,7 @@ export default function Callout({ children, type = "info" }) {
     <div
       className={`rounded-md ${styles.bg} ${type} px-5 py-5 my-4 callout text-sm`}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 relative h-[36px] -top-1">
         <img
           className="border-none !mt-2 w-4 h-4 fill-[#891910]"
           src={`icons/${type}.svg`}
