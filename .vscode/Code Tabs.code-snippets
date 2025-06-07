@@ -1,104 +1,130 @@
 {
-  "MDX Code Sample": {
-    "prefix": "$tabs",
+  "codetabs": {
+    "prefix": "$codetabs",
     "body": [
-      "<Tabs>",
-      "  <TabPanel title=\"${1:example}\">",
-      "```sh",
-      "npm run dev",
+      "<CodeTabs>",
+      "  <CodeTab title=\"${1:}\">",
+      "```${2:}",
+      "${3:}",
       "```",
-      "  </TabPanel>",
-      "</Tabs>"
+      "  </CodeTab>",
+      "</CodeTabs>"
     ],
-    "description": "MDX Code Sample"
+    "description": ""
   },
-  "TabPanel code": {
-    "prefix": "$tab",
+  "codetab": {
+    "prefix": "$codetab",
     "body": [
-      "  <TabPanel title=\"${1:title}\">",
-      "```${2:ext}",
-      "${3:code}",
+      "<CodeTab title=\"${1:}\">",
+      "```${2:}",
+      "${3:}",
       "```",
-      "  </TabPanel>"
+      "</CodeTab>"
     ],
-    "description": "TabPanel code"
+    "description": ""
   },
-  "Callout": {
+  "callout": {
     "prefix": "$callout",
-    "body": ["<Callout>", "${1:example}", "</Callout>"],
-    "description": "Callout"
+    "body": ["<Callout type=\"${1}\">", "${2}", "</Callout>"],
+    "description": ""
   },
-  "playground": {
-    "prefix": "$playground",
-    "body": [
-      "<InteractivePlayground",
-      "  options={[",
-      "    {",
-      "      name: \"${1:line-height}\",",
-      "      property: \"line-height\",",
-      "      label: \"line-height\",",
-      "      type: \"slider\",",
-      "      targetClass: \"example\",",
-      "      min: 1.0,",
-      "      max: 2,",
-      "      step: 0.1,",
-      "      default: 1.5,",
-      "    },",
-      "  ]}>",
-      "  <div className=\"example\">",
-      "    <p>",
-      "      Hello this is an example.",
-      "      <br />",
-      "      of a linebreak.",
-      "    </p>",
-      "  </div>",
-      "</InteractivePlayground>",
-      ""
-    ],
-    "description": "Callout"
-  },
-  "File Structure Full": {
+  "File Structure Component": {
     "prefix": "$files",
-    "body": [
-      "<FileStructure>",
-      "  <File type=\"${1:folder/files}\" level={${2:0}} focus={${3:false}}>${4:name}</File>",
-      "</FileStructure>"
-    ],
-    "description": "File Structure Full"
+    "body": ["<FileStructure>", "  ${1}", "</FileStructure>"],
+    "description": "File Structure Component"
   },
-  "File Structure item": {
+  "File": {
     "prefix": "$file",
     "body": [
-      "<File type=\"${1:folder/files}\" level={${2:0}} focus={${3:false}}>${4:name}</File>"
+      "<File type=\"file\" level={${1:0}} focus={${2:false}}>${3}</File>"
     ],
-    "description": "File Structure item"
+    "description": "File Structure Component"
+  },
+  "Folder": {
+    "prefix": "$folder",
+    "body": [
+      "<File type=\"folder\" level={${1:0}} focus={${2:false}}>${3}</File>"
+    ],
+    "description": ""
   },
   "Steps": {
     "prefix": "$steps",
     "body": [
-      "<Steps width=\"1000px\">",
-      "  <Step title=\"Install dependencies\">",
-      "  Hello this is a test",
-      "    <Tabs>",
-      "      <TabPanel title=\"TypeScript\">",
-      "      ```sh",
-      "      npm install typescript",
-      "      ```",
-      "      </TabPanel>",
-      "    </Tabs>",
-      "  </Step>",
-      "  <Step title=\"Install dependencies\">",
-      "  Hello this is a test",
-      "    <Tabs>",
-      "      <TabPanel title=\"TypeScript\">",
-      "      ```sh",
-      "      npm install typescript",
-      "      ```",
-      "      </TabPanel>",
-      "    </Tabs>",
+      "<Steps>",
+      "  <Step title=\"${1}\">",
+      "${2}",
       "  </Step>",
       "</Steps>"
     ],
-    "description": "Steps component"
+    "description": ""
+  },
+  "Step": {
+    "prefix": "$step",
+    "body": ["<Step title=\"${1}\">", "${2}", "</Step>"],
+    "description": ""
+  },
+  "Dos": {
+    "prefix": "$dos",
+    "body": ["<Dos dos>${1}</Dos>"],
+    "description": ""
+  },
+  "Donts": {
+    "prefix": "$donts",
+    "body": ["<Dos donts>${1}</Dos>"],
+    "description": ""
+  },
+  "Tabs": {
+    "prefix": "$tabs",
+    "body": ["<Tabs>", "  <Tab title=\"${1}\">", "${2}", "  </Tab>", "</Tabs>"],
+    "description": ""
+  },
+  "Tab": {
+    "prefix": "$tab",
+    "body": ["<Tab title=\"${1}\">", "${2}", "</Tab>"],
+    "description": ""
+  },
+  "Interactive Playground": {
+    "prefix": "$playground",
+    "body": [
+      "<InteractivePlayground>",
+      "  <div>",
+      "    Hello there!",
+      "  </div>",
+      "</InteractivePlayground>"
+    ],
+    "description": ""
+  },
+  "Slider Playground": {
+    "prefix": "$playground.slider",
+    "body": [
+      "{",
+      "  name: \"${1}\",",
+      "  property: \"${2}\",",
+      "  label: \"${3}\",",
+      "  type: \"slider\",",
+      "  targetClass: \"${5}\",",
+      "  min: ${6},",
+      "  max: ${7},",
+      "  step: ${8},",
+      "  default: ${9},",
+      "  unit: \"${10}\",",
+      "}"
+    ],
+    "description": ""
+  },
+  "Select": {
+    "prefix": "$playground.select",
+    "body": [
+      "{",
+      "  name: \"${1}\",",
+      "  property: \"${2}\",",
+      "  label: \"${3}\",",
+      "  type: \"select\",",
+      "  targetClass: \"${4}\",",
+      "  default: ${5},",
+      "  options: [\"${6}\"]",
+      "}"
+    ],
+    "description": ""
   }
 }

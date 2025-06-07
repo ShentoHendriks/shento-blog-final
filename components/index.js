@@ -1,16 +1,17 @@
 import Button from "@/components/Button";
-import { Tabs, TabPanel } from "./Tabs";
+import { CodeTabs, CodeTab } from "./CodeTabs";
 import Callout from "./Callout";
 import { InteractivePlayground } from "./InteractivePlayground";
 import { FileStructure, File } from "./FileStructure";
 import CustomImage from "./CustomImage";
 import { Steps, Step } from "./Steps";
 import Dos from "./Dos";
+import { Tabs, Tab } from "./Tabs";
 
 const components = {
   Button,
-  Tabs,
-  TabPanel,
+  CodeTabs,
+  CodeTab,
   Callout,
   InteractivePlayground,
   FileStructure,
@@ -19,6 +20,8 @@ const components = {
   Step,
   CustomImage,
   Dos,
+  Tabs,
+  Tab,
   // Add custom link component
   a: ({ href, children, ...props }) => {
     // Check if it's an external link

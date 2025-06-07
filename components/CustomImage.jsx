@@ -23,8 +23,8 @@ const CustomImage = ({ src, alt, width, height, ...props }) => {
       <Image
         src={src}
         alt={alt || ""}
-        width={width || 1000}
-        height={height || 1000}
+        width={width || 1500}
+        height={height || 1500}
         className="mx-auto my-4 rounded-lg object-contain"
         unoptimized={!(width && height)}
         {...props}
@@ -39,8 +39,8 @@ const CustomImage = ({ src, alt, width, height, ...props }) => {
         <Image
           src={normalizedSrc}
           alt={alt || ""}
-          width={width || 1000}
-          height={height || 1000}
+          width={width || 1500}
+          height={height || 1500}
           className="mx-auto my-4 rounded-lg object-contain"
           {...props}
         />

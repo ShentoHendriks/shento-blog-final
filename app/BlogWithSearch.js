@@ -58,7 +58,7 @@ export default function BlogWithSearch({ posts }) {
             ({ slug, data }) =>
               !data.draft && (
                 <article key={slug}>
-                  <h3 className="my-[1rem]">
+                  <h3 className="!my-[1rem]">
                     <Link href={`/${slug}`}>{data.title}</Link>
                   </h3>
                   <div className="flex flex-wrap gap-2">

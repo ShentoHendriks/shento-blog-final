@@ -30,21 +30,21 @@ npm install test
 npm run dev
 ```
 
-`<Tabs>`:
-<Tabs>
-  <TabPanel title="app.css">
+`<CodeTabs>`:
+<CodeTabs>
+  <CodeTab title="app.css">
 ```css
 body {
   font-family: 16px;
 }
 ```
-  </TabPanel>
-    <TabPanel title="Terminal">
+  </CodeTab>
+    <CodeTab title="Terminal">
 ```sh
 npm run dev
 ```
-  </TabPanel>
-</Tabs>
+  </CodeTab>
+</CodeTabs>
 
 ---
 
@@ -107,13 +107,13 @@ This is an example. Here's some code:
 <Steps>
   <Step title="Install dependencies">
   This is an example description. Let's install typescript. It's better to just use `npm install typescript`
-    <Tabs>
-      <TabPanel title="TypeScript">
+    <CodeTabs>
+      <CodeTab title="TypeScript">
       ```sh
       npm install typescript
       ```
-      </TabPanel>
-    </Tabs>
+      </CodeTab>
+    </CodeTabs>
   </Step>
   <Step title="Images">
   An image also works!
@@ -183,6 +183,32 @@ More information about this component can be found below.
 </InteractivePlayground>
 </Step>
 </Steps>
+
+## Tabs
+<Tabs>
+<Tab title="Steps">
+<Steps>
+  <Step title="Step 1">
+  <p>This is a description of a step. This is meant to describe something useful. Have you heard of Arizon Ice Tea? It's my favorite drink!</p>
+  </Step>
+  <Step title="Step 2">
+  Hello this is a test
+    <CodeTabs>
+      <CodeTab title="TypeScript">
+      ```sh
+      npm install typescript
+      ```
+      </CodeTab>
+    </CodeTabs>
+  </Step>
+</Steps>
+</Tab>
+<Tab title="Code">
+```js
+Hello world!
+```
+</Tab>
+</Tabs>
 
 ## Playground
 

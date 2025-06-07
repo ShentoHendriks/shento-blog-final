@@ -33,15 +33,26 @@ h6 {
   @apply text-gray-blue-800 text-balance;
 }
 
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+ol + p,
+ul + p {
+  margin-top: 0;
+}
+
 h1 {
   @apply text-5xl lg:text-7xl mb-[0.1em] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-2xl lg:text-4xl mt-[1em] mb-[0.25em] tracking-tight;
+  @apply text-2xl lg:text-4xl mt-[1em] mb-[1em] tracking-tight;
 }
 
 h3 {
-  @apply text-xl lg:text-2xl mt-[1em] mb-[0.25em] tracking-tight;
+  @apply text-xl lg:text-2xl mt-[1em] mb-[1em] tracking-tight;
 }
 
 p {
@@ -54,7 +65,7 @@ p {
 
 img,
 table {
-  @apply rounded-md border border-[#D5D9EB] !my-4;
+  @apply rounded-md border border-gray-blue-100 !my-4;
 }
 
 ul {
@@ -81,9 +92,7 @@ pre {
 }
 
 code {
-  @apply text-xs lg:text-sm bg-gray-blue-100 text-gray-blue-800 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
+  @apply text-sm bg-gray-blue-100 text-gray-blue-800 px-2 py-[2px] rounded-md mx-0.5 text-nowrap;
 }
 
 p,

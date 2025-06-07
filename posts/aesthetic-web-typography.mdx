@@ -15,12 +15,28 @@ categories:
 ---
 
 ## Using a Modern CSS Reset
-Before you start creating typography, you should **always** first use a CSS Reset
+At the start of your project, you should always use a `reset.css` to make sure your website looks the same in every browser. It removes default styles and gives you a clean base to work from.
 
-Why? Every browser has different default styles—margins, padding, and font sizing that create inconsistencies across Chrome, Firefox, and Safari. A CSS reset eliminates these differences, giving you a clean foundation for consistent typography.
+<Dos dos>**Load `reset.css` first.** This ensures that your own styles don’t get overwritten or affected by inconsistent default browser styles.</Dos>
 
-<Tabs>
-  <TabPanel title="Josh Comeau's Reset CSS">
+<Callout>
+If you use Tailwind CSS, you have a built-in `reset.css` called '[Preflight](https://tailwindcss.com/docs/preflight)'.
+</Callout>
+
+
+### Recommendations
+When it comes to `reset.css`, my personal favorite is [Josh Comeau's reset.css](https://www.joshwcomeau.com/css/custom-css-reset/). It’s **modern**, thoughtfully crafted, and incorporates sensible **best practices** that align well with today’s web development needs.
+
+<Dos dos>It uses a more **intuitive box-sizing** model `box-sizing: border-box`</Dos>
+<Dos dos>Accessible line-heights</Dos>
+<Dos dos>Improved text rendering with `-webkit-font-smoothing: antialiased`</Dos>
+
+And **much** more.
+
+On the other hand, the widely known [Eric Meyer's reset.css](https://meyerweb.com/eric/tools/css/reset/) is more old-school and, quite frankly, a bit too aggressive for most modern projects. While it does a thorough job of removing browser default styles, it often goes too far by wiping out everything—including valuable defaults you’d actually want to keep. Plus, it misses crucial updates like `box-sizing: border-box`, which makes it less practical and convenient for current workflows.
+
+<CodeTabs>
+  <CodeTab title="Josh Comeau's">
 ```css
 /* 1. Use a more-intuitive box-sizing model */
 *, *::before, *::after {
@@ -77,21 +93,60 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 ```
-  </TabPanel>
-</Tabs>
-Many developers use [Eric Meyer's CSS Reset](https://meyerweb.com/eric/tools/css/reset/), but [Josh Comeau's Modern CSS Reset](https://www.joshwcomeau.com/css/custom-css-reset/) is a better choice. While Meyer's reset aggressively strips all browser defaults, Comeau's approach is smarter—it removes inconsistencies while preserving useful behaviors.
+  </CodeTab>
+  <CodeTab title="Eric Meyer's">
+  ```css
+ /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
 
-
-### Key advantages of Comeau's reset:
-
-- Universal box-sizing: `border-box`
-- Better font rendering and typography defaults
-- Preserves accessibility features
-- Built for modern CSS (flexbox, grid)
-
-<Callout>
-If you use Tailwind CSS, you have a built-in CSS Reset called '[Preflight](https://tailwindcss.com/docs/preflight)'.
-</Callout>
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+} 
+  ```
+  </CodeTab>
+</CodeTabs>
 
 ## Why You Need a Typescale
 Without a systematic approach to font sizing, your typography becomes inconsistent and chaotic. You'll find yourself randomly picking sizes—making H2 headings 22px, then 24px, then 20px—creating visual discord that feels unprofessional and hard to scan.
@@ -112,8 +167,8 @@ You start with a base font (like 16px), then **multiply by the ratio** to get ea
 
 An elegant way to do this in web development is the following:
 
-<Tabs>
-  <TabPanel title="typography.css">
+<CodeTabs>
+  <CodeTab title="typography.css">
 ```css
 :root {
   /* Viewport Constraints */
@@ -172,8 +227,8 @@ h3 {
   font-size: var(--fluid-scale-xl); 
 }
 ```
-  </TabPanel>
-</Tabs>
+  </CodeTab>
+</CodeTabs>
 You can can keep adding as much variables as you like even `--scale-10xl`.
 
 Don't feel forced to give your `h1`
@@ -317,8 +372,8 @@ options={[
 The spacing between elements is quite complex, you can use formulas, but a great starting point is:
 1. Headings **must** have **more top spacing** than bottom spacing.
 2. All other elements must have the **same spacing** at the top and bottom. 
-<Tabs>
-  <TabPanel title="typography.css">
+<CodeTabs>
+  <CodeTab title="typography.css">
 ```css
 body {
   font-size: 1rem;
@@ -346,8 +401,8 @@ pre {
 
 /* Rest of code... */
 ```
-  </TabPanel>
-</Tabs>
+  </CodeTab>
+</CodeTabs>
 And amazing example following this principle is [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography). They also use `em` for margin spacing. 
 
 
