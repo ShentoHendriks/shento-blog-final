@@ -33,28 +33,23 @@ h6 {
   @apply text-gray-blue-800 text-balance;
 }
 
-h1 + p,
-h2 + p,
-h3 + p,
-h4 + p,
-h5 + p,
-h6 + p,
-ol + p,
-ul + p {
-  margin-top: 0;
-}
-
 h1 + *,
 h2 + *,
 h3 + * {
   margin-top: 0 !important;
 }
 
+:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h1),
+:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h2),
+:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h3) {
+  margin-bottom: 0 !important;
+}
+
 h1 {
   @apply text-5xl lg:text-7xl mb-[0.1em] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-2xl lg:text-4xl mt-[1em] mb-[1em] tracking-tight;
+  @apply text-2xl lg:text-4xl mt-[2em] mb-[1em] tracking-tight;
 }
 
 h2 code {
@@ -62,7 +57,7 @@ h2 code {
 }
 
 h3 {
-  @apply text-xl lg:text-2xl mt-[1em] mb-[1em] tracking-tight;
+  @apply text-xl lg:text-2xl mt-[2em] mb-[1em] tracking-tight;
 }
 
 h3 code {
@@ -70,7 +65,12 @@ h3 code {
 }
 
 p {
-  @apply my-4 max-w-[650px] leading-7 text-pretty;
+  @apply mb-5 max-w-[650px] leading-7 text-pretty;
+}
+
+p + ol,
+p + ul {
+  margin-top: -1em;
 }
 
 .article a {
@@ -79,19 +79,24 @@ p {
 
 img,
 table {
-  @apply rounded-md border border-gray-blue-100 !my-4;
+  @apply rounded-md border border-gray-blue-100 !mb-4;
 }
 
-ul {
-  @apply list-disc mb-4;
+ul:last-child,
+ol:last-child {
+  margin-bottom: 0;
 }
 
 ol {
   @apply list-decimal mb-4;
 }
 
+ul {
+  @apply list-["-"] mb-4;
+}
+
 li {
-  @apply ml-4 pl-2 leading-7 my-[0.5em];
+  @apply ml-4 pl-2 leading-7 my-[0.5em] marker:text-gray-blue-700/50;
 }
 
 hr {
@@ -101,7 +106,7 @@ hr {
 pre {
   padding: 20px;
   border-radius: 0.5em;
-  margin: 1em 0;
+  margin-bottom: 1em;
   overflow: auto;
 }
 
@@ -116,7 +121,7 @@ pre {
 }
 
 .callout p {
-  @apply leading-[1.7em] my-1;
+  @apply leading-[1.7em] mb-2;
 }
 
 .callout *:first-child {
@@ -246,7 +251,7 @@ pre.shiki code {
 }
 
 .tab-button {
-  @apply px-4 pb-10 pt-2 text-nowrap text-gray-blue-800;
+  @apply px-4 pb-10 mb-4 pt-2 text-nowrap text-gray-blue-800;
 }
 .tab-button.active {
   @apply bg-[var(--dark-gray-blue)] px-4 pb-10 text-white rounded-t-md;

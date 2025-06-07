@@ -18,7 +18,7 @@ export default function Callout({ children, type = "info" }) {
 
   return (
     <div
-      className={`rounded-md ${styles.bg} ${type} px-5 py-5 my-4 callout text-sm`}
+      className={`rounded-md ${styles.bg} ${type} px-5 py-5 mb-4 callout text-sm`}
     >
       <div className="flex items-center gap-3 relative h-[36px] -top-1">
         <img

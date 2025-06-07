@@ -172,79 +172,11 @@ Popular typescale ratios include:
 ### How does this work?
 You start with a base font (like 16px), then **multiply by the ratio** to get each larger size, or **divide by the ratio** to get smaller sizes.
 
-An elegant way to do this in web development is the following:
-
-<CodeTabs>
-  <CodeTab title="typography.css">
-```css
-:root {
-  /* Viewport Constraints */
-  --fluid-min-width: 320;
-  --fluid-max-width: 1200;
-
-  /* Base Font Sizes */
-  --fluid-min-font: 16;
-  --fluid-max-font: 24;
-
-  /* Typographic Scale (Major Third) */
-  --fluid-ratio: 1.350;
-
-  /* Fluid Typography Calculations */
-  --fluid-scale-base: clamp(
-    calc(var(--fluid-min-font) / 16 * 1rem), 
-    calc(var(--fluid-min-font) / 16 * 1rem + (var(--fluid-max-font) - var(--fluid-min-font)) * ((100vw - 320px) / (1200 - 320))), 
-    calc(var(--fluid-max-font) / 16 * 1rem)
-  );
-
-  /* More elegant scaling using pow-like calculation */
-  --fluid-scale-xs: calc(var(--fluid-scale-base) / pow(var(--fluid-ratio), 1));
-  --fluid-scale-sm: calc(var(--fluid-scale-base) / var(--fluid-ratio));
-  --fluid-scale-md: var(--fluid-scale-base);
-  --fluid-scale-lg: calc(var(--fluid-scale-base) * var(--fluid-ratio));
-  --fluid-scale-xl: calc(var(--fluid-scale-base) * pow(var(--fluid-ratio), 2));
-  --fluid-scale-2xl: calc(var(--fluid-scale-base) * pow(var(--fluid-ratio), 3));
-  --fluid-scale-3xl: calc(var(--fluid-scale-base) * pow(var(--fluid-ratio), 4));
-}
-
-/* Responsive Typography Utility Classes */
-.text-xs { font-size: var(--fluid-scale-xs); }
-.text-sm { font-size: var(--fluid-scale-sm); }
-.text-base { font-size: var(--fluid-scale-base); }
-.text-md { font-size: var(--fluid-scale-md); }
-.text-lg { font-size: var(--fluid-scale-lg); }
-.text-xl { font-size: var(--fluid-scale-xl); }
-.text-2xl { font-size: var(--fluid-scale-2xl); }
-.text-3xl { font-size: var(--fluid-scale-3xl); }
-
-/* Base Typography */
-body {
-  font-size: 16px;
-}
-
-/* Heading Styles */
-h1 { 
-  font-size: var(--fluid-scale-3xl);
-}
-
-h2 { 
-  font-size: var(--fluid-scale-2xl); 
-}
-
-h3 { 
-  font-size: var(--fluid-scale-xl); 
-}
-```
-  </CodeTab>
-</CodeTabs>
-You can can keep adding as much variables as you like even `--scale-10xl`.
-
-Don't feel forced to give your `h1`
-`--scale-3xl`, you can also give it a `--scale-6xl`. Just choose something you find nice.
 <Callout type="info">
 Tools like [typescale.com](https://typescale.com) can generate your complete typescale automatically. While also giving a preview.
 </Callout>
 
-## Vertical Spacing
+## Consistent Vertical Spacing
 
 **Vertical spacing** is all about the empty space above and below your text. This includes the space between lines in a paragraph (called `line-height` by web developers and leading by designers) and the space (margin) between sections and elements (such as images, paragraphs) 
 
@@ -260,127 +192,319 @@ For **line-height**, the rule is: **the smaller the text, the more line-height i
 
 All those values **aren't** set in stone. **Experiment** and find the best values for yourself!
 
-<InteractivePlayground
-hideCustomCSS={true}
-      layout="horizontal"
-width="850px"
-customCSS={`
+### Fixing Margin Collapse
+Top and bottom margins of elements are sometimes **collapsed** into a single margin that is equal to the **largest** of the two margins. We can fix this weird behavior by doing this:
+
+```css
 .example {
-    display: flex;
-    gap: 2em;
+  display: flex;
+  flex-direction: column;
 }
-`}
-  options={[
-{
-name: 'line-height',
-              property: 'line-height',
-              label: 'line-height p',
-              type: 'slider',
-              targetClass: 'example p',
-              min: 1.0,
-              max: 2,
-              step: 0.05,
-              default: 1.5,
-        },
-{
-name: 'line-height-h1',
-              property: 'line-height',
-              label: 'line-height h1',
-              type: 'slider',
-              targetClass: 'example h1',
-              min: 0.9,
-              max: 1.3,
-              step: 0.025,
-              default: 1,
-        },{
-name: 'line-height-h2',
-              property: 'line-height',
-              label: 'line-height h2',
-              type: 'slider',
-              targetClass: 'example h2',
-              min: 1,
-              max: 1.6,
-              step: 0.025,
-              default: 1.3,
-        }
-
-          ]}
-        >
-     <div className="example flex flex-col">
-     <p>Paragraph<br />linebreak.</p> 
-     <h1>This is a h1<br/>heading</h1>
-<h2>This is a h2<br/>heading</h2>
-      </div> 
-</InteractivePlayground>
-
-### Vertical Margin rem vs em
-The value of margins are usually set in either `rem` or `em`. 
-
-Most frameworks use `rem` for everything because it's predictable—everything scales from the root font size. But this approach treats all spacing the same, which creates a problem.
-
-When you use `rem` for margins, a large heading and small body text get the same proportional spacing. This breaks the natural relationship between text size and the space around it. In good typography, larger text needs proportionally larger margins to maintain visual balance.
-
-**A better approach**: Use `rem` for font-sizes to keep your typography scale consistent, but use `em` for margins and padding so spacing scales with the actual content.
-
-When you **increase** a heading's font-size, the margins **increase proportionally** without manual adjustment. The visual rhythm stays intact.
-
-<InteractivePlayground
-layout="horizontal"
-width="900px"
-options={[
-  {
-    name: "FontSizeExample",
-    type: "slider",
-    min: 1.5,
-    default: 2.5,
-    max: 4,
-    step: 0.1,
-    unit: "rem",
-    label: "Heading font-size",
-    property: "font-size",
-    targetClass: ".margin-example h2"
-  },
-  {
-    name: "ExampleMarginBottom",
-    label: "Margin units",
-    type: "select",
-    options: [
-      {
-        value: "rem",
-        label: "rem",
-        properties: [
-          { property: "margin-bottom", value: "0.5rem" },
-          { property: "margin-top", value: "1rem" }
-        ]
-      },
-      {
-        value: "em",
-        label: "em",
-        properties: [
-          { property: "margin-bottom", value: "0.5em" },
-          { property: "margin-top", value: "1em" }
-        ]
-      }
-    ],
-    targetClass: ".margin-example h2"
-  }
-]
-}
-    >
-  <div className="margin-example">
-    <h2>This is a heading.</h2>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum eligendi, dolorem saepe itaque similique assumenda, necessitatibus delectus accusamus quam magnam dolores voluptatibus sed tempore ducimus sapien.te n</p>
-    <h2>This is also a heading.</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, perspiciatis ducimus. Tempore aspernatur excepturi voluptatibus voluptatum velit, ut natus corporis illum assumenda. Quo voluptatem tempore optio paria</p>
-  </div>
-</InteractivePlayground>
+```
+Now we have more **fine-tuned control** how margins work between elements.
 
 ### Vertical Margin Guidelines
-The spacing between elements is quite complex, you can use formulas, but a **great starting point** is:
 
-<Dos dos>Headings must have **more** top margin than bottom margin</Dos>
-<Dos dos>All other elements must have **the same** top and bottom margin</Dos>
-<Dos dos>The first element **after** a header must have **0 margin**</Dos>
+<Callout type="warning">
+This following advice is only suitable for **content-heavy typography** like **blog posts**.
+</Callout>
+
+The spacing between elements is quite complex, but here are a few **dos** and **donts**. You can **fine-tune** them as you want, but it gives you a general idea of the applied principles:
+
+<Dos dos>Headings must have **more** `margin-top` than `margin-bottom`</Dos>
+<Dos dos>All other elements's must **only** have a `margin-bottom`</Dos>
+<Dos dos>The values of those `margin-bottom` should be consistent. Preferably either a reused **constant**, or values multiplied by 4</Dos>
+<Dos dos>The `margin-bottom` of a `li` must be at least the **half** of the `ul` and `ol`</Dos>
+<Dos donts>Avoid `margin-bottom` on the **the last element** in a list</Dos>
+<Dos donts>Avoid `margin-top` on the first element **after** a header </Dos>
+<Dos donts>Avoid `margin-top` on the the **first** element inside a **container** (like a page, section, or card) `margin-bottom` on the **last** element. This prevents redundant spacing at the edges.</Dos>
+<Dos donts>Avoid `margin-bottom` on all elements **before** a heading</Dos>
+
+<CodeTabs>
+  <CodeTab title="reset.css">
+  ```css
+  /* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+  ```
+  </CodeTab>
+  <CodeTab title="style.css">
+```css
+/* Base spacing */
+
+:root {
+  --margin-base: 4px;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+/* The styling is only applied class prose and fixes margin collapse */
+
+.prose {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Adds standard margin spacing */
+
+.prose * {
+  margin-bottom: calc(var(--margin-base) * 2);
+}
+
+/* List inserts should be smaller  */
+
+.prose li {
+  margin-bottom: calc(var(--margin-base) * 1);
+}
+
+.prose h1 {
+  margin-bottom: calc(var(--margin-base * 4));
+  font-size: 40px;
+}
+
+.prose h2 {
+  font-size: 30px;
+  margin-top: calc(var(--margin-base) * 4);
+  margin-bottom: calc(var(--margin-base) * 2);
+}
+
+.prose h3 {
+  font-size: 20px;
+  margin-top: calc(var(--margin-base) * 3);
+  margin-bottom: calc(var(--margin-base) * 1);
+}
+
+.prose h4 {
+  font-size: 18px;
+  margin-top: calc(var(--margin-base) * 3);
+  margin-bottom: calc(var(--margin-base) * 1);
+}
+
+/* Ignores margin bottom rule when nested headings */
+
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h1),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h2),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h3),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h4),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h5),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h6) {
+  margin-bottom: 0;
+}
+
+/* Ensures that elements after heading don't have margin top */
+
+.prose h1 + *,
+.prose h2 + *,
+.prose h3 + *,
+.prose h4 + *,
+.prose h5 + *,
+.prose h6 + * {
+  margin-top: 0;
+}
+
+/* Ensures that first element in prose has no top margin */
+
+.prose:first-child {
+  margin-top: 0;
+}
+
+/* Ensures that last element in prose has no bottom margin */
+
+.prose:last-child {
+  margin-bottom: 0;
+}
+```
+  </CodeTab>
+  <CodeTab title="index.html">
+```html
+<article class="prose container">
+  <h1>The Future of Web Development</h1>
+  <img src="https://placehold.co/600x400" alt="The Future of Web Development" />
+  <p>Web development continues to evolve at a rapid pace, with new frameworks, tools, and methodologies emerging regularly. Modern developers must balance performance, accessibility, and user experience while keeping up with the latest industry standards. The shift towards component-based architectures and serverless deployments has fundamentally changed how we approach building web applications.</p>
+  <h2>Key Technologies Shaping the Industry</h2>
+  <p>Several technologies have become essential in today's web development landscape. React, Vue, and Angular continue to dominate the frontend space, while Node.js has established itself as a robust backend solution. The rise of TypeScript has brought static typing to JavaScript, improving code quality and developer productivity across both frontend and backend development.</p>
+  <h3>Frontend Development Trends</h3>
+  <p>The frontend ecosystem has embraced component-driven development, with reusable UI components becoming the standard approach. CSS-in-JS solutions and utility-first frameworks like Tailwind CSS have transformed how we style applications. Progressive Web Apps (PWAs) continue to bridge the gap between web and native applications, offering offline capabilities and native-like experiences.</p>
+  <pre>
+// Example of modern JavaScript with async/await
+async function fetchUserData(userId) {
+  try {
+    const response = await fetch(`/api/users/${userId}`);
+    const userData = await response.json();
+    return userData;
+  } catch (error) {
+    console.error('Failed to fetch user data:', error);
+  }
+}
+  </pre
+    >
+  <h3>Backend Architecture Patterns</h3>
+  <p>Microservices architecture has gained widespread adoption, allowing teams to build scalable and maintainable systems. containerization with Docker and orchestration with Kubernetes have become standard practices for deployment and scaling. API-first development ensures better integration between services and enables teams to work more independently.</p>
+  <ul>
+    <li>Microservices and distributed systems</li>
+    <li>Container orchestration with Kubernetes</li>
+    <li>GraphQL for flexible API queries</li>
+    <li>Serverless functions for scalable computing</li>
+    <li>Real-time communication with WebSockets</li>
+  </ul>
+  <h2>Best Practices for Modern Development</h2>
+  <img src="https://placehold.co/600x400" alt="Development Best Practices" />
+  <p>Successful web development projects require adherence to established best practices. Code review processes, automated testing, and continuous integration pipelines help maintain code quality and reduce bugs in production. Documentation and clear communication within development teams are equally important for long-term project success.</p>
+  <h3>Development Workflow Optimization</h3>
+  <img src="https://placehold.co/600x400" alt="Development Workflow Optimization" />
+  <p>Modern development workflows emphasize automation and collaboration. Git-based version control with branching strategies like GitFlow or GitHub Flow enables teams to work efficiently on complex projects. Automated testing suites, including unit tests, integration tests, and end-to-end tests, provide confidence when deploying new features.</p>
+</article>
+```
+  </CodeTab>
+</CodeTabs>
+
+### How does this work?
+<Steps>
+  <Step title="Reset.css">
+  Make sure you use a `reset.css` to remove the browser defaults.
+  </Step>
+    <Step title="Fix margin collapse">
+  We will create a new class called `prose` in which only those styles apply. It also **fixes margin collapse**.
+  <CodeTabs>
+    <CodeTab title="style.css">
+```css
+.prose {
+  display: flex;
+  flex-direction: column;
+}
+```
+    </CodeTab>
+  </CodeTabs>
+  </Step>
+  <Step title="Setting up a base margin variable">
+  Create a base variable which will be used by all elements to ensure margin consistency.
+  <CodeTabs>
+    <CodeTab title="style.css">
+```css
+:root {
+  --margin-base: 4px;
+}
+```
+    </CodeTab>
+  </CodeTabs>
+  </Step>
+  <Step title="Apply the margin-bottom to all elements">
+<Callout type="info">
+You can change the `2` and fine-tune it as you wish.
+</Callout>
+<CodeTabs>
+  <CodeTab title="style.css">
+```css
+.prose * {
+  margin-bottom: calc(var(--margin-base) * 2);
+}
+```
+  </CodeTab>
+</CodeTabs>
+  </Step>
+  <Step title="Remove top margin from first element after headings">
+<CodeTabs>
+  <CodeTab title="style.css">
+```css
+.prose h1 + *,
+.prose h2 + *,
+.prose h3 + *,
+.prose h4 + *,
+.prose h5 + *,
+.prose h6 + * {
+  margin-top: 0;
+}
+```
+  </CodeTab>
+</CodeTabs>
+  </Step>
+  <Step title="Remove bottom margin from elements before headings">
+  The `:not` is there to make an exception for other headings to ensure the keep their `margin-bottom`.
+<CodeTabs>
+  <CodeTab title="style.css">
+```css
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h1),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h2),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h3),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h4),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h5),
+.prose :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):has(+ h6) {
+  margin-bottom: 0;
+}
+```
+  </CodeTab>
+</CodeTabs>
+  </Step>
+  <Step title="Fine-tuning">
+  The last step is fine tuning every element's `margin-bottom`.
+  If you want more spacing on the paragraphs:
+  <CodeTabs>
+    <CodeTab title="style.css">
+```css
+.prose p {
+  margin-bottom: calc(var(--margin-base) * 2);
+}
+```
+    </CodeTab>
+  </CodeTabs>
+  </Step>
+</Steps>
 
 ## Conclusion
 
