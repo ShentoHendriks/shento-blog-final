@@ -44,6 +44,12 @@ ul + p {
   margin-top: 0;
 }
 
+h1 + *,
+h2 + *,
+h3 + * {
+  margin-top: 0 !important;
+}
+
 h1 {
   @apply text-5xl lg:text-7xl mb-[0.1em] mt-12 max-w-[800px] tracking-tighter;
 }
@@ -51,8 +57,16 @@ h2 {
   @apply text-2xl lg:text-4xl mt-[1em] mb-[1em] tracking-tight;
 }
 
+h2 code {
+  @apply text-xl lg:text-3xl;
+}
+
 h3 {
   @apply text-xl lg:text-2xl mt-[1em] mb-[1em] tracking-tight;
+}
+
+h3 code {
+  @apply text-lg lg:text-xl;
 }
 
 p {

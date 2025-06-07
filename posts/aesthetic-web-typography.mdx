@@ -14,7 +14,7 @@ categories:
   - Web Development
 ---
 
-## Using a Modern CSS Reset
+## Modern `reset.css`
 At the start of your project, you should always use a `reset.css` to make sure your website looks the same in every browser. It removes default styles and gives you a clean base to work from.
 
 <Dos dos>**Load `reset.css` first.** This ensures that your own styles don’t get overwritten or affected by inconsistent default browser styles.</Dos>
@@ -24,17 +24,22 @@ If you use Tailwind CSS, you have a built-in `reset.css` called '[Preflight](htt
 </Callout>
 
 
-### Recommendations
+### Josh Comeau's `reset.css`
 When it comes to `reset.css`, my personal favorite is [Josh Comeau's reset.css](https://www.joshwcomeau.com/css/custom-css-reset/). It’s **modern**, thoughtfully crafted, and incorporates sensible **best practices** that align well with today’s web development needs.
 
 <Dos dos>It uses a more **intuitive box-sizing** model `box-sizing: border-box`</Dos>
 <Dos dos>Accessible line-heights</Dos>
 <Dos dos>Improved text rendering with `-webkit-font-smoothing: antialiased`</Dos>
+<Dos dos>Much more ...</Dos>
 
-And **much** more.
+### Eric Meyer's `reset.css`
+On the other hand, the widely known [Eric Meyer's reset.css](https://meyerweb.com/eric/tools/css/reset/) is more old-school and, quite frankly, a bit too aggressive for most modern projects.
 
-On the other hand, the widely known [Eric Meyer's reset.css](https://meyerweb.com/eric/tools/css/reset/) is more old-school and, quite frankly, a bit too aggressive for most modern projects. While it does a thorough job of removing browser default styles, it often goes too far by wiping out everything—including valuable defaults you’d actually want to keep. Plus, it misses crucial updates like `box-sizing: border-box`, which makes it less practical and convenient for current workflows.
+<Dos donts>Doesn't come with the `box-sizing: border-box`</Dos>
+<Dos donts>Doesn’t attempt to fix **inconsistencies** between browsers—just erases everything </Dos>
+<Dos donts>**Not opinionated enough** in my opinion</Dos>
 
+### Code examples
 <CodeTabs>
   <CodeTab title="Josh Comeau's">
 ```css
@@ -148,12 +153,14 @@ table {
   </CodeTab>
 </CodeTabs>
 
-## Why You Need a Typescale
-Without a systematic approach to font sizing, your typography becomes inconsistent and chaotic. You'll find yourself randomly picking sizes—making H2 headings 22px, then 24px, then 20px—creating visual discord that feels unprofessional and hard to scan.
+## Fixing inconsistent font sizes
+Without a systematic approach to font sizing, your typography becomes inconsistent and chaotic. You'll find yourself randomly picking sizes—making `H2` headings `22px`, then `24px`, then `20px`—creating visual discord that feels unprofessional and hard to scan.
 
-### Establishing Your Typescale
+### Typescales
 
-A **typescale** solves this by creating consistent relationships between all your text elements. Start with your base font size: **16px** or **18px**—these are universally acknowledged as optimal for body text readability across devices and age groups. In CSS, the base font size is often assigned to the `body`.
+A **typescale** solves this by creating consistent relationships between all your text elements.
+
+Start with your **base font size**: `16px` or `18px`.
 
 From this foundation, use mathematical ratios to generate harmonious size typography.
 Popular typescale ratios include:
@@ -369,45 +376,11 @@ options={[
 </InteractivePlayground>
 
 ### Vertical Margin Guidelines
-The spacing between elements is quite complex, you can use formulas, but a great starting point is:
-1. Headings **must** have **more top spacing** than bottom spacing.
-2. All other elements must have the **same spacing** at the top and bottom. 
-<CodeTabs>
-  <CodeTab title="typography.css">
-```css
-body {
-  font-size: 1rem;
-  line-height: 1.5;
-}
+The spacing between elements is quite complex, you can use formulas, but a **great starting point** is:
 
-p {
-  font-size: 1rem;
-  margin: 1.25em 0;
-}
-
-h1 {
-  margin-top: 2.5em;
-  margin-bottom: 1em;
-}
-
-h2 {
-  margin-top: 2em;
-  margin-bottom: 1em;
-}
-
-pre {
-  margin: 0 1.7em;
-}
-
-/* Rest of code... */
-```
-  </CodeTab>
-</CodeTabs>
-And amazing example following this principle is [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography). They also use `em` for margin spacing. 
-
-
-![Tailwind Typography showcase](/assets/tailwind-screenshot.png)
-
+<Dos dos>Headings must have **more** top margin than bottom margin</Dos>
+<Dos dos>All other elements must have **the same** top and bottom margin</Dos>
+<Dos dos>The first element **after** a header must have **0 margin**</Dos>
 
 ## Conclusion
 
