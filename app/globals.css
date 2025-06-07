@@ -34,18 +34,18 @@ h6 {
 }
 
 h1 {
-  @apply text-5xl lg:text-7xl mb-[0.25em] mt-12 max-w-[800px] tracking-tighter;
+  @apply text-5xl lg:text-7xl mb-[0.1em] mt-12 max-w-[800px] tracking-tighter;
 }
 h2 {
-  @apply text-2xl lg:text-4xl mt-[1em] mb-[0.5em] tracking-tight;
+  @apply text-2xl lg:text-4xl mt-[1em] mb-[0.25em] tracking-tight;
 }
 
 h3 {
-  @apply text-xl lg:text-2xl mt-[1em] mb-[0.5em] tracking-tight;
+  @apply text-xl lg:text-2xl mt-[1em] mb-[0.25em] tracking-tight;
 }
 
 p {
-  @apply mb-4 max-w-[650px] leading-7 text-pretty;
+  @apply my-4 max-w-[650px] leading-7 text-pretty;
 }
 
 .article a {
@@ -70,11 +70,11 @@ li {
 }
 
 hr {
-  @apply my-[2.0em];
+  @apply my-[2.0em] text-gray-blue-100;
 }
 
 pre {
-  padding: 24px;
+  padding: 20px;
   border-radius: 0.5em;
   margin: 1em 0;
   overflow: auto;
@@ -167,8 +167,12 @@ pre.shiki code {
 }
 
 .playground-output * {
-  color: white;
   margin: unset;
+  color: inherit;
+}
+
+.code-playground {
+  color: white;
 }
 
 .playground-output *:first-child {
@@ -211,7 +215,7 @@ pre.shiki code {
 }
 
 .tabs-header {
-  @apply flex overflow-auto -mb-12 xl:-mb-12;
+  @apply flex overflow-auto -mb-12 xl:-mb-12 text-xs;
 }
 
 .tabs-header::-webkit-scrollbar {
@@ -219,8 +223,8 @@ pre.shiki code {
 }
 
 .tab-button {
-  @apply px-6 py-4 pb-8 text-nowrap text-gray-blue-800;
+  @apply px-4 pb-10 pt-2 text-nowrap text-gray-blue-800;
 }
 .tab-button.active {
-  @apply bg-[var(--dark-gray-blue)] px-6 py-4 pb-8 text-white rounded-t-md;
+  @apply bg-[var(--dark-gray-blue)] px-4 pb-10 text-white rounded-t-md;
 }

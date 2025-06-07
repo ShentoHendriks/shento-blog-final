@@ -1,0 +1,291 @@
+---
+title: Example Page
+description: This is a page that acts as an example, and is purely to test new features.
+date: 2025-06-07T10:21:27.065Z
+updated: 2025-06-07T10:21:27.581Z
+preview: ""
+draft: true
+tags: []
+categories:
+  - Web Design
+  - Web Development
+  - Guide
+---
+
+---
+
+## Headings
+## Heading 2
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut dolor `this is code` tincidunt metus condimentum ultrices quis ac ligula.
+
+### Heading 3
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut dolor tincidunt metus condimentum ultrices quis ac ligula.
+
+---
+
+## Code
+`<pre>`
+```sh
+npm install test
+npm run dev
+```
+
+`<Tabs>`:
+<Tabs>
+  <TabPanel title="app.css">
+```css
+body {
+  font-family: 16px;
+}
+```
+  </TabPanel>
+    <TabPanel title="Terminal">
+```sh
+npm run dev
+```
+  </TabPanel>
+</Tabs>
+
+---
+
+## Media
+`<img>`
+<img src="sample.webp" />
+
+---
+
+## Callout
+<Callout>
+This is an example. Here's some code:
+
+`console.log("test")`
+</Callout>
+
+<Callout type="success">
+This is an example. Here's some code:
+
+`console.log("test")`
+</Callout>
+
+<Callout type="warning">
+This is an example. Here's some code:
+
+`console.log("test")`
+</Callout>
+
+<Callout type="danger">
+This is an example. Here's some code:
+
+`console.log("test")`
+</Callout>
+
+## File Structure
+<FileStructure>
+  <File type="folder" level={0} focus={false}>app</File>
+</FileStructure>
+<FileStructure>
+  <File type="folder" level={0} focus={false}>app</File>
+  <File type="file" level={1} focus={true}>index.html</File>
+  <File type="folder" level={1} focus={false}>css</File>
+  <File type="file" level={2} focus={false}>style.css</File>
+</FileStructure>
+<FileStructure>
+  <File type="folder" level={0} focus={false}>app</File>
+  <File type="folder" level={1} focus={false}>[slug]</File>
+  <File type="file" level={1} focus>page.js</File>
+  <File type="file" level={1} focus={false}>layout.js</File>
+  <File type="file" level={1} focus={false}>globals.css</File>
+  <File type="folder" level={0} focus={false}>components</File>
+  <File type="file" level={1} focus={false}>index.js</File>
+  <File type="folder" level={0} focus={false}>public</File>
+  <File type="folder" level={1} focus={false}>assets</File>
+  <File type="file" level={2} focus={false}>danger.svg</File>
+  <File type="file" level={0} focus={false}>tailwind.config.mjs</File>
+</FileStructure>
+
+## Steps
+<Steps>
+  <Step title="Install dependencies">
+  This is an example description. Let's install typescript. It's better to just use `npm install typescript`
+    <Tabs>
+      <TabPanel title="TypeScript">
+      ```sh
+      npm install typescript
+      ```
+      </TabPanel>
+    </Tabs>
+  </Step>
+  <Step title="Images">
+  An image also works!
+  <img src="sample.webp" />
+  </Step>
+  <Step title="And also all the other components!">
+  <FileStructure>
+  <File type="folder" level={0} focus={false}>app</File>
+  <File type="file" level={1} focus={true}>index.html</File>
+  <File type="folder" level={1} focus={false}>css</File>
+  <File type="file" level={2} focus={false}>style.css</File>
+</FileStructure>
+  </Step>
+  <Step title="Yes, even the callout component">
+  <Callout type="danger">
+This is an example. Here's some code:
+
+`console.log("test")`
+</Callout>
+<Dos dos>Even the dos work!</Dos>
+<Dos donts>This works as well!</Dos>
+</Step>
+<Step title="Even the InteractivePlayground">
+More information about this component can be found below.
+<InteractivePlayground
+          customCSS={`
+.ball {
+    width: var(--size);
+    height: var(--size);
+}
+`}
+          options={[{
+      name: "border-radius",
+      property: "border-radius",
+      label: "border-radius",
+      type: "slider",
+      targetClass: "ball",
+      min: 5,
+      max: 100,
+      step: 1,
+    default: 5,
+      unit: "px"
+          },
+            {
+      name: "width & height",
+      property: "--size",
+      label: "Size",
+      type: "slider",
+      targetClass: "ball",
+      min: 5,
+      max: 100,
+      step: 1,
+    default: 50,
+      unit: "px"
+            },
+            {
+              name: "background",
+      property: "background",
+      label: "background",
+      type: "color",
+              targetClass: "ball",
+      default: "#007bff"
+            }
+  ]}>
+  <div className="ball">
+  </div>
+</InteractivePlayground>
+</Step>
+</Steps>
+
+## Playground
+
+### Vertical
+<InteractivePlayground
+ customCSS = {`
+:root {
+    --this-is-custom: "it also supports own css";
+    --font-color-1: yellow;
+}
+
+.example p {
+    color: var(--font-color-1);
+}
+`}
+  options={[
+    {
+      name: "line-height",
+      property: "line-height",
+      label: "line-height",
+      type: "slider",
+      targetClass: "example p",
+      min: 1,
+      max: 3,
+      step: 0.1,
+      default: 1.5,
+        },
+    {
+      name: "font-weight",
+      property: "font-weight",
+      label: "font-weight",
+      type: "slider",
+      targetClass: "example p",
+      min: 400,
+      max: 800,
+      step: 100,
+      default: 400,
+        },
+     {
+      name: "text-align",
+      property: "text-align",
+      label: "text-align",
+      type: "select",
+      targetClass: "example p",
+      options: ['left', "center", "right"]
+        },
+  ]}>
+  <div className="example">
+    <p>
+      Hello this is an example. In this text, there's nothing interesting, but perhaps you like to read this and only realized you wasted your time.
+    </p>
+  </div>
+</InteractivePlayground>
+
+### Horizontal
+<InteractivePlayground
+      layout="horizontal"
+width="1000px"
+ customCSS = {`
+:root {
+    --this-is-custom: "it also supports own css";
+    --font-color-2: lightgreen;
+}
+
+.example-2 p {
+    color: var(--font-color-2);
+}
+`}
+  options={[
+    {
+      name: "line-height",
+      property: "line-height",
+      label: "line-height",
+      type: "slider",
+      targetClass: "example-2 p",
+      min: 1,
+      max: 3,
+      step: 0.1,
+      default: 1.5,
+        },
+    {
+      name: "font-weight",
+      property: "font-weight",
+      label: "font-weight",
+      type: "slider",
+      targetClass: "example-2 p",
+      min: 400,
+      max: 800,
+      step: 100,
+      default: 400,
+        },
+     {
+      name: "text-align",
+      property: "text-align",
+      label: "text-align",
+      type: "select",
+      targetClass: "example-2 p",
+      options: ['left', "center", "right"]
+        },
+  ]}>
+  <div className="example-2">
+    <p>
+      This supports all the CSS properties in modern CSS. Impressive, right?
+    </p>
+  </div>
+</InteractivePlayground>

@@ -46,8 +46,8 @@ export default async function Post({ params }) {
           src="/shento-image.png"
           alt="Image of Shento Hendriks"
         />
-        <p className="opacity-70 !mb-0">By Shento Hendriks</p>
-        <p className="opacity-70 !mb-0">•</p>
+        <p className="opacity-70 !my-0">By Shento Hendriks</p>
+        <p className="opacity-70 !my-0">•</p>
         <time className="opacity-70" datetime={formatDate(data.date)}>
           {formatDate(data.date)}
         </time>

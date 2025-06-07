@@ -202,7 +202,7 @@ const ControlPanel = ({ options, values, onValueChange, onReset }) => {
           )}
         </div>
       ))}
-      <div className="absolute -top-0 right-0 z-10 group-hover:opacity-100">
+      <div className="absolute -top-5 -right-5 z-10 group-hover:opacity-100">
         <Button
           onClick={handleReset}
           variant={resetting ? "success" : "default"}
@@ -331,7 +331,7 @@ export const InteractivePlayground = ({
 
   return (
     <div
-      className="my-[2rem] p-6 bg-[#293056] rounded-md space-y-6"
+      className="my-[2rem] p-6 bg-[#293056] rounded-md space-y-6 code-playground"
       style={containerStyle}
     >
       {options.length > 0 && (
